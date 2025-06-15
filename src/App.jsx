@@ -1,15 +1,39 @@
 import React, { useState, useEffect } from 'react';
+import { pageview, event } from './utils/analytics';
 import { Link } from 'react-router-dom';
 import { getAllVideos } from './utils/dbOperations';
 import Stats from './components/Stats';
 import CookieNotice from './components/CookieNotice';
 import SEO from './components/SEO';
 import ShareButton from './components/ShareButton';
+import WelcomeBanner from './components/WelcomeBanner';
 import './App.css';
 import './components/ShareButton.css';
 import './components/LoadingError.css';
+import './components/WelcomeBanner.css';
+import './components/PaginationTest.css';
 
 function App() {
+  useEffect(() => {
+    // Track page view
+    pageview(
+      'TubeHeadlines - Home',
+      window.location.href,
+      window.location.pathname
+    );
+    
+    // Send test event to verify analytics is working
+    event({
+      action: 'page_loaded',
+      category: 'user_engagement',
+      label: 'home_page',
+      value: 1
+    });
+    
+    // Log analytics status for debugging
+    console.log('Analytics initialized:', !!window.gtag);
+  }, []);
+
   const [videos, setVideos] = useState({
     featured: null,
     columns: {
@@ -63,6 +87,28 @@ function App() {
     }));
   };
 
+  const handleCategoryChange = (category) => {
+    // Track category change event
+    event({
+      action: 'category_change',
+      category: 'navigation',
+      label: category,
+      value: 1
+    });
+    setSelectedCategory(category);
+  };
+
+  const handleVideoClick = (video) => {
+    // Track video click event
+    event({
+      action: 'video_click',
+      category: 'engagement',
+      label: video.customHeadline,
+      value: 1
+    });
+    window.open(video.youtubeURL, '_blank');
+  };
+
   const renderPagination = (position) => {
     const { currentPage, totalPages } = videos.pagination[position];
     
@@ -75,9 +121,38 @@ function App() {
         >
           Previous
         </button>
-        <span className="page-info">
-          Page {currentPage} of {totalPages}
-        </span>
+        
+        {/* Page Numbers */}
+        <div className="page-numbers">
+          {[...Array(totalPages)].map((_, index) => {
+            const pageNum = index + 1;
+            
+            // Show first page, last page, current page, and 1 page before/after current
+            if (
+              pageNum === 1 || 
+              pageNum === totalPages || 
+              (pageNum >= currentPage - 1 && pageNum <= currentPage + 1)
+            ) {
+              return (
+                <button 
+                  key={pageNum} 
+                  onClick={() => handlePageChange(position, pageNum)}
+                  className={`page-number ${currentPage === pageNum ? 'active' : ''}`}
+                >
+                  {pageNum}
+                </button>
+              );
+            }
+            
+            // Show ellipsis for gaps
+            if (pageNum === 2 || pageNum === totalPages - 1) {
+              return <span key={pageNum} className="ellipsis">...</span>;
+            }
+            
+            return null;
+          })}
+        </div>
+        
         <button 
           onClick={() => handlePageChange(position, currentPage + 1)}
           disabled={currentPage === totalPages}
@@ -91,7 +166,13 @@ function App() {
 
   const VideoItem = ({ video }) => (
     <div className="video-item">
-      <a href={video.youtubeURL} target="_blank" rel="noopener noreferrer" className="video-link">
+      <a 
+        href={video.youtubeURL} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="video-link"
+        onClick={() => handleVideoClick(video)}
+      >
         <img src={video.thumbnailURL} alt={video.customHeadline} />
         <p>{video.customHeadline}</p>
       </a>
@@ -137,6 +218,7 @@ function App() {
   return (
     <div className="app">
       <SEO />
+      <WelcomeBanner />
       <header>
         <h1>TUBE HEADLINES</h1>
         <div className="updated">Updated {new Date().toLocaleString()}</div>
