@@ -195,7 +195,7 @@ function App() {
   if (loading) {
     return (
       <div className="app">
-        <SEO />
+        <SEO currentUrl={window.location.href} />
         <div className="loading-message">
           Loading headlines...
         </div>
@@ -206,7 +206,7 @@ function App() {
   if (error) {
     return (
       <div className="app">
-        <SEO />
+        <SEO currentUrl={window.location.href} />
         <div className="error-message">
           {error}
           <button onClick={() => window.location.reload()}>Try Again</button>
@@ -215,9 +215,28 @@ function App() {
     );
   }
 
+  // Prepare all videos for structured data
+  const allVideos = [];
+  
+  // Add featured video if available
+  if (videos.featured) {
+    allVideos.push(videos.featured);
+  }
+  
+  // Add column videos
+  Object.entries(videos.columns).forEach(([position, categories]) => {
+    Object.values(categories).forEach(categoryVideos => {
+      allVideos.push(...categoryVideos);
+    });
+  });
+  
   return (
     <div className="app">
-      <SEO />
+      <SEO 
+        currentUrl={window.location.href}
+        videos={allVideos}
+        videoData={videos.featured} // Pass featured video as primary video
+      />
       <WelcomeBanner />
       <header>
         <h1>TUBE HEADLINES</h1>
