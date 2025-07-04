@@ -153,7 +153,7 @@ export const getAllVideosForHomepage = async (pages = { top: 1, left: 1, right: 
 
   // 1. Get the featured video - the newest one from the 'top' position
   const featuredVideo = visibleVideos
-    .filter(v => v.position_type && v.position_type.toLowerCase() === 'top')
+    .filter(v => v.position_type && v.position_type.toLowerCase() === 'featured')
     .sort((a, b) => b.createdAt - a.createdAt)[0] || null;
 
   const result = {
