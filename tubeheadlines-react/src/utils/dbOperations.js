@@ -237,33 +237,23 @@ export const getPositionVideos = async (position_type, page = 1) => {
     console.log('Fetching videos for position:', position_type, 'page:', page);
     const videosRef = collection(db, 'videos');
     
-    // First get all videos for this position
+    // The query now filters by position and orders by creation date directly in Firestore.
     const q = query(
       videosRef,
-      where('position_type', '==', position_type)
+      where('position_type', '==', position_type),
+      orderBy('createdAt', 'desc')
     );
-    
+
     const querySnapshot = await getDocs(q);
-    
-    // Filter out scheduled videos and sort by original timestamp
+
+    // Filter out scheduled videos
     const visibleVideos = querySnapshot.docs
       .map(doc => ({
         id: doc.id,
         ...doc.data(),
         category: doc.data().category || getDefaultCategory(position_type)
       }))
-      .filter(isVideoVisible)
-      .sort((a, b) => {
-        // Log timestamps for debugging
-        console.log('Comparing timestamps:', {
-          a: { id: a.id, createdAt: a.createdAt },
-          b: { id: b.id, createdAt: b.createdAt }
-        });
-        // Convert to Date objects and compare
-        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
-        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
-        return dateB.getTime() - dateA.getTime();
-      });
+      .filter(isVideoVisible);
 
     console.log('Videos before pagination:', visibleVideos.map(v => ({ id: v.id, createdAt: v.createdAt, category: v.category })));
     
