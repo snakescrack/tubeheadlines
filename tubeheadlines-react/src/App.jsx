@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { pageview, event } from './utils/analytics';
 import { Link } from 'react-router-dom';
 import { getAllVideosForHomepage } from './utils/videoLoader';
+import { checkEnvironmentVariables } from './utils/envTest';
 import Stats from './components/Stats';
 import CookieNotice from './components/CookieNotice';
 import SEO from './components/SEO';
@@ -32,6 +33,10 @@ function App() {
     
     // Log analytics status for debugging
     console.log('Analytics initialized:', !!window.gtag);
+    
+    // Check environment variables
+    const envCheck = checkEnvironmentVariables();
+    console.log('Environment variables check:', envCheck);
   }, []);
 
   const [videos, setVideos] = useState({
