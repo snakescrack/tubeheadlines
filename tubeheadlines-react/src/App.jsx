@@ -268,17 +268,14 @@ function App() {
       
       {!loading && !error && (
         <>
-          <div className="featured-video" style={{border: '2px solid red', padding: '10px', marginBottom: '20px'}}>
-            <h2 style={{color: 'red'}}>Featured Video Debug Placeholder</h2>
-            {videos.featured ? (
+          {videos.featured && (
+            <div className="featured-video">
               <a href={videos.featured.youtubeURL} target="_blank" rel="noopener noreferrer">
                 <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} />
                 <h2>{videos.featured.customHeadline}</h2>
               </a>
-            ) : (
-              <p style={{color: 'red'}}>No featured video found. This means `videos.featured` is null. Please check the `top` position in the admin panel.</p>
-            )}
-          </div>
+            </div>
+          )}
 
           <div className="columns">
             {['left', 'center', 'right'].map((position) => (
