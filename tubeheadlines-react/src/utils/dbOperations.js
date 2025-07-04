@@ -12,9 +12,15 @@ export const CATEGORIES = {
 
 // Helper function to check if a video should be visible
 const isVideoVisible = (video) => {
-  if (!video.scheduledAt) return true;
+  // If there's no scheduledAt field, the video is immediately visible.
+  if (!video.scheduledAt) {
+    return true;
+  }
+
   const now = new Date();
-  const scheduledAt = new Date(video.scheduledAt);
+  // Firestore Timestamps must be converted to JS Dates with the .toDate() method.
+  const scheduledAt = video.scheduledAt.toDate();
+
   return scheduledAt <= now;
 };
 
