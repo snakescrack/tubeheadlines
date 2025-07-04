@@ -151,11 +151,18 @@ export const getAllVideosForHomepage = async (pages = { top: 1, left: 1, right: 
   // Filter only visible videos
   const visibleVideos = allVideos.filter(isVideoVisible);
 
-  // Group by position
-  const positions = ['top', 'left', 'center', 'right'];
-  const result = {};
+  // 1. Get the featured video - the newest one from the 'top' position
+  const featuredVideo = visibleVideos
+    .filter(v => v.position_type === 'top')
+    .sort((a, b) => b.createdAt - a.createdAt)[0] || null;
 
-  for (const position of positions) {
+  const result = {
+    featured: featuredVideo,
+  };
+
+  // 2. Get videos for the columns
+  const columnPositions = ['left', 'center', 'right'];
+  for (const position of columnPositions) {
     // Get videos for this position
     const positionVideos = visibleVideos
       .filter(video => video.position_type === position)
