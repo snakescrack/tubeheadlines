@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { pageview, event } from './utils/analytics';
 import { Link } from 'react-router-dom';
-import { getAllVideosForHomepage } from './utils/dbOperations';
+import { getAllVideosForHomepage } from './utils/videoLoader';
 import Stats from './components/Stats';
 import CookieNotice from './components/CookieNotice';
 import SEO from './components/SEO';
