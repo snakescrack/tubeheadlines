@@ -1,9 +1,30 @@
+
 import React, { useState, useEffect } from 'react';
+import Login from './components/Login';
+import './components/Login.css';
 import { db } from './firebase';
-import { collection, query, where, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
 import './App.css';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem('isAdminLoggedIn') === 'true';
+  });
+
+  const handleLogin = () => {
+    localStorage.setItem('isAdminLoggedIn', 'true');
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAdminLoggedIn');
+    setIsLoggedIn(false);
+  };
+
+  if (!isLoggedIn) {
+    return <Login onLogin={handleLogin} />;
+  }
+
   const initialFormState = {
     youtubeURL: '',
     position_type: 'featured',
@@ -19,6 +40,8 @@ function App() {
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [successMessage, setSuccessMessage] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const POSITION_TYPES = {
     featured: 'featured',
@@ -47,7 +70,7 @@ function App() {
       const loadedVideos = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
-      }));
+      })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setVideos(loadedVideos);
     } catch (error) {
       console.error('Error loading videos:', error);
@@ -57,7 +80,28 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const videoId = formData.youtubeURL.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/shorts\/|\/watch\?v=|\/watch\?.+&v=))([^"&?\/\s]{11})/)?.[1];
+      // Simple and reliable URL validation
+      let videoId = null;
+      const url = formData.youtubeURL.trim();
+      
+      // Extract video ID from various URL formats
+      if (url.includes('youtube.com') || url.includes('youtu.be')) {
+        // For youtube.com/watch?v=VIDEO_ID format
+        if (url.includes('watch?v=')) {
+          const vParam = new URL(url).searchParams.get('v');
+          if (vParam) videoId = vParam;
+        }
+        // For youtu.be/VIDEO_ID format
+        else if (url.includes('youtu.be/')) {
+          const parts = url.split('youtu.be/');
+          if (parts[1]) videoId = parts[1].split('?')[0].split('&')[0];
+        }
+        // For youtube.com/live/VIDEO_ID format
+        else if (url.includes('/live/')) {
+          const parts = url.split('/live/');
+          if (parts[1]) videoId = parts[1].split('?')[0].split('&')[0];
+        }
+      }
       
       if (!videoId) {
         throw new Error('Invalid YouTube URL');
@@ -67,29 +111,58 @@ function App() {
         throw new Error('Please enter a custom headline');
       }
 
-      const videoData = {
-        youtubeURL: formData.youtubeURL,
-        position_type: POSITION_TYPES[formData.position_type] || 'featured',
-        scheduledAt: formData.scheduleEnabled && formData.scheduledAt ? new Date(formData.scheduledAt).toISOString() : null,
-        replaceCurrent: formData.position_type === 'featured' ? formData.replaceCurrent : false,
-        customHeadline: formData.title,
-        showThumbnail: Boolean(formData.showThumbnail),
-        thumbnailURL: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
-        createdAt: new Date().toISOString()
-      };
-
-      if (editMode && editId) {
-        const docRef = doc(db, 'videos', editId);
-        await updateDoc(docRef, videoData);
-      } else {
-        await addDoc(collection(db, 'videos'), videoData);
+      // Check if URL already exists
+      if (!editMode) {
+        const videosRef = collection(db, 'videos');
+        const q = query(videosRef, where('youtubeURL', '==', formData.youtubeURL));
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          throw new Error('This video URL has already been posted');
+        }
       }
 
+      if (editMode && editId) {
+        // When editing, only update the fields that changed
+        const updateData = {
+          youtubeURL: formData.youtubeURL,
+          position_type: POSITION_TYPES[formData.position_type] || 'featured',
+          scheduledAt: formData.scheduleEnabled && formData.scheduledAt ? new Date(formData.scheduledAt).toISOString() : null,
+          replaceCurrent: formData.position_type === 'featured' ? formData.replaceCurrent : false,
+          customHeadline: formData.title,
+          showThumbnail: Boolean(formData.showThumbnail),
+          thumbnailURL: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+        };
+        const docRef = doc(db, 'videos', editId);
+        await updateDoc(docRef, updateData);
+      } else {
+        // For new videos, include createdAt
+        const newVideoData = {
+          youtubeURL: formData.youtubeURL,
+          position_type: POSITION_TYPES[formData.position_type] || 'featured',
+          scheduledAt: formData.scheduleEnabled && formData.scheduledAt ? new Date(formData.scheduledAt).toISOString() : null,
+          replaceCurrent: formData.position_type === 'featured' ? formData.replaceCurrent : false,
+          customHeadline: formData.title,
+          showThumbnail: Boolean(formData.showThumbnail),
+          thumbnailURL: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          createdAt: new Date().toISOString()
+        };
+        await addDoc(collection(db, 'videos'), newVideoData);
+      }
+
+      // Show success message
+      const message = editMode ? 'Headline updated successfully!' : 'New headline added!';
+      setSuccessMessage(message);
+      
       // Reset form
       setFormData(initialFormState);
       setEditMode(false);
       setEditId(null);
       await loadVideos();
+      
+      // Clear success message after 2 seconds
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 2000);
     } catch (error) {
       console.error('Error:', error);
       alert('Error: ' + error.message);
@@ -185,16 +258,36 @@ function App() {
     return title;
   };
 
+  if (!isLoggedIn) {
+    return <Login onLogin={handleLogin} />;
+  }
+
   return (
     <div className="admin-container">
-      <div className="header">
+      <header className="admin-header">
         <h1>TubeHeadlines Admin</h1>
-        <div className="subheader">Local admin tool for managing your headlines</div>
-        <div className="clock">Current Time: {currentTime.toLocaleTimeString()}</div>
+        <p>Local admin tool for managing your headlines</p>
+        <div className="clock">{currentTime.toLocaleTimeString()}</div>
+        <button onClick={handleLogout} className="logout-button">Logout</button>
+      </header>
+      
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search videos by title or URL..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
       </div>
 
       <div className="container">
         <div className="form-section">
+          {successMessage && (
+            <div className="success-message">
+              {successMessage}
+            </div>
+          )}
           <h2>Add New Headline</h2>
           <form onSubmit={handleSubmit} className="add-form">
             <div className="form-group">
@@ -321,6 +414,12 @@ function App() {
             <h3 className="section-header">Featured</h3>
             {videos
               .filter(video => video.position_type === 'featured')
+              .filter(video => 
+                searchTerm === '' || 
+                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                video.youtubeURL?.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              
               .map(video => (
                 <div key={video.id} className="video-item">
                   <h4>{video.customHeadline}</h4>
@@ -347,6 +446,12 @@ function App() {
             <h3 className="section-header">Breaking News</h3>
             {videos
               .filter(video => video.position_type === 'left')
+              .filter(video => 
+                searchTerm === '' || 
+                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                video.youtubeURL?.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              
               .map(video => (
                 <div key={video.id} className="video-item">
                   <h4>{video.customHeadline}</h4>
@@ -373,6 +478,12 @@ function App() {
             <h3 className="section-header">Trending Now</h3>
             {videos
               .filter(video => video.position_type === 'center')
+              .filter(video => 
+                searchTerm === '' || 
+                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                video.youtubeURL?.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              
               .map(video => (
                 <div key={video.id} className="video-item">
                   <h4>{video.customHeadline}</h4>
@@ -399,6 +510,12 @@ function App() {
             <h3 className="section-header">Entertainment</h3>
             {videos
               .filter(video => video.position_type === 'right')
+              .filter(video => 
+                searchTerm === '' || 
+                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                video.youtubeURL?.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              
               .map(video => (
                 <div key={video.id} className="video-item">
                   <h4>{video.customHeadline}</h4>

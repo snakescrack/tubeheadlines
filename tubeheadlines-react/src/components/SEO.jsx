@@ -1,15 +1,30 @@
 import { Helmet } from 'react-helmet-async';
 
+// Helper function to extract YouTube video ID from URL
+function getYouTubeId(url) {
+  if (!url) return '';
+  
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  
+  return (match && match[2].length === 11)
+    ? match[2]
+    : '';
+}
+
 const SEO = ({
   title = 'TubeHeadlines',
   description = 'Latest YouTube Trending Headlines, Breaking News, and Viral Video Updates - Your Real-Time YouTube News Aggregator',
   path = '',
   image = '',
-  videoData = null
+  videoData = null,
+  videos = [],
+  currentUrl = ''
 }) => {
   const siteUrl = 'https://tubeheadlines.com';
   const fullUrl = `${siteUrl}${path}`;
-  const imageUrl = image || videoData?.thumbnailURL || `${siteUrl}/logo.png`;
+  // Use the existing logo image for social sharing
+  const imageUrl = image || videoData?.thumbnailURL || `${siteUrl}/social-share.jpg`;
 
   return (
     <Helmet>
@@ -48,17 +63,45 @@ const SEO = ({
         </>
       )}
 
-      {/* Structured Data */}
+      {/* Enhanced Structured Data */}
       <script type="application/ld+json">
         {JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           name: 'TubeHeadlines',
           url: siteUrl,
-          description: 'Your source for breaking news, trending videos, and entertainment'
+          description: 'Your source for breaking news, trending videos, and entertainment',
+          potentialAction: {
+            '@type': 'SearchAction',
+            'target': `${siteUrl}/search?q={search_term_string}`,
+            'query-input': 'required name=search_term_string'
+          }
+        })}
+      </script>
+      
+      {/* BreadcrumbList Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': siteUrl
+            },
+            ...(path ? [{
+              '@type': 'ListItem',
+              'position': 2,
+              'name': title.replace('TubeHeadlines - ', ''),
+              'item': fullUrl
+            }] : [])
+          ]
         })}
       </script>
 
+      {/* VideoObject Schema */}
       {videoData && (
         <script type="application/ld+json">
           {JSON.stringify({
@@ -67,11 +110,34 @@ const SEO = ({
             name: videoData.customHeadline || title,
             description,
             thumbnailUrl: videoData.thumbnailURL,
-            uploadDate: videoData.createdAt,
-            contentUrl: videoData.youtubeURL
+            uploadDate: videoData.publishedAt || videoData.createdAt || new Date().toISOString(),
+            contentUrl: videoData.youtubeURL,
+            embedUrl: `https://www.youtube.com/embed/${getYouTubeId(videoData.youtubeURL)}`,
+            duration: videoData.duration || 'PT0M0S',
+            interactionStatistic: {
+              '@type': 'InteractionCounter',
+              'interactionType': { '@type': 'WatchAction' },
+              'userInteractionCount': videoData.viewCount || 0
+            }
           })}
         </script>
       )}
+      
+      {/* Multiple Video Objects for Column Videos */}
+      {videos && videos.length > 0 && videos.map((video, index) => (
+        <script key={`video-schema-${index}`} type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'VideoObject',
+            'name': video.customHeadline || video.title,
+            'description': video.description || `${video.customHeadline || video.title} - Watch on TubeHeadlines`,
+            'thumbnailUrl': video.thumbnailURL,
+            'uploadDate': video.publishedAt || video.createdAt || new Date().toISOString(),
+            'contentUrl': video.youtubeURL,
+            'embedUrl': `https://www.youtube.com/embed/${getYouTubeId(video.youtubeURL)}`
+          })}
+        </script>
+      ))}
     </Helmet>
   );
 };

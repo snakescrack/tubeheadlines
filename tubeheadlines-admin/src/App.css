@@ -2,6 +2,25 @@
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+}
+
+.logout-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  background-color: #cc0000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.logout-button:hover {
+  background-color: #990000;
 }
 
 .container {
@@ -702,6 +721,30 @@
   margin-top: 10px;
 }
 
+.search-container {
+  margin: 0 auto 20px;
+  max-width: 800px;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 2px solid #cc0000;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #cc0000;
+  box-shadow: 0 0 8px rgba(204, 0, 0, 0.3);
+}
+
 .form-group {
   margin-bottom: 15px;
 }
@@ -823,11 +866,30 @@
 
 .message {
   padding: 10px;
-  margin: 10px 0;
-  border-radius: 4px;
-  background-color: #f8f9fa;
   border: 1px solid #ddd;
   color: #333;
+}
+
+.success-message {
+  background-color: #28a745;
+  color: white;
+  padding: 12px 24px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+  animation: fadeInDown 0.3s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Scheduled video indicator */
