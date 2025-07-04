@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
 import './components/Login.css';
 import { db } from './firebase';
 import { collection, query, where, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { migrateCreatedAt } from './utils/dbOperations';
 import './App.css';
 
 function App() {
@@ -11,21 +11,7 @@ function App() {
     return localStorage.getItem('isAdminLoggedIn') === 'true';
   });
 
-  const handleLogin = () => {
-    localStorage.setItem('isAdminLoggedIn', 'true');
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('isAdminLoggedIn');
-    setIsLoggedIn(false);
-  };
-
-  if (!isLoggedIn) {
-    return <Login onLogin={handleLogin} />;
-  }
-
-  const initialFormState = {
+  const [formData, setFormData] = useState({
     youtubeURL: '',
     position_type: 'featured',
     scheduledAt: '',
@@ -33,15 +19,15 @@ function App() {
     replaceCurrent: false,
     title: '',
     showThumbnail: true
-  };
+  });
 
-  const [formData, setFormData] = useState(initialFormState);
   const [videos, setVideos] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [successMessage, setSuccessMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [migrationStatus, setMigrationStatus] = useState('');
 
   const POSITION_TYPES = {
     featured: 'featured',
@@ -154,7 +140,15 @@ function App() {
       setSuccessMessage(message);
       
       // Reset form
-      setFormData(initialFormState);
+      setFormData({
+        youtubeURL: '',
+        position_type: 'featured',
+        scheduledAt: '',
+        scheduleEnabled: false,
+        replaceCurrent: false,
+        title: '',
+        showThumbnail: true
+      });
       setEditMode(false);
       setEditId(null);
       await loadVideos();
@@ -195,7 +189,15 @@ function App() {
   };
 
   const handleCancel = () => {
-    setFormData(initialFormState);
+    setFormData({
+      youtubeURL: '',
+      position_type: 'featured',
+      scheduledAt: '',
+      scheduleEnabled: false,
+      replaceCurrent: false,
+      title: '',
+      showThumbnail: true
+    });
     setEditMode(false);
     setEditId(null);
   };
@@ -258,12 +260,26 @@ function App() {
     return title;
   };
 
+  const handleMigrate = async () => {
+    setMigrationStatus('Migrating...');
+    try {
+      const count = await migrateCreatedAt();
+      setMigrationStatus(`Migration successful! Updated ${count} videos.`);
+    } catch (error) {
+      setMigrationStatus(`Migration failed: ${error.message}`);
+    }
+  };
+
   if (!isLoggedIn) {
     return <Login onLogin={handleLogin} />;
   }
 
   return (
     <div className="admin-container">
+      <div className="migration-controls">
+        <button onClick={handleMigrate}>Migrate Video Data</button>
+        {migrationStatus && <p>{migrationStatus}</p>}
+      </div>
       <header className="admin-header">
         <h1>TubeHeadlines Admin</h1>
         <p>Local admin tool for managing your headlines</p>

@@ -1,4 +1,4 @@
-import { collection, query, where, getDocs, deleteDoc, doc, updateDoc, addDoc, Timestamp, orderBy, limit } from 'firebase/firestore';
+import { collection, query, where, getDocs, deleteDoc, doc, updateDoc, addDoc, Timestamp, orderBy, limit, getDoc } from 'firebase/firestore';
 import { db } from '../firebase.js';
 
 export const CATEGORIES = {
@@ -20,7 +20,7 @@ export const addVideo = async (data) => {
     // Add timestamp and generate thumbnail URL
     const finalData = {
       ...data,
-      createdAt: new Date().toISOString(),
+      createdAt: Timestamp.fromDate(new Date()),
       scheduledAt: data.scheduledAt || null,
       published: !data.scheduledAt || new Date(data.scheduledAt) <= new Date(),
       thumbnailURL: data.thumbnailURL || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
@@ -190,5 +190,30 @@ export const getAllVideos = async () => {
   } catch (error) {
     console.error('Error getting videos:', error);
     throw new Error('Error getting videos: ' + error.message);
+  }
+};
+
+// One-time migration function to fix createdAt fields
+export const migrateCreatedAt = async () => {
+  try {
+    const videosRef = collection(db, 'videos');
+    const querySnapshot = await getDocs(videosRef);
+    const updates = [];
+
+    querySnapshot.forEach(docSnapshot => {
+      const video = docSnapshot.data();
+      // Check if createdAt is a string, which is the incorrect format
+      if (typeof video.createdAt === 'string') {
+        const videoRef = doc(db, 'videos', docSnapshot.id);
+        updates.push(updateDoc(videoRef, { createdAt: Timestamp.fromDate(new Date(video.createdAt)) }));
+      }
+    });
+
+    await Promise.all(updates);
+    console.log(`Migration complete. Updated ${updates.length} videos.`);
+    return updates.length;
+  } catch (error) {
+    console.error('Error migrating video data:', error);
+    throw error;
   }
 };

@@ -237,14 +237,14 @@ export const getPositionVideos = async (position_type, page = 1) => {
     console.log('Fetching videos for position:', position_type, 'page:', page);
     const videosRef = collection(db, 'videos');
     
-    // The query now filters by position and orders by creation date directly in Firestore.
+    // Use a simple query that only filters by position_type, no sorting
     const q = query(
       videosRef,
-      where('position_type', '==', position_type),
-      orderBy('createdAt', 'desc')
+      where('position_type', '==', position_type)
     );
 
     const querySnapshot = await getDocs(q);
+    console.log(`Found ${querySnapshot.size} raw documents for position ${position_type}`);
 
     // Filter out scheduled videos
     const visibleVideos = querySnapshot.docs
@@ -253,15 +253,33 @@ export const getPositionVideos = async (position_type, page = 1) => {
         ...doc.data(),
         category: doc.data().category || getDefaultCategory(position_type)
       }))
-      .filter(isVideoVisible);
+      .filter(isVideoVisible)
+      // Sort on the client side instead of in the query
+      .sort((a, b) => {
+        // Handle different date formats safely
+        const getTime = (date) => {
+          if (!date) return 0;
+          if (date.toDate && typeof date.toDate === 'function') {
+            // It's a Firestore Timestamp
+            return date.toDate().getTime();
+          }
+          if (date.seconds) {
+            // It's a Firestore Timestamp in object form
+            return new Date(date.seconds * 1000).getTime();
+          }
+          // It's a string or something else
+          return new Date(date).getTime();
+        };
+        
+        return getTime(b.createdAt) - getTime(a.createdAt);
+      });
 
-    console.log('Videos before pagination:', visibleVideos.map(v => ({ id: v.id, createdAt: v.createdAt, category: v.category })));
+    console.log('Videos before pagination:', visibleVideos.length);
     
     const start = (page - 1) * VIDEOS_PER_PAGE;
     const paginatedVideos = visibleVideos.slice(start, start + VIDEOS_PER_PAGE);
     
     console.log('Found', paginatedVideos.length, 'visible videos for', position_type);
-    console.log('Videos after pagination:', paginatedVideos.map(v => ({ id: v.id, createdAt: v.createdAt, category: v.category })));
     return paginatedVideos;
   } catch (error) {
     console.error(`Error fetching ${position_type} videos:`, error);
