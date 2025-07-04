@@ -145,31 +145,32 @@ export const getVideosForPosition = async (positionType, page = 1, pageSize = 10
 /**
  * Get all videos for homepage, organized by position
  */
-export const getAllVideosForHomepage = async (page = 1, pageSize = 10) => {
+export const getAllVideosForHomepage = async (pages = { top: 1, left: 1, right: 1 }, pageSize = 10) => {
   const allVideos = await loadAllVideos();
-  
+
   // Filter only visible videos
   const visibleVideos = allVideos.filter(isVideoVisible);
-  
+
   // Group by position
   const positions = ['top', 'left', 'right'];
   const result = {};
-  
+
   for (const position of positions) {
     // Get videos for this position
     const positionVideos = visibleVideos
       .filter(video => video.position_type === position)
       .sort((a, b) => b.createdAt - a.createdAt); // Sort by date descending
-    
+
     // Calculate pagination for this position
+    const currentPage = pages[position] || 1;
     const totalVideos = positionVideos.length;
     const totalPages = Math.ceil(totalVideos / pageSize);
-    const startIndex = (page - 1) * pageSize;
+    const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    
+
     // Get the videos for the current page
     const paginatedVideos = positionVideos.slice(startIndex, endIndex);
-    
+
     // Group by category
     const videosByCategory = {};
     for (const video of paginatedVideos) {
@@ -179,15 +180,15 @@ export const getAllVideosForHomepage = async (page = 1, pageSize = 10) => {
       }
       videosByCategory[category].push(video);
     }
-    
+
     result[position] = {
       videos: paginatedVideos,
       videosByCategory,
       totalVideos,
       totalPages,
-      currentPage: page
+      currentPage: currentPage,
     };
   }
-  
+
   return result;
 };

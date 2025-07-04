@@ -68,8 +68,23 @@ function App() {
       setError(null);
       const result = await getAllVideosForHomepage(pages);
       console.log('Received videos:', result);
-      setVideos(result);
-      console.log('Videos state after update:', result);
+
+      const newVideosState = {
+        featured: result.top?.videos[0] || null,
+        columns: {
+          left: result.left?.videosByCategory || {},
+          center: {},
+          right: result.right?.videosByCategory || {},
+        },
+        pagination: {
+          left: { currentPage: result.left?.currentPage || 1, totalPages: result.left?.totalPages || 1 },
+          center: { currentPage: 1, totalPages: 1 },
+          right: { currentPage: result.right?.currentPage || 1, totalPages: result.right?.totalPages || 1 },
+        },
+      };
+
+      setVideos(newVideosState);
+      console.log('Videos state after update:', newVideosState);
     } catch (err) {
       setError('Failed to load videos. Please try again.');
       console.error('Error loading videos:', err);
