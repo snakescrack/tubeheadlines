@@ -152,7 +152,7 @@ export const getAllVideosForHomepage = async (pages = { top: 1, left: 1, right: 
   const visibleVideos = allVideos.filter(isVideoVisible);
 
   // Group by position
-  const positions = ['top', 'left', 'right'];
+  const positions = ['top', 'left', 'center', 'right'];
   const result = {};
 
   for (const position of positions) {

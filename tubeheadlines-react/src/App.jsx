@@ -73,12 +73,12 @@ function App() {
         featured: result.top?.videos[0] || null,
         columns: {
           left: result.left?.videosByCategory || {},
-          center: {},
+          center: result.center?.videosByCategory || {},
           right: result.right?.videosByCategory || {},
         },
         pagination: {
           left: { currentPage: result.left?.currentPage || 1, totalPages: result.left?.totalPages || 1 },
-          center: { currentPage: 1, totalPages: 1 },
+          center: { currentPage: result.center?.currentPage || 1, totalPages: result.center?.totalPages || 1 },
           right: { currentPage: result.right?.currentPage || 1, totalPages: result.right?.totalPages || 1 },
         },
       };
