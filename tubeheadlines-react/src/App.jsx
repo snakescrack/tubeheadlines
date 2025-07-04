@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { pageview, event } from './utils/analytics';
 import { Link } from 'react-router-dom';
-import { getAllVideos } from './utils/dbOperations';
+import { getAllVideosForHomepage } from './utils/dbOperations';
 import Stats from './components/Stats';
 import CookieNotice from './components/CookieNotice';
 import SEO from './components/SEO';
@@ -61,7 +61,7 @@ function App() {
       console.log('Loading videos with pages:', pages);
       setLoading(true);
       setError(null);
-      const result = await getAllVideos(pages);
+      const result = await getAllVideosForHomepage(pages);
       console.log('Received videos:', result);
       setVideos(result);
       console.log('Videos state after update:', result);
