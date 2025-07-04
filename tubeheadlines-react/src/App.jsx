@@ -70,7 +70,7 @@ function App() {
       console.log('Received videos:', result);
 
       const newVideosState = {
-        featured: result.top?.videos[0] || null,
+        featured: result.featured || null,
         columns: {
           left: result.left?.videosByCategory || {},
           center: result.center?.videosByCategory || {},
@@ -268,14 +268,17 @@ function App() {
       
       {!loading && !error && (
         <>
-          {videos.featured && (
-            <div className="featured-video">
+          <div className="featured-video" style={{border: '2px solid red', padding: '10px', marginBottom: '20px'}}>
+            <h2 style={{color: 'red'}}>Featured Video Debug Placeholder</h2>
+            {videos.featured ? (
               <a href={videos.featured.youtubeURL} target="_blank" rel="noopener noreferrer">
                 <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} />
                 <h2>{videos.featured.customHeadline}</h2>
               </a>
-            </div>
-          )}
+            ) : (
+              <p style={{color: 'red'}}>No featured video found. This means `videos.featured` is null. Please check the `top` position in the admin panel.</p>
+            )}
+          </div>
 
           <div className="columns">
             {['left', 'center', 'right'].map((position) => (
