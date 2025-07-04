@@ -22,14 +22,7 @@ try {
 
   // Enable offline persistence
   if (typeof window !== 'undefined') {  // Only run in browser environment
-    enableIndexedDbPersistence(db)
-      .catch((err) => {
-        if (err.code === 'failed-precondition') {
-          console.warn('Persistence failed: Multiple tabs open');
-        } else if (err.code === 'unimplemented') {
-          console.warn('Persistence not supported');
-        }
-      });
+    // Persistence disabled to resolve IndexedDB issues.
   }
 } catch (error) {
   console.error('Error initializing Firebase:', error);
