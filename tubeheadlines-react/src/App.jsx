@@ -118,7 +118,10 @@ function App() {
     setSelectedCategory(category);
   };
 
-  const handleVideoClick = (video) => {
+  const handleVideoClick = (e, video) => {
+    // Prevent the link from opening immediately to ensure the analytics event has time to send
+    e.preventDefault();
+
     // Track video click event
     event({
       action: 'video_click',
@@ -126,6 +129,8 @@ function App() {
       label: video.customHeadline,
       value: 1
     });
+
+    // Open the link in a new tab
     window.open(video.youtubeURL, '_blank');
   };
 
@@ -288,7 +293,7 @@ function App() {
                     <div key={category} className="category-section">
                       {categoryVideos.length > 0 && categoryVideos.map((video) => (
                         <div key={video.id} className="video-item">
-                          <a href={video.youtubeURL} target="_blank" rel="noopener noreferrer" className="video-link">
+                          <a href={video.youtubeURL} target="_blank" rel="noopener noreferrer" className="video-link" onClick={(e) => handleVideoClick(e, video)}>
                             <img src={video.thumbnailURL} alt={video.customHeadline} />
                             <p>{video.customHeadline}</p>
                           </a>
