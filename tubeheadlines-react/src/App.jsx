@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { pageview, event } from './utils/analytics';
 import { Link } from 'react-router-dom';
 import { getAllVideosForHomepage } from './utils/videoLoader';
 import { checkEnvironmentVariables } from './utils/envTest';
@@ -16,20 +15,19 @@ import './components/PaginationTest.css';
 
 function App() {
   useEffect(() => {
-    // Track page view
-    pageview(
-      'TubeHeadlines - Home',
-      window.location.href,
-      window.location.pathname
-    );
+    // Track pageview
+    if (window.trackPageview) {
+      window.trackPageview(location.pathname + location.search);
+    }
     
     // Send test event to verify analytics is working
-    event({
-      action: 'page_loaded',
-      category: 'user_engagement',
-      label: 'home_page',
-      value: 1
-    });
+    if (window.trackEvent) {
+      window.trackEvent('page_loaded', {
+        event_category: 'user_engagement',
+        event_label: 'home_page',
+        value: 1
+      });
+    }
     
     // Log analytics status for debugging
     console.log('Analytics initialized:', !!window.gtag);
@@ -107,28 +105,20 @@ function App() {
     }));
   };
 
-  const handleCategoryChange = (category) => {
-    // Track category change event
-    event({
-      action: 'category_change',
-      category: 'navigation',
-      label: category,
-      value: 1
-    });
-    setSelectedCategory(category);
-  };
+
 
   const handleVideoClick = (e, video) => {
     // Prevent the link from opening immediately to ensure the analytics event has time to send
     e.preventDefault();
 
     // Track video click event
-    event({
-      action: 'video_click',
-      category: 'engagement',
-      label: video.customHeadline,
-      value: 1
-    });
+    if (window.trackEvent) {
+      window.trackEvent('video_click', {
+        event_category: 'engagement',
+        event_label: video.customHeadline,
+        value: 1
+      });
+    }
 
     // Open the link in a new tab
     window.open(video.youtubeURL, '_blank');

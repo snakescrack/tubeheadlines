@@ -21,6 +21,17 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-SVJLLJKJHR');
+
+      // Define analytics functions globally to ensure they are available
+      window.initAnalytics = function() {
+        console.log('Analytics Initialized from index.html');
+      };
+      window.trackPageview = function(path) {
+        gtag('event', 'page_view', { page_path: path });
+      };
+      window.trackEvent = function(eventName, params) {
+        gtag('event',eventName, params);
+      };
     </script>
   </head>
   <body>
