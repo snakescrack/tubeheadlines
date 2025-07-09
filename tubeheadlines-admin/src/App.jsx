@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
 import './components/Login.css';
 import { db } from './firebase';
-import { collection, query, where, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc, orderBy } from 'firebase/firestore';
 import { migrateCreatedAt } from './utils/dbOperations';
 import './App.css';
 
@@ -52,11 +52,13 @@ function App() {
   const loadVideos = async () => {
     try {
       const videosRef = collection(db, 'videos');
-      const querySnapshot = await getDocs(videosRef);
+      // Create a query to order videos by creation date, newest first.
+      const q = query(videosRef, orderBy('createdAt', 'desc'));
+      const querySnapshot = await getDocs(q);
       const loadedVideos = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
-      })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      }));
       setVideos(loadedVideos);
     } catch (error) {
       console.error('Error loading videos:', error);
