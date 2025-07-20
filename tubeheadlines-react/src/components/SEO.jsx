@@ -24,7 +24,12 @@ const SEO = ({
   const siteUrl = 'https://tubeheadlines.com';
   const fullUrl = `${siteUrl}${path}`;
   // Use the existing logo image for social sharing
-  const imageUrl = videoData?.thumbnailURL || `${siteUrl}/social-share.jpg`;
+  // For the homepage, always use the default social share image.
+  // For other pages (like video detail pages), use the video's thumbnail.
+  const isHomePage = path === '/';
+  const imageUrl = isHomePage 
+    ? `${siteUrl}/social-share.jpg` 
+    : videoData?.thumbnailURL || `${siteUrl}/social-share.jpg`;
 
   return (
     <Helmet>
