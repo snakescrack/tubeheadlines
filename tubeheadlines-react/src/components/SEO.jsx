@@ -24,7 +24,7 @@ const SEO = ({
   const siteUrl = 'https://tubeheadlines.com';
   const fullUrl = `${siteUrl}${path}`;
   // Use the existing logo image for social sharing
-  const imageUrl = image || videoData?.thumbnailURL || `${siteUrl}/social-share.jpg`;
+  const imageUrl = videoData?.thumbnailURL || `${siteUrl}/social-share.jpg`;
 
   return (
     <Helmet>
