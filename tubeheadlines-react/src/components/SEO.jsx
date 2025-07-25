@@ -28,7 +28,7 @@ const SEO = ({
   // For other pages (like video detail pages), use the video's thumbnail.
   const isHomePage = path === '/';
   const imageUrl = isHomePage 
-    ? `${siteUrl}/social-share.jpg` 
+    ? `${siteUrl}/social-share.jpg?v=2` 
     : videoData?.thumbnailURL || `${siteUrl}/social-share.jpg`;
 
   return (
