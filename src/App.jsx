@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { pageview, event } from './utils/analytics';
 import { Link } from 'react-router-dom';
-import { getAllVideos } from './utils/dbOperations';
+import { getAllVideosForHomepage } from './utils/videoLoader';
+import { checkEnvironmentVariables } from './utils/envTest';
 import Stats from './components/Stats';
 import CookieNotice from './components/CookieNotice';
 import SEO from './components/SEO';
@@ -32,6 +33,10 @@ function App() {
     
     // Log analytics status for debugging
     console.log('Analytics initialized:', !!window.gtag);
+    
+    // Check environment variables
+    const envCheck = checkEnvironmentVariables();
+    console.log('Environment variables check:', envCheck);
   }, []);
 
   const [videos, setVideos] = useState({
@@ -61,10 +66,25 @@ function App() {
       console.log('Loading videos with pages:', pages);
       setLoading(true);
       setError(null);
-      const result = await getAllVideos(pages);
+      const result = await getAllVideosForHomepage(pages);
       console.log('Received videos:', result);
-      setVideos(result);
-      console.log('Videos state after update:', result);
+
+      const newVideosState = {
+        featured: result.featured || null,
+        columns: {
+          left: result.left?.videosByCategory || {},
+          center: result.center?.videosByCategory || {},
+          right: result.right?.videosByCategory || {},
+        },
+        pagination: {
+          left: { currentPage: result.left?.currentPage || 1, totalPages: result.left?.totalPages || 1 },
+          center: { currentPage: result.center?.currentPage || 1, totalPages: result.center?.totalPages || 1 },
+          right: { currentPage: result.right?.currentPage || 1, totalPages: result.right?.totalPages || 1 },
+        },
+      };
+
+      setVideos(newVideosState);
+      console.log('Videos state after update:', newVideosState);
     } catch (err) {
       setError('Failed to load videos. Please try again.');
       console.error('Error loading videos:', err);
@@ -98,7 +118,10 @@ function App() {
     setSelectedCategory(category);
   };
 
-  const handleVideoClick = (video) => {
+  const handleVideoClick = (e, video) => {
+    // Prevent the link from opening immediately to ensure the analytics event has time to send
+    e.preventDefault();
+
     // Track video click event
     event({
       action: 'video_click',
@@ -106,6 +129,8 @@ function App() {
       label: video.customHeadline,
       value: 1
     });
+
+    // Open the link in a new tab
     window.open(video.youtubeURL, '_blank');
   };
 
@@ -268,7 +293,7 @@ function App() {
                     <div key={category} className="category-section">
                       {categoryVideos.length > 0 && categoryVideos.map((video) => (
                         <div key={video.id} className="video-item">
-                          <a href={video.youtubeURL} target="_blank" rel="noopener noreferrer" className="video-link">
+                          <a href={video.youtubeURL} target="_blank" rel="noopener noreferrer" className="video-link" onClick={(e) => handleVideoClick(e, video)}>
                             <img src={video.thumbnailURL} alt={video.customHeadline} />
                             <p>{video.customHeadline}</p>
                           </a>

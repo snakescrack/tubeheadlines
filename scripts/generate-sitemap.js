@@ -13,8 +13,8 @@ import { fileURLToPath } from 'url';
 // VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
 // ...and so on for all the keys.
 
-// Environment variables are now loaded by Node.js using the --env-file flag.
-// No need for the dotenv package.
+// Environment variables are loaded from process.env
+// Works on both local (with .env file) and Netlify (with environment variables)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
