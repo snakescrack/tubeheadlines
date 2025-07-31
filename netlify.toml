@@ -1,6 +1,6 @@
 [build]
   base    = "tubeheadlines-react"
-  command = "npm run build"
+  command = "cp public/sitemap.xml dist/ && npm run build"
   publish = "dist"
 
 [[redirects]]
