@@ -11,7 +11,7 @@
     "init-db": "node scripts/initDb.js"
   },
   "dependencies": {
-    "firebase": "^10.6.0",
+    "firebase": "^11.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",

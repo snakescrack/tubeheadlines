@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
 import './components/Login.css';
 import { db } from './firebase';
-import { collection, query, where, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc, orderBy } from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { migrateCreatedAt } from './utils/dbOperations';
 import './App.css';
 
@@ -49,16 +49,26 @@ function App() {
     loadVideos();
   }, []);
 
-  const loadVideos = async () => {
+  const loadVideos = async (forceRefresh = false) => {
     try {
+      // Clear existing videos first if force refreshing
+      if (forceRefresh) {
+        setVideos([]);
+      }
+      
       const videosRef = collection(db, 'videos');
-      // Create a query to order videos by creation date, newest first.
+      
+      // Create a query with explicit ordering by createdAt descending
       const q = query(videosRef, orderBy('createdAt', 'desc'));
+      
       const querySnapshot = await getDocs(q);
+      
       const loadedVideos = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
+      
+      // Set the videos in state
       setVideos(loadedVideos);
     } catch (error) {
       console.error('Error loading videos:', error);
@@ -533,7 +543,6 @@ function App() {
                 video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) || 
                 video.youtubeURL?.toLowerCase().includes(searchTerm.toLowerCase())
               )
-              
               .map(video => (
                 <div key={video.id} className="video-item">
                   <h4>{video.customHeadline}</h4>

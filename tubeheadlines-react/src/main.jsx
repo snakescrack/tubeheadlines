@@ -7,9 +7,6 @@ import App from './App.jsx'
 import Privacy from './components/Privacy'
 import Terms from './components/Terms'
 import BannerTest from './components/BannerTest'
-import { init as initAnalytics } from './utils/analytics'
-
-initAnalytics();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -23,5 +20,7 @@ createRoot(document.getElementById('root')).render(
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
+  </StrictMode>,
+)
   </StrictMode>,
 )
