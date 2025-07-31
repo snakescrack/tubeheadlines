@@ -20,7 +20,5 @@ createRoot(document.getElementById('root')).render(
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
-  </StrictMode>,
-)
-  </StrictMode>,
+  </StrictMode>
 )
