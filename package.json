@@ -8,8 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "init-db": "node scripts/initDb.js",
-    "sitemap": "node --env-file=.env scripts/generate-sitemap.js"
+    "init-db": "node scripts/initDb.js"
   },
   "dependencies": {
     "firebase": "^11.10.0",
