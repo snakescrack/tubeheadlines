@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TubeHeadlines Video Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .video-container { margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; }
+    .video-title { font-weight: bold; margin-bottom: 5px; }
+    img { max-width: 200px; }
+  </style>
+</head>
+<body>
+  <h1>TubeHeadlines Video Test</h1>
+  <div id="status">Loading Firebase...</div>
+  <div id="videos"></div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+  <script>
+    // Get Firebase project ID from user input
+    let projectId = prompt('Enter your Firebase project ID:', '');
+    if (!projectId) {
+      document.getElementById('status').textContent = 'Project ID is required to continue.';
+      throw new Error('Project ID is required');
+    }
+    
+    // Minimal Firebase config with just the project ID
+    const firebaseConfig = {
+      projectId: projectId
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    
+    // Status update
+    document.getElementById('status').textContent = 'Connecting to Firebase...';
+
+    // Simple function to fetch all videos
+    async function fetchAllVideos() {
+      try {
+        document.getElementById('status').textContent = 'Fetching videos...';
+        
+        // Get all videos without any filtering
+        const snapshot = await db.collection('videos').get();
+        
+        document.getElementById('status').textContent = 
+          `Found ${snapshot.docs.length} videos. Displaying all videos below:`;
+        
+        const videosContainer = document.getElementById('videos');
+        
+        if (snapshot.empty) {
+          videosContainer.innerHTML = '<p>No videos found in the database.</p>';
+          return;
+        }
+        
+        // Display each video
+        snapshot.forEach(doc => {
+          const video = doc.data();
+          const videoElement = document.createElement('div');
+          videoElement.className = 'video-container';
+          
+          // Format the date nicely
+          let dateStr = 'Unknown date';
+          if (video.createdAt) {
+            if (typeof video.createdAt === 'string') {
+              dateStr = new Date(video.createdAt).toLocaleString();
+            } else if (video.createdAt.toDate) {
+              dateStr = video.createdAt.toDate().toLocaleString();
+            } else if (video.createdAt.seconds) {
+              dateStr = new Date(video.createdAt.seconds * 1000).toLocaleString();
+            }
+          }
+          
+          videoElement.innerHTML = `
+            <div class="video-title">${video.customHeadline || 'No Title'}</div>
+            <div>Position: ${video.position_type || 'Unknown'}</div>
+            <div>Created: ${dateStr}</div>
+            <div>Date Type: ${typeof video.createdAt}</div>
+            <img src="${video.thumbnailURL || ''}" alt="Thumbnail">
+          `;
+          
+          videosContainer.appendChild(videoElement);
+        });
+      } catch (error) {
+        document.getElementById('status').textContent = 
+          `Error fetching videos: ${error.message}`;
+        console.error('Error fetching videos:', error);
+      }
+    }
+
+    // Run when the page loads
+    fetchAllVideos();
+  </script>
+</body>
+</html>
