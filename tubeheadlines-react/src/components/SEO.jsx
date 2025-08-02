@@ -1,16 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-
-// Helper function to extract YouTube video ID from URL
-function getYouTubeId(url) {
-  if (!url) return '';
-  
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  
-  return (match && match[2].length === 11)
-    ? match[2]
-    : '';
-}
+import { getYouTubeId } from '../utils/youtubeUtils';
 
 const SEO = ({
   title = 'TubeHeadlines',
@@ -128,21 +117,31 @@ const SEO = ({
         </script>
       )}
       
-      {/* Multiple Video Objects for Column Videos */}
-      {videos && videos.length > 0 && videos.map((video, index) => (
-        <script key={`video-schema-${index}`} type="application/ld+json">
+      {/* Structured Data for lists of videos (e.g., homepage) */}
+      {isHomePage && videos && videos.length > 0 && (
+        <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
-            '@type': 'VideoObject',
-            'name': video.customHeadline || video.title,
-            'description': video.description || `${video.customHeadline || video.title} - Watch on TubeHeadlines`,
-            'thumbnailUrl': video.thumbnailURL,
-            'uploadDate': video.publishedAt || video.createdAt || new Date().toISOString(),
-            'contentUrl': video.youtubeURL,
-            'embedUrl': `https://www.youtube.com/embed/${getYouTubeId(video.youtubeURL)}`
+            '@type': 'ItemList',
+            'name': 'Latest Video Headlines',
+            'description': 'The latest trending video headlines from YouTube.',
+            'itemListElement': videos.map((video, index) => ({
+              '@type': 'ListItem',
+              'position': index + 1,
+              'item': {
+                '@type': 'VideoObject',
+                'name': video.customHeadline || video.title,
+                'description': video.description || `${video.customHeadline || video.title} - Watch on TubeHeadlines`,
+                'thumbnailUrl': video.thumbnailURL,
+                'image': video.thumbnailURL, // Add image property
+                'uploadDate': video.publishedAt || video.createdAt || new Date().toISOString(),
+                'contentUrl': `${siteUrl}/video/${video.id}`,
+                'embedUrl': `https://www.youtube.com/embed/${getYouTubeId(video.youtubeURL)}`
+              }
+            }))
           })}
         </script>
-      ))}
+      )}
     </Helmet>
   );
 };
