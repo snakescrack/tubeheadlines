@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5174",
-    "build": "vite build",
+    "build": "node scripts/generate-sitemap.js && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "init-db": "node scripts/initDb.js"
+    "init-db": "node scripts/initDb.js",
+    "postinstall": "npm install rollup@latest --no-save"
   },
   "dependencies": {
     "firebase": "^11.10.0",
