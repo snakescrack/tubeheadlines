@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { pageview, event } from './utils/analytics';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { getAllVideosForHomepage } from './utils/videoLoader';
 import { checkEnvironmentVariables } from './utils/envTest';
 import Stats from './components/Stats';
@@ -8,6 +8,7 @@ import CookieNotice from './components/CookieNotice';
 import SEO from './components/SEO';
 import ShareButton from './components/ShareButton';
 import WelcomeBanner from './components/WelcomeBanner';
+import Privacy from './components/Privacy';
 import './App.css';
 import './components/ShareButton.css';
 import './components/LoadingError.css';
@@ -329,6 +330,8 @@ function App() {
         <Link to="/privacy">PRIVACY</Link>
         <span className="link-separator">|</span>
         <Link to="/terms">TERMS</Link>
+        <span className="link-separator">|</span>
+        <Link to="/faq">FAQ</Link>
         <span className="link-separator">|</span>
         <ShareButton />
       </div>

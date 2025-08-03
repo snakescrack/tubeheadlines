@@ -97,7 +97,7 @@ const generateSitemap = async () => {
   </url>
   ${videos.map(video => `
   <url>
-    <loc>${SITE_URL}/video/${video.id}/${slugify(video.title)}</loc>
+    <loc>${SITE_URL}/video/${video.id}</loc>
     <lastmod>${new Date(video.createdAt).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
