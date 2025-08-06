@@ -1,6 +1,5 @@
 import React from 'react';
 import SEO from './SEO';
-import Poll from './Poll';
 import '../styles/FAQ.css';
 // Updated to ensure deployment completes
 
@@ -57,8 +56,6 @@ export default function FAQ() {
             </div>
           ))}
         </div>
-        
-        <Poll />
       </div>
     </>
   );
