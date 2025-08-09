@@ -1,12 +1,60 @@
-# React + Vite
+# TubeHeadlines Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project consists of two main applications:
+1. Main Website (`tubeheadlines-react`)
+2. Admin Interface (`tubeheadlines-admin`)
 
-Currently, two official plugins are available:
+## Backup Information
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Working backups of both applications are stored in:
+- `tubeheadlines-react-backup`
+- `tubeheadlines-admin-backup`
 
-## Expanding the ESLint configuration
+### How to Restore from Backup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+If either application stops working, you can restore it from the backup using these steps:
+
+#### For the Main Website:
+1. Stop any running servers
+2. Delete or rename the problematic directory:
+   ```
+   ren tubeheadlines-react tubeheadlines-react-old
+   ```
+3. Restore from backup:
+   ```
+   xcopy /E /I /Y tubeheadlines-react-backup tubeheadlines-react
+   ```
+4. Start the server:
+   ```
+   cd tubeheadlines-react
+   npm run dev
+   ```
+
+#### For the Admin Interface:
+1. Stop any running servers
+2. Delete or rename the problematic directory:
+   ```
+   ren tubeheadlines-admin tubeheadlines-admin-old
+   ```
+3. Restore from backup:
+   ```
+   xcopy /E /I /Y tubeheadlines-admin-backup tubeheadlines-admin
+   ```
+4. Start the server:
+   ```
+   cd tubeheadlines-admin
+   npm run dev
+   ```
+
+## Port Configuration
+- Main Website runs on: http://localhost:5174
+- Admin Interface runs on: http://localhost:5173
+
+## Important Notes
+1. Both applications use Firebase for data storage
+2. The main website is read-only for public users
+3. The admin interface requires authentication
+4. Changes made in the admin interface are immediately reflected on the main website
+
+## Backup Creation Date
+These backups were created on: May 6, 2025

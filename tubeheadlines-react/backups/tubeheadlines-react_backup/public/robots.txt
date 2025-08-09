@@ -1,0 +1,19 @@
+# TubeHeadlines robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+# Prevent caching of API responses
+Disallow: /api/
+
+# Allow all static content
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.ico
+
+# Point to sitemap
+Sitemap: https://tubeheadlines.com/sitemap.xml

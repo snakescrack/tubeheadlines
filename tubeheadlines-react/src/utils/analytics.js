@@ -1,14 +1,6 @@
 // Google Analytics 4 utility functions
 export const GA_MEASUREMENT_ID = 'G-SVJLLJKJHR';
 
-export const init = () => {
-  if (window.gtag) {
-    console.log('Google Analytics initialized');
-  } else {
-    console.warn('gtag not found, analytics not initialized');
-  }
-};
-
 export const pageview = (title, location, path) => {
   if (window.gtag) {
     console.log('Sending pageview:', { title, location, path });

@@ -1,7 +1,6 @@
 import React from 'react';
 import SEO from './SEO';
 import '../styles/FAQ.css';
-// Updated to ensure deployment completes
 
 const faqs = [
   {
