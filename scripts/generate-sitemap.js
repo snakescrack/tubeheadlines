@@ -65,11 +65,49 @@ const slugify = (text) => {
         .replace(/^-+/, '').replace(/-+$/, '');
 };
 
+const generateBasicSitemap = () => {
+    const today = new Date().toISOString().split('T')[0];
+    const SITE_URL = 'https://tubeheadlines.com';
+    const sitemapPath = path.resolve(__dirname, '..', 'public', 'sitemap.xml');
+
+    const basicSitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${SITE_URL}/</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>${SITE_URL}/privacy</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>${SITE_URL}/terms</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>${SITE_URL}/faq</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>`;
+
+    writeFileSync(sitemapPath, basicSitemapContent.trim());
+    console.log(`Basic sitemap generated successfully at ${sitemapPath}`);
+};
+
 const generateSitemap = async () => {
     console.log('Initializing Firebase for sitemap generation...');
     if (!firebaseConfig.apiKey) {
-        console.error('Firebase API Key is missing. Make sure .env file is set up correctly.');
-        process.exit(1);
+        console.log('Firebase API Key is missing. Generating basic sitemap without dynamic content.');
+        generateBasicSitemap();
+        return;
     }
 
     const app = initializeApp(firebaseConfig);
