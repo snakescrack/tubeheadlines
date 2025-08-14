@@ -5,18 +5,11 @@ import { writeFileSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// IMPORTANT: This script runs in a Node.js environment, NOT in the browser.
-// It needs Firebase credentials directly. We will use environment variables.
-// You must create a .env file in the tubeheadlines-react folder with your keys.
-// Example .env file:
-// VITE_FIREBASE_API_KEY=AIzaSy...
-// VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
-// ...and so on for all the keys.
-
-// Environment variables are loaded from process.env
-// Works on both local (with .env file) and Netlify (with environment variables)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// This script now runs from within the tubeheadlines-react directory,
+// so it can access the project's node_modules.
 
 const firebaseConfig = {
     apiKey: process.env.VITE_FIREBASE_API_KEY,
@@ -28,7 +21,6 @@ const firebaseConfig = {
     measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// Self-contained function to parse dates, copied from videoLoader.js
 const parseDate = (date) => {
     if (!date) return new Date();
     if (date.toDate) return date.toDate();
@@ -38,7 +30,6 @@ const parseDate = (date) => {
     return new Date();
 };
 
-// Self-contained function to load videos, adapted from videoLoader.js
 const loadAllVideos = async (db) => {
     try {
         const videosRef = collection(db, 'videos');
@@ -56,19 +47,10 @@ const loadAllVideos = async (db) => {
     }
 };
 
-const slugify = (text) => {
-    if (!text) return '';
-    return text.toString().toLowerCase()
-        .replace(/\s+/g, '-')
-        .replace(/[^-a-zA-Z0-9]/g, '')
-        .replace(/--+/g, '-')
-        .replace(/^-+/, '').replace(/-+$/, '');
-};
-
 const generateSitemap = async () => {
     console.log('Initializing Firebase for sitemap generation...');
     if (!firebaseConfig.apiKey) {
-        console.error('Firebase API Key is missing. Make sure .env file is set up correctly.');
+        console.error('Firebase API Key is missing. Make sure environment variables are set in Netlify.');
         process.exit(1);
     }
 
@@ -79,6 +61,8 @@ const generateSitemap = async () => {
     const videos = await loadAllVideos(db);
     const today = new Date().toISOString().split('T')[0];
     const SITE_URL = 'https://tubeheadlines.com';
+    
+    // Correct path: from /scripts up to project root, then to /public/sitemap.xml
     const sitemapPath = path.resolve(__dirname, '..', 'public', 'sitemap.xml');
 
     const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
@@ -95,6 +79,18 @@ const generateSitemap = async () => {
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>${SITE_URL}/faq</loc>
+    <lastmod>2025-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>${SITE_URL}/blog/why-i-built-tubeheadlines</loc>
+    <lastmod>2025-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   ${videos.map(video => `
   <url>
     <loc>${SITE_URL}/video/${video.id}</loc>
@@ -106,7 +102,7 @@ const generateSitemap = async () => {
 
     writeFileSync(sitemapPath, sitemapContent.trim());
     console.log(`Sitemap generated successfully at ${sitemapPath}`);
-    process.exit(0); // Force exit to close the DB connection
+    // process.exit(0) is removed to allow the build process to continue
 };
 
 generateSitemap().catch(error => {
