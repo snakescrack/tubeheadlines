@@ -4,11 +4,15 @@ export default function FAQ() {
   const faqs = [
     {
       question: 'What is TubeHeadlines?',
-      answer: 'TubeHeadlines is a real-time video discovery platform that curates the most interesting YouTube videos from small creators (under 100k subscribers). We present them in a clean, headline-style format to help you discover quality content that you might otherwise miss. Think of it as a better YouTube trending page that actually showcases great content from emerging creators.'
+      answer: 'TubeHeadlines is a real-time video discovery platform that curates interesting and high-quality YouTube videos. We present them in a clean, headline-style format to help you discover content you might otherwise miss. Think of it as a better YouTube trending page that showcases great videos from creators of all sizes, with a special focus on helping emerging talent get discovered.'
+    },
+    {
+      question: 'Why is TubeHeadlines great for small creators?',
+      answer: 'The YouTube algorithm often favors established channels, making it difficult for new or small creators to break through. TubeHeadlines provides a level playing field where videos are featured based on the quality of the content, not the size of the channel. By getting featured, small creators can get their work in front of a new audience, gain valuable exposure, and attract new subscribers who genuinely appreciate their content.'
     },
     {
       question: 'How are videos selected?',
-      answer: 'Videos are manually curated by our team based on quality, educational value, entertainment factor, and uniqueness. We focus exclusively on creators with under 100k subscribers to help small channels get discovered. We look for content that is well-produced, engaging, and offers real value to viewers.'
+      answer: 'Videos are manually curated by our team based on quality, educational value, entertainment factor, and uniqueness. While we feature videos from creators of all sizes, we have a special passion for helping smaller channels get discovered. We look for content that is well-produced, engaging, and offers real value to viewers, regardless of subscriber count.'
     },
     {
       question: 'Do you host the videos?',
@@ -16,23 +20,19 @@ export default function FAQ() {
     },
     {
       question: 'Is TubeHeadlines free?',
-      answer: 'Yes, TubeHeadlines is completely free to use with no subscriptions, hidden fees, or premium tiers. Our mission is to help small creators get discovered, and we believe this service should be accessible to everyone.'
+      answer: 'Yes, TubeHeadlines is completely free to use with no subscriptions or hidden fees. Our mission is to help creators get discovered, and we believe this service should be accessible to everyone.'
     },
     {
       question: 'Who is TubeHeadlines for?',
-      answer: 'TubeHeadlines is for anyone who wants to discover amazing content beyond the mainstream. Whether you\'re tired of seeing the same big channels dominate your recommendations, looking for fresh perspectives, or wanting to support small creators, TubeHeadlines helps you find hidden gems in the YouTube ecosystem.'
+      answer: 'TubeHeadlines is for curious viewers who want to discover amazing content beyond what the algorithm typically shows them. If you\'re tired of seeing the same big channels and want to find fresh perspectives or hidden gems, TubeHeadlines is for you.'
     },
     {
       question: 'Can I suggest videos?',
-      answer: 'Currently we don\'t have a public submission system, but we\'re always looking for great content to feature. We\'re considering adding a community submission feature in the future based on user interest and feedback.'
-    },
-    {
-      question: 'How often is content updated?',
-      answer: 'We add new videos regularly throughout the week. Our goal is to keep the content fresh and ensure there\'s always something new to discover when you visit the site.'
+      answer: 'Currently we don\'t have a public submission system, but we\'re always looking for great content. We plan to add a community submission feature in the future based on user interest.'
     },
     {
       question: 'What types of videos do you feature?',
-      answer: 'We feature a wide variety of content including educational videos, tutorials, documentaries, commentary, creative projects, and entertaining content. The common thread is that all videos come from talented creators with smaller audiences who deserve more recognition.'
+      answer: 'We feature a wide variety of content including educational videos, tutorials, documentaries, commentary, creative projects, and entertaining content. The common thread is that all videos come from talented creators who deserve more recognition.'
     }
   ];
 

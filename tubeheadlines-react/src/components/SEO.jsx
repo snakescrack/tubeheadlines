@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { getYouTubeId } from '../utils/youtubeUtils';
 
 const SEO = ({
-  title = 'TubeHeadlines',
-  description = 'Latest YouTube Trending Headlines, Breaking News, and Viral Video Updates - Your Real-Time YouTube News Aggregator',
+  title = 'TubeHeadlines: Discover Trending YouTube Videos & News',
+  description = 'TubeHeadlines curates the best YouTube videos from emerging and established creators. Find trending content, breaking news, educational videos, and viral content with a focus on quality over popularity.',
   path = '',
   image = '',
   videoData = null,

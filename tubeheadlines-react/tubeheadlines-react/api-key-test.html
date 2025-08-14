@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase API Key Test</title>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js"></script>
+</head>
+<body>
+  <h1>Firebase API Key Test</h1>
+  <div id="status">Testing connection...</div>
+  
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyD0cbavYFbKZ1zekFGSE3FRLIIGGtsT0DA",
+      authDomain: "tubeheadlines.firebaseapp.com",
+      projectId: "tubeheadlines",
+      storageBucket: "tubeheadlines.firebasestorage.app",
+      messagingSenderId: "890101518195",
+      appId: "1:890101518195:web:40602a22c644f0bac8bf06",
+      measurementId: "G-SVJLLJKJHR"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Test connection
+    db.collection('videos').limit(1).get()
+      .then((snapshot) => {
+        if (snapshot.empty) {
+          document.getElementById('status').innerHTML = 
+            '<p style="color: orange;">Connection successful, but no videos found.</p>';
+        } else {
+          document.getElementById('status').innerHTML = 
+            '<p style="color: green;">Connection successful! API key is working.</p>' +
+            '<p>Found ' + snapshot.size + ' video(s).</p>';
+        }
+      })
+      .catch((error) => {
+        document.getElementById('status').innerHTML = 
+          '<p style="color: red;">Error: ' + error.message + '</p>' +
+          '<p>This likely means the API key is restricted or invalid.</p>';
+      });
+  </script>
+</body>
+</html>

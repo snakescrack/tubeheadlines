@@ -9,6 +9,7 @@ import SEO from './components/SEO';
 import ShareButton from './components/ShareButton';
 import WelcomeBanner from './components/WelcomeBanner';
 import Privacy from './components/Privacy';
+import HomepageDescription from './components/HomepageDescription';
 import './App.css';
 import './components/ShareButton.css';
 import './components/LoadingError.css';
@@ -269,6 +270,8 @@ function App() {
         <div className="updated">Updated {new Date().toLocaleString()}</div>
       </header>
 
+      <HomepageDescription />
+
       {loading && <div className="loading">Loading...</div>}
       {error && <div className="error">{error}</div>}
       
@@ -332,6 +335,8 @@ function App() {
         <Link to="/terms">TERMS</Link>
         <span className="link-separator">|</span>
         <Link to="/faq">FAQ</Link>
+        <span className="link-separator">|</span>
+        <Link to="/blog/why-i-built-tubeheadlines">BLOG</Link>
         <span className="link-separator">|</span>
         <ShareButton />
       </div>
