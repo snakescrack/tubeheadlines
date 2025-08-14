@@ -10,7 +10,6 @@ import ShareButton from './components/ShareButton';
 import WelcomeBanner from './components/WelcomeBanner';
 import Privacy from './components/Privacy';
 import HomepageDescription from './components/HomepageDescription';
-import BlogPost from './components/BlogPost';
 import './App.css';
 import './components/ShareButton.css';
 import './components/LoadingError.css';
@@ -265,8 +264,6 @@ function App() {
         videos={allVideos}
         videoData={videos.featured} // Pass featured video as primary video
       />
-      <Route path="/blog/why-i-built-tubeheadlines" component={BlogPost} />
-
       <WelcomeBanner />
       <header>
         <h1>TUBE HEADLINES</h1>
