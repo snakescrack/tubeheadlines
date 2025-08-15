@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HomepageDescription = () => {
   return (
@@ -23,6 +24,9 @@ const HomepageDescription = () => {
       </p>
       <p style={{ color: '#666', fontSize: '0.9rem', margin: '0.5rem 0' }}>
         Quality content curation • Fresh videos daily • Free forever
+      </p>
+      <p style={{ marginTop: '1rem', fontStyle: 'italic' }}>
+        Tired of the algorithm? <Link to="/blog/why-i-built-tubeheadlines" style={{ color: '#0056b3', textDecoration: 'underline' }}>Read the story behind TubeHeadlines</Link>.
       </p>
     </div>
   );

@@ -1,4 +1,5 @@
 // scripts/generate-sitemap.js
+import 'dotenv/config';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { writeFileSync } from 'fs';

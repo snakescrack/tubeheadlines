@@ -17,10 +17,12 @@ import './components/WelcomeBanner.css';
 import './components/PaginationTest.css';
 
 function App() {
+  const homePageTitle = 'TubeHeadlines - Home';
+
   useEffect(() => {
     // Track page view
     pageview(
-      'TubeHeadlines - Home',
+      homePageTitle,
       window.location.href,
       window.location.pathname
     );
@@ -260,6 +262,7 @@ function App() {
   return (
     <div className="app">
       <SEO 
+        title={homePageTitle}
         currentUrl={window.location.href}
         videos={allVideos}
         videoData={videos.featured} // Pass featured video as primary video
@@ -279,7 +282,7 @@ function App() {
         <>
           {videos.featured && (
             <div className="featured-video">
-              <a href={videos.featured.youtubeURL} target="_blank" rel="noopener noreferrer">
+              <a href={videos.featured.youtubeURL} target="_blank" rel="noopener noreferrer" onClick={(e) => handleVideoClick(e, videos.featured)}>
                 <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} />
                 <h2>{videos.featured.customHeadline}</h2>
               </a>
