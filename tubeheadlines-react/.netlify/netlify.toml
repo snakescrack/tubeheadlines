@@ -12,7 +12,13 @@ commandOrigin = "config"
 command = "npm run build"
 
 [build.environment]
-NODE_VERSION = "18"
+VITE_FIREBASE_API_KEY = "AIzaSyD0cbavYFbKZ1zekFGSE3FRLIIGGtsT0DA"
+VITE_FIREBASE_AUTH_DOMAIN = "tubeheadlines.firebaseapp.com"
+VITE_FIREBASE_PROJECT_ID = "tubeheadlines"
+VITE_FIREBASE_STORAGE_BUCKET = "tubeheadlines.firebasestorage.app"
+VITE_FIREBASE_MESSAGING_SENDER_ID = "890101518195"
+VITE_FIREBASE_APP_ID = "1:890101518195:web:b80b59e9611d5184c8bf06"
+VITE_FIREBASE_MEASUREMENT_ID = "G-GQZQZWZ1NE"
 
 [build.processing]
 
@@ -51,6 +57,18 @@ for = "/static/*"
 
 [headers.values]
 Cache-Control = "public, max-age=31536000, immutable"
+
+[[redirects]]
+from = "/faq.html"
+to = "/faq"
+status = 301.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
 
 [[redirects]]
 from = "/*"
