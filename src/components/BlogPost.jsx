@@ -1,8 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function BlogPost() {
   return (
     <div style={{maxWidth: '800px', margin: '2rem auto', padding: '2rem', fontFamily: 'Arial, sans-serif', color: '#333'}}>
+      <div style={{ marginBottom: '2rem' }}>
+        <Link to="/" style={{ textDecoration: 'none', color: '#0056b3', fontSize: '1.1rem' }}>
+          &larr; Back to TubeHeadlines Home
+        </Link>
+      </div>
       <h1 style={{textAlign: 'center', marginBottom: '2rem'}}>Why I Built TubeHeadlines: A Better Way to Discover Great YouTube Videos</h1>
       
       <div style={{fontSize: '1.1rem', lineHeight: '1.7'}}>
