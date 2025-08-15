@@ -9,6 +9,7 @@ export default function BlogPost() {
           &larr; Back to TubeHeadlines Home
         </Link>
       </div>
+      <h1 style={{color: 'red', textAlign: 'center'}}>TESTING</h1>
       <h1 style={{textAlign: 'center', marginBottom: '2rem'}}>Why I Built TubeHeadlines: A Better Way to Discover Great YouTube Videos</h1>
       
       <div style={{fontSize: '1.1rem', lineHeight: '1.7'}}>
