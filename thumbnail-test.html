@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thumbnail Quality Test</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    h1 { text-align: center; }
+    #videos-container { display: flex; flex-wrap: wrap; gap: 2em; justify-content: center; }
+    .video-card { border: 1px solid #ccc; border-radius: 8px; padding: 1em; text-align: center; }
+    .thumbnails { display: flex; gap: 1em; justify-content: center; margin-top: 1em; }
+    .thumbnail-wrapper { display: flex; flex-direction: column; align-items: center; }
+    img { border: 1px solid #ddd; max-width: 320px; }
+    p { margin: 0.5em 0 0 0; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Thumbnail Quality Comparison</h1>
+  <div id="videos-container">Loading videos...</div>
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyD0cbavYFbKZ1zekFGSE3FRLIIGGtsT0DA",
+      authDomain: "tubeheadlines.firebaseapp.com",
+      projectId: "tubeheadlines",
+      storageBucket: "tubeheadlines.firebasestorage.app",
+      messagingSenderId: "890101518195",
+      appId: "1:890101518195:web:b80b59e9611d5184c8bf06",
+      measurementId: "G-GQZQZWZ1NE"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    
+    // Fetch recent videos and display thumbnails
+    db.collection('videos').orderBy('createdAt', 'desc').limit(5).get()
+      .then((querySnapshot) => {
+        const container = document.getElementById('videos-container');
+        if (querySnapshot.empty) {
+          container.innerHTML = 'No videos found.';
+          return;
+        }
+        
+        console.log('Successfully fetched video data. See objects below:');
+        container.innerHTML = ''; // Clear loading message
+
+        querySnapshot.forEach(doc => {
+          const video = doc.data();
+          console.log(video); // Log the entire video object to the console
+
+          let videoId = null;
+          // Try to get videoId from thumbnailURL first
+          if (video.thumbnailURL) {
+            const match = video.thumbnailURL.match(/vi\/([a-zA-Z0-9_-]{11})\//);
+            if (match) videoId = match[1];
+          }
+
+          // If not found, try to get it from youtubeURL
+          if (!videoId && video.youtubeURL) {
+            const match = video.youtubeURL.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/watch\?.+&v=))([^"&?\/\s]{11})/);
+            if (match) videoId = match[1];
+          }
+
+          const hqUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : '';
+          const mqUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg` : '';
+
+          const card = document.createElement('div');
+          card.className = 'video-card';
+          card.innerHTML = `
+            <h3>${video.customHeadline || 'No Title'}</h3>
+            <div class="thumbnails">
+              <div class="thumbnail-wrapper">
+                <p>High Quality (hqdefault.jpg)</p>
+                <img src="${hqUrl}" alt="High Quality Thumbnail">
+              </div>
+              <div class="thumbnail-wrapper">
+                <p>Medium Quality (mqdefault.jpg)</p>
+                <img src="${mqUrl}" alt="Medium Quality Thumbnail">
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch((error) => {
+        const container = document.getElementById('videos-container');
+        container.innerHTML = `Error: ${error.message}`;
+        console.error('Error fetching videos:', error);
+      });
+  </script>
+</body>
+</html>

@@ -1,54 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TubeHeadlines - Down for Maintenance</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    .maintenance-container {
-      max-width: 600px;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 40px;
-    }
-    h1 {
-      color: #e74c3c;
-      margin-top: 0;
-    }
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-    .icon {
-      font-size: 60px;
-      margin-bottom: 20px;
-    }
-    .return-time {
-      font-weight: bold;
-      margin: 20px 0;
-    }
-  </style>
-</head>
-<body>
-  <div class="maintenance-container">
-    <div class="icon">🛠️</div>
-    <h1>Down for Maintenance</h1>
-    <p>We're currently updating TubeHeadlines to improve your experience.</p>
-    <p class="return-time">We'll be back online shortly.</p>
-    <p>Thank you for your patience!</p>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Standard favicon -->    
+    <link rel="icon" type="image/png" href="/th-favicon.png" />
+    <!-- Apple Touch Icon (for iOS devices) -->
+    <link rel="apple-touch-icon" href="/th-favicon.png" />
+    <!-- For Google Search Results -->
+    <link rel="shortcut icon" href="/th-favicon.png" />
+    <!-- For IE and older browsers -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- For Google Search Console verification -->
+    <meta name="google-site-verification" content="" />
+    <title>TubeHeadlines | The Drudge Report for Video</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="TubeHeadlines | The Drudge Report for Video">
+    <meta name="description" content="TubeHeadlines is your one-stop destination for the most important video headlines, updated in real-time. We cut through the noise to bring you the videos that matter.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.tubeheadlines.com/">
+    <meta property="og:title" content="TubeHeadlines | The Drudge Report for Video">
+    <meta property="og:description" content="TubeHeadlines is your one-stop destination for the most important video headlines, updated in real-time. We cut through the noise to bring you the videos that matter.">
+    <meta property="og:image" content="https://www.tubeheadlines.com/th-social-share.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.tubeheadlines.com/">
+    <meta property="twitter:title" content="TubeHeadlines | The Drudge Report for Video">
+    <meta property="twitter:description" content="TubeHeadlines is your one-stop destination for the most important video headlines, updated in real-time. We cut through the noise to bring you the videos that matter.">
+    <meta property="twitter:image" content="https://www.tubeheadlines.com/th-social-share.jpg">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SVJLLJKJHR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-SVJLLJKJHR');
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+
+    
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
