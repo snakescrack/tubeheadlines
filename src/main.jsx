@@ -8,7 +8,7 @@ import Privacy from './components/Privacy'
 import Terms from './components/Terms'
 import FAQ from './components/FAQ'
 import BannerTest from './components/BannerTest'
-import VideoPage from './components/VideoPage'
+import VideoPage from './components/VideoPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
