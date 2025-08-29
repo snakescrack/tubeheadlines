@@ -1,6 +1,5 @@
 # Triggering a new build to resolve canceled deployment
 [build]
-  base    = "tubeheadlines-react"
   command = "npm run build"
   publish = "dist"
 
