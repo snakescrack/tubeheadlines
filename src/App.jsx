@@ -122,21 +122,6 @@ function App() {
     setSelectedCategory(category);
   };
 
-  const handleVideoClick = (e, video) => {
-    // Prevent the link from opening immediately to ensure the analytics event has time to send
-    e.preventDefault();
-
-    // Track video click event
-    event({
-      action: 'video_click',
-      category: 'engagement',
-      label: video.customHeadline,
-      value: 1
-    });
-
-    // Open the link in a new tab
-    window.open(video.youtubeURL, '_blank');
-  };
 
   const renderPagination = (position) => {
     const { currentPage, totalPages } = videos.pagination[position];
@@ -193,20 +178,6 @@ function App() {
     );
   };
 
-  const VideoItem = ({ video }) => (
-    <div className="video-item">
-      <a 
-        href={video.youtubeURL} 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="video-link"
-        onClick={() => handleVideoClick(video)}
-      >
-        <img src={video.thumbnailURL} alt={video.customHeadline} />
-        <p>{video.customHeadline}</p>
-      </a>
-    </div>
-  );
 
   const getColumnTitle = (position) => {
     switch (position) {
@@ -282,10 +253,10 @@ function App() {
         <>
           {videos.featured && (
             <div className="featured-video">
-              <a href={videos.featured.youtubeURL} target="_blank" rel="noopener noreferrer" onClick={(e) => handleVideoClick(e, videos.featured)}>
+              <Link to={`/video/${videos.featured.id}`}>
                 <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} />
                 <h2>{videos.featured.customHeadline}</h2>
-              </a>
+              </Link>
             </div>
           )}
 
@@ -300,10 +271,10 @@ function App() {
                     <div key={category} className="category-section">
                       {categoryVideos.length > 0 && categoryVideos.map((video) => (
                         <div key={video.id} className="video-item">
-                          <a href={video.youtubeURL} target="_blank" rel="noopener noreferrer" className="video-link" onClick={(e) => handleVideoClick(e, video)}>
+                          <Link to={`/video/${video.id}`} className="video-link">
                             <img src={video.thumbnailURL} alt={video.customHeadline} />
                             <p>{video.customHeadline}</p>
-                          </a>
+                          </Link>
                           <button 
                             className="video-share-button"
                             onClick={(e) => {
