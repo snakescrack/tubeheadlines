@@ -82,6 +82,10 @@ const VideoPage = () => {
         }}>
           {video.customHeadline}
         </h1>
+
+        <pre style={{ backgroundColor: '#eee', padding: '1rem', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+          {JSON.stringify(video, null, 2)}
+        </pre>
         
         {video.thumbnailURL && (
           <img 
