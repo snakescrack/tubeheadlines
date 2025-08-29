@@ -9,6 +9,7 @@ import Terms from '@/components/Terms.jsx'
 import FAQ from '@/components/FAQ.jsx'
 import BannerTest from '@/components/BannerTest.jsx'
 import VideoPage from '@/components/VideoPage.jsx'
+import BlogPost from '@/components/BlogPost.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/terms" element={<Terms />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/banner-test" element={<BannerTest />} />
+          <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
