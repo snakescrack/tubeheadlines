@@ -8,6 +8,7 @@ import Privacy from './components/Privacy'
 import Terms from './components/Terms'
 import FAQ from './components/FAQ'
 import BannerTest from './components/BannerTest'
+import VideoPage from './components/VideoPage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
+          <Route path="/video/:videoId" element={<VideoPage />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/faq" element={<FAQ />} />
