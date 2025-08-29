@@ -26,7 +26,7 @@ const HomepageDescription = () => {
         Quality content curation • Fresh videos daily • Free forever
       </p>
       <p style={{ marginTop: '1rem', fontStyle: 'italic' }}>
-        Tired of the algorithm? <Link to="/blog/why-i-built-tubeheadlines" style={{ color: '#0056b3', textDecoration: 'underline' }}>Read the story behind TubeHeadlines</Link>.
+        Tired of the algorithm? Discover quality content curated by humans.
       </p>
     </div>
   );
