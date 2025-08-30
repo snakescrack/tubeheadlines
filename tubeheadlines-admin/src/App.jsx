@@ -49,6 +49,16 @@ function App() {
     loadVideos();
   }, []);
 
+  const handleLogin = () => {
+    localStorage.setItem('isAdminLoggedIn', 'true');
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAdminLoggedIn');
+    setIsLoggedIn(false);
+  };
+
   const loadVideos = async (forceRefresh = false) => {
     try {
       // Clear existing videos first if force refreshing
@@ -58,8 +68,8 @@ function App() {
       
       const videosRef = collection(db, 'videos');
       
-      // Create a query with explicit ordering by createdAt descending
-      const q = query(videosRef, orderBy('createdAt', 'desc'));
+      // Create a query to fetch videos (sorting removed temporarily)
+      const q = query(videosRef);
       
       const querySnapshot = await getDocs(q);
       
@@ -78,38 +88,34 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Simple and reliable URL validation
-      let videoId = null;
+      // 1. Extract Video ID from URL
       const url = formData.youtubeURL.trim();
-      
-      // Extract video ID from various URL formats
-      if (url.includes('youtube.com') || url.includes('youtu.be')) {
-        // For youtube.com/watch?v=VIDEO_ID format
-        if (url.includes('watch?v=')) {
-          const vParam = new URL(url).searchParams.get('v');
-          if (vParam) videoId = vParam;
-        }
-        // For youtu.be/VIDEO_ID format
-        else if (url.includes('youtu.be/')) {
-          const parts = url.split('youtu.be/');
-          if (parts[1]) videoId = parts[1].split('?')[0].split('&')[0];
-        }
-        // For youtube.com/live/VIDEO_ID format
-        else if (url.includes('/live/')) {
-          const parts = url.split('/live/');
-          if (parts[1]) videoId = parts[1].split('?')[0].split('&')[0];
-        }
-      }
-      
+      const videoIdMatch = url.match(/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/|watch\?v=|&v=)|(?:\?v=))([^#&?]*).*/);
+      const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
       if (!videoId) {
-        throw new Error('Invalid YouTube URL');
+        throw new Error('Could not extract video ID from URL. Please check the format.');
       }
 
       if (!formData.title) {
         throw new Error('Please enter a custom headline');
       }
 
-      // Check if URL already exists
+      // 2. Fetch Video Description from YouTube API
+      const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+      if (!apiKey) {
+        throw new Error('YouTube API key is missing. Please configure it in your environment variables.');
+      }
+
+      const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`YouTube API error: ${errorData.error?.message || 'Unknown error'}`);
+      }
+      const youtubeData = await response.json();
+      const description = youtubeData.items && youtubeData.items.length > 0 ? youtubeData.items[0].snippet.description : '';
+
+      // 3. Check for duplicates if not in edit mode
       if (!editMode) {
         const videosRef = collection(db, 'videos');
         const q = query(videosRef, where('youtubeURL', '==', formData.youtubeURL));
@@ -119,8 +125,8 @@ function App() {
         }
       }
 
+      // 4. Prepare data and save to Firestore
       if (editMode && editId) {
-        // When editing, only update the fields that changed
         const updateData = {
           youtubeURL: formData.youtubeURL,
           position_type: POSITION_TYPES[formData.position_type] || 'featured',
@@ -128,12 +134,12 @@ function App() {
           replaceCurrent: formData.position_type === 'featured' ? formData.replaceCurrent : false,
           customHeadline: formData.title,
           showThumbnail: Boolean(formData.showThumbnail),
-          thumbnailURL: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+          thumbnailURL: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          description: description // Add description
         };
         const docRef = doc(db, 'videos', editId);
         await updateDoc(docRef, updateData);
       } else {
-        // For new videos, include createdAt
         const newVideoData = {
           youtubeURL: formData.youtubeURL,
           position_type: POSITION_TYPES[formData.position_type] || 'featured',
@@ -142,7 +148,8 @@ function App() {
           customHeadline: formData.title,
           showThumbnail: Boolean(formData.showThumbnail),
           thumbnailURL: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
+          description: description // Add description
         };
         await addDoc(collection(db, 'videos'), newVideoData);
       }
@@ -228,7 +235,8 @@ function App() {
 
   const getVideoTitle = (url) => {
     try {
-      const videoId = url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/shorts\/|\/watch\?v=|\/watch\?.+&v=))([^"&?\/\s]{11})/)?.[1];
+      const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/shorts\/|\/watch\?v=|\/watch\?.+&v=))([^"&?\/\s]{11})/);
+      const videoId = videoIdMatch && videoIdMatch[1];
       
       if (!videoId) return;
 
