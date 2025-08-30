@@ -1,5 +1,6 @@
 import { collection, query, where, getDocs, deleteDoc, doc, updateDoc, addDoc, Timestamp, orderBy, limit, writeBatch, getDoc } from 'firebase/firestore';
 import { db } from '../firebase.js';
+import { getYouTubeDescription } from './youtubeApi.js';
 
 export const VIDEOS_PER_PAGE = 10;
 
@@ -48,6 +49,9 @@ export const addVideo = async (data) => {
       throw new Error('Invalid YouTube URL');
     }
 
+    // Extract YouTube description automatically
+    const description = await getYouTubeDescription(data.youtubeURL, data.customHeadline);
+
     // If this is a featured video, handle it specially
     if (data.position_type === 'featured') {
       // Get all featured videos
@@ -67,6 +71,7 @@ export const addVideo = async (data) => {
         createdAt: new Date().toISOString(),
         thumbnailURL: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
         videoId,
+        description,
         scheduledAt: data.scheduledAt || null,
         // If replacing current or no videos exist, give highest priority
         // Otherwise give lower priority than existing videos
@@ -95,6 +100,7 @@ export const addVideo = async (data) => {
         createdAt: new Date().toISOString(),
         thumbnailURL: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
         videoId,
+        description,
         scheduledAt: data.scheduledAt || null
       };
       const docRef = await addDoc(collection(db, 'videos'), finalData);
@@ -119,10 +125,14 @@ export const updateVideo = async (videoId, data) => {
         throw new Error('Invalid YouTube URL');
       }
 
+      // Extract new description when URL changes
+      const description = await getYouTubeDescription(data.youtubeURL, data.customHeadline);
+
       updateData = {
         ...updateData,
         videoId: newVideoId,
-        thumbnailURL: `https://i.ytimg.com/vi/${newVideoId}/hqdefault.jpg`
+        thumbnailURL: `https://i.ytimg.com/vi/${newVideoId}/hqdefault.jpg`,
+        description
       };
     }
 
