@@ -87,13 +87,16 @@ export default function Admin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('Processing...');
+    console.log('--- Starting video submission ---');
 
     try {
-      // 1. Extract Video ID from URL (improved regex)
+      // 1. Extract Video ID from URL
       const url = formData.youtubeURL;
+      console.log('YouTube URL:', url);
       const videoIdRegex = /(?:youtube\.com\/(?:[^/]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
       const videoIdMatch = url.match(videoIdRegex);
       const videoId = videoIdMatch ? videoIdMatch[1] : null;
+      console.log('Extracted Video ID:', videoId);
 
       if (!videoId) {
         throw new Error('Could not extract video ID from URL. Please check the format.');
@@ -101,18 +104,27 @@ export default function Admin() {
 
       // 2. Fetch Video Description from YouTube API
       const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+      console.log('Using API Key:', apiKey ? 'Yes' : 'No');
       if (!apiKey) {
-        throw new Error('YouTube API key is missing.');
+        throw new Error('YouTube API key is missing. Please set VITE_YOUTUBE_API_KEY in your environment.');
       }
       
+      console.log('Fetching from YouTube API...');
       const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet&key=${apiKey}`);
       const youtubeData = await response.json();
+      console.log('YouTube API Response:', youtubeData);
+
+      if (youtubeData.error) {
+        console.error('YouTube API Error:', youtubeData.error.message);
+        throw new Error(`YouTube API Error: ${youtubeData.error.message}`);
+      }
 
       if (!youtubeData.items || youtubeData.items.length === 0) {
         throw new Error('Video not found on YouTube.');
       }
 
       const description = youtubeData.items[0].snippet.description;
+      console.log('Fetched Description:', description ? `${description.substring(0, 50)}...` : 'None');
 
       // 3. Prepare data for submission
       const submitData = {
@@ -120,12 +132,14 @@ export default function Admin() {
         description: description, // Add the fetched description
         scheduledAt: formData.isScheduled ? formData.scheduledAt : null,
         thumbnailURL: formData.showThumbnail ? formData.thumbnailURL : '',
+        videoId: videoId, // Ensure videoId is in the data
       };
 
       // Use default thumbnail if none is provided
       if (formData.showThumbnail && !formData.thumbnailURL) {
         submitData.thumbnailURL = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
       }
+      console.log('Final data for submission:', submitData);
 
       // 4. Add or Update video in Firestore
       if (editMode && editId) {
