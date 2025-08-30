@@ -442,9 +442,7 @@ export default function Admin() {
           )}
 
           <div className="form-actions">
-            <button type="submit" className="submit-button">
-              {editMode ? 'Update' : formData.isScheduled ? 'Schedule' : 'Add'} Headline
-            </button>
+            <button type="submit" className="submit-button">Submit for Diagnosis</button>
             {editMode && (
               <button
                 type="button"
