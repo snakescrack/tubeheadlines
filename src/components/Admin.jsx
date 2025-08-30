@@ -86,23 +86,48 @@ export default function Admin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      // If showThumbnail is false, remove the thumbnail URL
-      const submitData = {
-        ...formData,
-        thumbnailURL: formData.showThumbnail ? formData.thumbnailURL : '',
-        scheduledAt: formData.isScheduled ? formData.scheduledAt : null
-      };
+    setMessage('Processing...');
 
-      // If no custom thumbnail URL is provided but showThumbnail is true,
-      // use YouTube's default thumbnail
-      if (formData.showThumbnail && !formData.thumbnailURL) {
-        const videoId = formData.youtubeURL.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/shorts\/|\/watch\?v=|\/watch\?.+&v=))([^"&?\/\s]{11})/)?.[1];
-        if (videoId) {
-          submitData.thumbnailURL = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-        }
+    try {
+      // 1. Extract Video ID from URL (improved regex)
+      const url = formData.youtubeURL;
+      const videoIdRegex = /(?:youtube\.com\/(?:[^/]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
+      const videoIdMatch = url.match(videoIdRegex);
+      const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+      if (!videoId) {
+        throw new Error('Could not extract video ID from URL. Please check the format.');
       }
 
+      // 2. Fetch Video Description from YouTube API
+      const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+      if (!apiKey) {
+        throw new Error('YouTube API key is missing.');
+      }
+      
+      const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet&key=${apiKey}`);
+      const youtubeData = await response.json();
+
+      if (!youtubeData.items || youtubeData.items.length === 0) {
+        throw new Error('Video not found on YouTube.');
+      }
+
+      const description = youtubeData.items[0].snippet.description;
+
+      // 3. Prepare data for submission
+      const submitData = {
+        ...formData,
+        description: description, // Add the fetched description
+        scheduledAt: formData.isScheduled ? formData.scheduledAt : null,
+        thumbnailURL: formData.showThumbnail ? formData.thumbnailURL : '',
+      };
+
+      // Use default thumbnail if none is provided
+      if (formData.showThumbnail && !formData.thumbnailURL) {
+        submitData.thumbnailURL = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+      }
+
+      // 4. Add or Update video in Firestore
       if (editMode && editId) {
         await updateVideo(editId, submitData);
         setMessage('Video updated successfully!');
