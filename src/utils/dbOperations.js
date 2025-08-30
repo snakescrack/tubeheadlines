@@ -1,6 +1,5 @@
 import { collection, query, where, getDocs, deleteDoc, doc, updateDoc, addDoc, Timestamp, orderBy, limit, writeBatch, getDoc } from 'firebase/firestore';
 import { db } from '../firebase.js';
-import { getYouTubeDescription } from './youtubeApi.js';
 
 export const VIDEOS_PER_PAGE = 10;
 
@@ -41,71 +40,14 @@ export const extractVideoId = (url) => {
 };
 
 // Add a new video
-export const addVideo = async (data) => {
+export const addVideo = async (videoData) => {
   try {
-    const videoId = data.youtubeURL.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/watch\?.+&v=))([^"&?\/\s]{11})/)?.[1];
-    
-    if (!videoId) {
-      throw new Error('Invalid YouTube URL');
-    }
-
-    // Extract YouTube description automatically
-    const description = await getYouTubeDescription(data.youtubeURL, data.customHeadline);
-
-    // If this is a featured video, handle it specially
-    if (data.position_type === 'featured') {
-      // Get all featured videos
-      const q = query(collection(db, 'videos'), where('position_type', '==', 'featured'));
-      const querySnapshot = await getDocs(q);
-      const videos = querySnapshot.docs;
-
-      // Get current max priority
-      const maxPriority = videos.reduce((max, doc) => {
-        const priority = doc.data().priority || 0;
-        return Math.max(max, priority);
-      }, 0);
-
-      // Prepare the new video data
-      const finalData = {
-        ...data,
-        createdAt: new Date().toISOString(),
-        thumbnailURL: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
-        videoId,
-        description,
-        scheduledAt: data.scheduledAt || null,
-        // If replacing current or no videos exist, give highest priority
-        // Otherwise give lower priority than existing videos
-        priority: (!data.scheduledAt && data.replaceCurrent) || videos.length === 0 
-          ? maxPriority + 1 
-          : maxPriority - 1
-      };
-
-      // Add the new video
-      const docRef = await addDoc(collection(db, 'videos'), finalData);
-
-      // If replacing current, lower priority of all other videos
-      if (!data.scheduledAt && data.replaceCurrent) {
-        const batch = writeBatch(db);
-        videos.forEach(doc => {
-          batch.update(doc.ref, { priority: 0 });
-        });
-        await batch.commit();
-      }
-
-      return docRef.id;
-    } else {
-      // For non-featured videos, just add normally
-      const finalData = {
-        ...data,
-        createdAt: new Date().toISOString(),
-        thumbnailURL: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
-        videoId,
-        description,
-        scheduledAt: data.scheduledAt || null
-      };
-      const docRef = await addDoc(collection(db, 'videos'), finalData);
-      return docRef.id;
-    }
+    const dataWithTimestamp = {
+      ...videoData,
+      createdAt: new Date().toISOString(),
+    };
+    const docRef = await addDoc(collection(db, 'videos'), dataWithTimestamp);
+    return docRef.id;
   } catch (error) {
     console.error('Error adding video:', error);
     throw error;
@@ -113,52 +55,10 @@ export const addVideo = async (data) => {
 };
 
 // Update a video by ID
-export const updateVideo = async (videoId, data) => {
+export const updateVideo = async (videoId, videoData) => {
   try {
-    let updateData = { ...data };
-    
-    // If YouTube URL is being updated, extract new video ID and update thumbnail
-    if (data.youtubeURL) {
-      const newVideoId = data.youtubeURL.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/watch\?.+&v=))([^"&?\/\s]{11})/)?.[1];
-      
-      if (!newVideoId) {
-        throw new Error('Invalid YouTube URL');
-      }
-
-      // Extract new description when URL changes
-      const description = await getYouTubeDescription(data.youtubeURL, data.customHeadline);
-
-      updateData = {
-        ...updateData,
-        videoId: newVideoId,
-        thumbnailURL: `https://i.ytimg.com/vi/${newVideoId}/hqdefault.jpg`,
-        description
-      };
-    }
-
-    // Get the current video data to preserve createdAt
     const videoRef = doc(db, 'videos', videoId);
-    const videoSnap = await getDoc(videoRef);
-    
-    if (!videoSnap.exists()) {
-      throw new Error('Video not found');
-    }
-
-    const currentData = videoSnap.data();
-
-    // Always preserve the original createdAt timestamp
-    updateData = {
-      ...updateData,
-      createdAt: currentData.createdAt
-    };
-
-    // If this is updating a featured video's schedule
-    if (data.scheduledAt !== undefined && data.position_type === 'featured') {
-      updateData.isCurrentFeatured = !data.scheduledAt && data.replaceCurrent;
-    }
-
-    // Update the video
-    await updateDoc(videoRef, updateData);
+    await updateDoc(videoRef, videoData);
     return videoId;
   } catch (error) {
     console.error('Error updating video:', error);
