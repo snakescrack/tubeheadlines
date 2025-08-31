@@ -9,14 +9,17 @@
     <div id="status">Testing API key...</div>
 
     <script>
-        const apiKey = "AIzaSyDAQP3Yp1p6s4yNgfQOr1OvGsvEr8v5BEk";
+        // 1. # VITE_YOUTUBE_API_KEY
+
+        PASTE YOUR YOUTUBE API KEY HERE:const apiKey = "AIzaSyDAQP3Yp1p6s4yNgfQOr1OvGsvEr8v5BEk"; // <-- PASTE KEY INSIDE THE QUOTES
+        const apiKey = "PASTE_YOUR_API_KEY_HERE"; // <-- PASTE KEY INSIDE THE QUOTES
 
         // --- Do not change anything below this line ---
         const videoId = "lg4vijdIYg0"; // A sample video ID to test with
         const statusDiv = document.getElementById('status');
 
-        if (apiKey === "" || !apiKey) {
-            statusDiv.innerHTML = '<p style="color: orange;"><strong>Error:</strong> API key is missing.</p>';
+        if (apiKey === "PASTE_YOUR_API_KEY_HERE" || !apiKey) {
+            statusDiv.innerHTML = '<p style="color: orange;"><strong>Error:</strong> Please paste your API key into the `apiKey` variable in this file and save it.</p>';
         } else {
             fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`)
                 .then(response => {

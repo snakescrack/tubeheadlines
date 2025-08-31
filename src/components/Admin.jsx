@@ -442,7 +442,7 @@ export default function Admin() {
           )}
 
           <div className="form-actions">
-            <button type="submit" className="submit-button">Submit for Diagnosis</button>
+            <button type="submit" className="submit-button">Add Headline</button>
             {editMode && (
               <button
                 type="button"
