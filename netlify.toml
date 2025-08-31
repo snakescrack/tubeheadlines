@@ -3,9 +3,8 @@
   command = "npm run build"
   publish = "public"
 
-[plugins]
-  [[plugins.package]]
-    package = "@netlify/plugin-prerender-react"
+[[plugins]]
+  package = "@netlify/plugin-prerender-react"
 
 [[redirects]]
   from = "/faq.html"
