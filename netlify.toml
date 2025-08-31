@@ -4,7 +4,11 @@
   publish = "public"
 
 [[plugins]]
-  package = "@netlify/plugin-prerender-react"
+  package = "@netlify/plugin-prerender"
+
+  [plugins.inputs]
+    # The token for your Prerender.io account
+    token = "YOUR_PRERENDER_TOKEN"
 
 [[redirects]]
   from = "/faq.html"
