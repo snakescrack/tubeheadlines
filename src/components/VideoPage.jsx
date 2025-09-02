@@ -119,7 +119,7 @@ const VideoPage = () => {
         </div>
         
         {video.description && (
-          <div style={{ 
+          <div className="video-description-container" style={{ 
             backgroundColor: '#f9f9f9', 
             padding: '1rem', 
             borderRadius: '8px',

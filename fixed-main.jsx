@@ -9,6 +9,7 @@ import Terms from './components/Terms'
 import FAQ from './components/FAQ'
 import BannerTest from './components/BannerTest'
 import BlogPost from './components/BlogPost'
+import VideoPage from './components/VideoPage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -19,8 +20,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/faq" element={<FAQ />} />
-                    <Route path="/banner-test" element={<BannerTest />} />
+          <Route path="/banner-test" element={<BannerTest />} />
           <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
+          <Route path="/video/:videoId" element={<VideoPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

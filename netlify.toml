@@ -1,10 +1,9 @@
-# Triggering a new build to resolve canceled deployment
+# Fixed build configuration for consolidated project
 [build]
-  command = "npm cache clean --force && npm run build"
-  publish = "public"
-
-[[plugins]]
-  package = "@netlify/plugin-prerender"
+  command = "npm run build"
+  commandOrigin = "config"
+  publish = "dist"
+  publishOrigin = "config"
 
 
 [[redirects]]
@@ -16,4 +15,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
