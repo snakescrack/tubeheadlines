@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tubeheadlines.com/</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -18,7 +18,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-    
+  <url>
+    <loc>https://tubeheadlines.com/blog/why-i-built-tubeheadlines</loc>
+    <lastmod>2025-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
   <url>
     <loc>https://tubeheadlines.com/video/01GuF6KQv7DE07saT0iT</loc>
     <lastmod>2025-06-10</lastmod>
@@ -33,13 +39,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/02QWjPzp5NdUa57jRQi5</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/048lcznjNW5Bqaae39Nv</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -51,7 +57,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/0MY9i6lIlRtpDVtKlin1</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -69,13 +75,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/0Ofl8nVF0N8nwQ587f8I</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tubeheadlines.com/video/0XL2EK3ZkkHLNK25EFxq</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -93,7 +93,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/1DeVDV1gGIHvtNObXBBu</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -104,14 +104,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/video/1Y2xQjycfFSpYJXLeIXH</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://tubeheadlines.com/video/1ZDGIgOvOYzQ5sCQOeQ3</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -123,25 +117,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/1ewI167m14TXifnGBgsW</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/1lMjNIKqSypPBbrceqxy</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tubeheadlines.com/video/1mhdBzFmWtjJeh7d856O</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/1qnXPx0Ayk5IKoQgU9QX</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -159,7 +147,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/20yGN0hcP7pluSCiyY5H</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -171,7 +159,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/2BoqxjnXTfqFzVRjJCvW</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -207,7 +195,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/2Z0enjDpPIUmkuIymRp3</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -219,7 +207,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/2zZWXSS7p8PB7UJhYKyX</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -261,7 +249,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/3Vx7JS2pecAudi4eLeYL</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -291,7 +279,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/46xf1YnwCbX7t7N65xH7</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -327,19 +315,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/4ZzGXhVXljfh1GILG40D</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/4bmM072ktXG3CZaBvxLN</loc>
     <lastmod>2025-06-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tubeheadlines.com/video/4cjtEvXqzrGGV3Ph2uLX</loc>
-    <lastmod>2025-08-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -369,7 +351,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/5F4xYeTykjql2G6neEL9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -411,7 +393,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/5sP84n75UiASvw4o4XAx</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -429,13 +411,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/5zbrkPWfepZbLoGbjoDh</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/66NkH0j5Z5sn1P3Fcoda</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -465,7 +447,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/6PleQVFv4K6L5PHBvu41</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -477,19 +459,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/6TqwAzMmcdzhXo4RB0k3</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/6WAGLAFi7ZUwWTB3Ft5x</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/6df117qFiKUrqWFrO6jU</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -501,7 +483,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/6kYt89kDXbXRpRtdlPKl</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -513,7 +495,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/70RxAzjv4ONaNlt1sIwf</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -530,14 +512,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/video/7E6TF1Lm8cSvKdShmftk</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://tubeheadlines.com/video/7F1jo1diIlBFCG4712dU</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -573,7 +549,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/7rcawpr7QHBIScOisNMm</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -609,7 +585,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/8GASOkWqInl93NdIaSID</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -621,31 +597,31 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/8NU2za9JEiuJJfUGSBqB</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/8QtWeECqeWHLfzFJid8e</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/8i2mWg0LT4HKOlXzJjQX</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/8jpVIp4eEYuoGFn5D8IT</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/8tSpwl1B89vigwjBqLLr</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -675,13 +651,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/9DRfJ7qwziEExwBswXnJ</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/9GERWvijeX6ZRIYrJV3N</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -705,7 +681,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/9oPj5ophAfychMYM3QCA</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -717,7 +693,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/9wqe8hmHYY7VCNacWaNv</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -788,12 +764,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/video/AxbG7UNfOg6vlXrpeMR6</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://tubeheadlines.com/video/BFTQLDZyCVMzuXvaKF4W</loc>
     <lastmod>2025-05-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -813,7 +783,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/BYAqWpnYlhHC7OYuvLBt</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -830,14 +800,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/video/Bompwm95w3fgauSJ5B0g</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://tubeheadlines.com/video/BqPLcUjyVA27UdbzMGga</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -849,7 +813,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Btz7bkJnfSfTudwoaxFN</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -867,19 +831,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/C5RQfJk72bOJ4JQtRwsx</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/C62x2ztEB7I6XAS8zYKf</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/C9jOZj4Ne4jbCsKhJqwo</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -891,19 +855,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/CFgkWpwOjzz1eQh3Ruag</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/CaEZ8iwevzxDCTz1eKOJ</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/CxLUkmiukTT3vynWgQdl</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -915,13 +879,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/D81vD9be0epirQl73MCp</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/DCW4r7rfbRWAin7PpJls</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -933,7 +897,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/DMNEHaMk0SO2IijW0O0r</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -945,13 +909,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/DUA9FOC5R3C0EJ2ZiPfJ</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/DYsvcvkUtnkCR71O5ZGy</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -993,13 +957,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Dw85EN7cs556SRXOFVCx</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/E6RdRUVUVt7cHTc9Tuvo</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1029,13 +993,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/EGTZYqgt3QrAzHhFEkc6</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/EGsj6JzWEAjBjR1pVW4C</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1059,7 +1023,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/EV9OlXxda1hfimw39a9K</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1070,14 +1034,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/video/EwmgWFhsy3kxF3R8oMYs</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://tubeheadlines.com/video/EzHBa8WiGuO54Qu4Mu1s</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1095,7 +1053,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/F8paB15KqXqR03FH8pXP</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1155,7 +1113,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/FgqHhwKHbgljOiRc6TLO</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1167,13 +1125,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/FjyLbL7kfyIUVDJXDTnN</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/FnjajsZt1oxdMZ0pPXVd</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1185,37 +1143,31 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/GCzSpV0KgZcBhafr1RDl</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tubeheadlines.com/video/GDpcURfmEj7jw6gqmpJm</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/GHCDDITspVAq4jEBO7v2</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/GITiMBeYpm2SGWLD67jz</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/GL8vGE7LNjtBzD3Lx7IN</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/GTlFFTP6QRVCyRD6KdHG</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1233,13 +1185,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/GcknwgjdV7rT4b9Wwlyu</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Gl5i4cLTowmC8goYFSF7</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1251,13 +1203,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/GwIbTqb0QpOlKoBDbnke</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Gya3FVlYxuWE6GS3kdgH</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1287,13 +1239,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Hjrb1PcBTi8xHwevsZex</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/HkbNOzvVErMqK8kChFF8</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1347,7 +1299,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/IYlbNSGatI47msvOe5np</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1365,7 +1317,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/IaUwc0A8vPsbdncf6rJW</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1377,19 +1329,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/IdKiU5E4XQNWmYjry1ct</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/IsXJxFzMtBZakxlBRHBi</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/IyT7UwRT95OjCPNxezTP</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1407,19 +1359,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/JEx1GdARn2LJsejqwQlv</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/JF0QY9SdUuLJxEyetiy4</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/JW2mwwtBwTdTM58rPoW3</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1443,13 +1395,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/JrdytY7uLfNleovUmSJj</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/JyFp5SYKjhPayevQjaGb</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1461,13 +1413,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/K9iwQE1w47klciT9VvcR</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/KDAIqD6z6tl61IUVgjdC</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1479,7 +1431,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/KNYUC2I04LxvDnIr0boD</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1509,7 +1461,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/KZwh8oRgdHOg5rR5toGE</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1521,7 +1473,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/KhQo7bFhVxfIvV5ijpc2</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1575,13 +1527,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/LKwEKMXrm4LnaIL00B2H</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/LPmcQKiYUgh2ymJFNHwe</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1641,7 +1593,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/MkidHt58y497BWOMdiQd</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1653,7 +1605,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/N6K7EYHuW071DnUfZAwV</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1665,25 +1617,25 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/N7T5uOMRNqVrdnOoXVsS</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/N9BbjaY1Zz86pPXGwA0Q</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/N9vMVeYJnOerd5gdfXmK</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/NEev32nQoGnkuHzhZW8f</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1695,7 +1647,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/NHyOokmLbCeyAwj1tBHG</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1719,19 +1671,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/NSnb11eH3B2ioewVqjTG</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/NUVosTvReVwUDyUgUsXz</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/NeJ7f55O5JZufR6G3yOe</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1755,13 +1707,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/O7KNQD97H602Sm3P7JuD</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/ODpgGTEiNrqSNEy1g5bS</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1803,7 +1755,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Ol6mkcdPuok3nqUJ2Sfe</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1851,7 +1803,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/PPGDm2jmmjCIPwz41kfF</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1899,7 +1851,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Q1kfiLStdXm5eh5RvTqY</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1935,13 +1887,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/QRRavT81odqsOnfemeSA</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/QVLPRk6LgTShEZVuXgD9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1953,7 +1905,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/QeuF5JlFP9nWwVIop9iQ</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1971,7 +1923,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/QuJtS2qtOq9BSsefDReN</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1989,25 +1941,25 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/RAT56zQuCgt8FCY4k5fD</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/RUwcGr3kz38biy4wK59Q</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/RWzxHjjKk9nJ6JkouwqR</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/RX912gWZivUiFFKEVjw0</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2019,19 +1971,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/RYaf4vcKXoJKnKdGaMC9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/RbvVQpsWA0FIi39Hnem5</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/ReobmRaR7QsM82TZYoak</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2043,7 +1995,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/RftB9w9p3RbMJtrW90tr</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2055,7 +2007,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/RlIaVVG1RYoBAOaaEJrh</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2102,14 +2054,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/video/SXZsrtxVnvRborXl0kQR</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://tubeheadlines.com/video/SbCoZz0qOhwgpAEzkbEJ</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2127,7 +2073,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Shh45dx42A2zAjONfeAL</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2139,13 +2085,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Su4jRJgUUPun7nXgqByh</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/SznHLiw6wp7iWsVVP5J9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2169,13 +2115,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/T8frWiQKV4wG13l9RkTr</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/THC5DTKt5p2jDXGUZzzh</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2187,7 +2133,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/TVtGXrIVP5lflNJ3945A</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2217,13 +2163,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/TtmTcIyyEMbFUkw7pmAD</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/TwI2lSlOqMrdY6Zl2Vqo</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2240,14 +2186,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/video/UBMfIAjlQKRlRrrbf2dN</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://tubeheadlines.com/video/UCGKO8TUrYdTGlubts32</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2259,25 +2199,25 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/UJVMrH910zOwGnj3XluJ</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/USMGWWtWOzcGzfIxmST6</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/UblwhDROpXDOHVfJFxol</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/UdBBoqWkjVhhxn71ktGH</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2307,19 +2247,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/UnOHEVka8n7hQ30TdG3X</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/UoAi6X9OylB8RP3cxobw</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/UvPEsVD47deNEAqcARQT</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2343,25 +2283,25 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/VCxJl7l9vfzsQVX34fau</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/VGK6NGLCpKJAakpjQagB</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/VGZWLNurumMUWgX7susn</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/VOdDvBE5iSTdCs6yFV3j</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2385,13 +2325,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/VtAhplOFzHRr1CqGw6BJ</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/VwCG6IvHg8PrWtOCj4MX</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2403,7 +2343,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/W8Cu71xfQLngS3mOBbhu</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2427,7 +2367,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Wa1lgSHcFxXaV1iQa5eY</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2445,7 +2385,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/X00QtuKuFI3FAWkf8d7y</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2469,13 +2409,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/X3lTIWQM1Crjeb9l1XMa</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/X426hrd4niUuvvXCfejR</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2499,7 +2439,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/X9K8PX2j2TLg4F65b1ul</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2516,38 +2456,32 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/video/XNTcsXa4LUIa0TCe96Ra</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://tubeheadlines.com/video/Xmq8SiDjldA3Ttwwhwo3</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/XnNt9R2D5BrpTyexae8u</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Xr6a1ZTYmmjmRcNZ00c9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Xx1e9nlqdhIbtfji0aVz</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Y4wIL5Es2oE6OXsCrFy3</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2565,7 +2499,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/YFS4vLsbA1Gp9BivUldh</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2607,19 +2541,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/YnX0YkWMg5PfHdhUBQ7i</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/YsO37hGX9YPJWCAmKfi5</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/YtFqz8iMQNaqQTb1OqmD</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2631,7 +2565,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/Z3nkJT6mtxfmhdmIMQKj</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2649,13 +2583,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/ZGARR1kNvhaq2iX97ddq</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/ZHmJTTS6u3TUFeo4RVgd</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2667,7 +2601,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/ZOCJAkbA5ZFw81ZXgFd9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2691,7 +2625,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/ZTructDtgg9yFMz0fNDo</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2726,12 +2660,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/video/ZtmOetlGfdcRLGfccoNO</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://tubeheadlines.com/video/ZuUkWDpvSGN8BWfnsdvK</loc>
     <lastmod>2025-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -2745,7 +2673,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/a1Uf1kKXzpsiPMJJYRzp</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2775,13 +2703,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/aK1iVJPsLBJesEkh37V6</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/aKsniNFoXt33gWDgjxx9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2805,7 +2733,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/abqsthTkf9JNkZ0VecSR</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2817,7 +2745,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/azLe3gCSGHtSqxwvRBLa</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2865,7 +2793,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/bSd4MxBrXFdGminSi329</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2877,7 +2805,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/bTVgZzBOQF1W71bBZ2JK</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2889,7 +2817,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/bbWYbSsz0iD5Dt1DLjy9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2907,7 +2835,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/biieK72dVFmtglVLyorg</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2919,13 +2847,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/blzejiDJcJa8WlRvmIOd</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/bnD4pNFbw2DpUOQ2KRQk</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2937,7 +2865,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/c1BvuPibRwIz9QpL3zA6</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2967,7 +2895,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/cJEi6A6OuGcjg7QphxMq</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2979,13 +2907,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/cVf368XiweLwb1fDrL7O</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/cjNoaoUWHr3dyNNDrETH</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2997,25 +2925,25 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/czBqmp0Mi6s7He4gpJVc</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/d4HRZnV0jKvbXqtpBlND</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/d8Kkf31XZcxoP1AjEVgJ</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/d8VtEsNwyTKR3r1Q22hx</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3051,7 +2979,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/dT6PsKS2YzmkjAV9wHTB</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3069,7 +2997,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/db9rkMm5zjYwyKKTbgH6</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3087,13 +3015,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/dkvoMBNVEihoH0pI6HCi</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/dmytDubeDIQbn6DWsSeq</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3117,7 +3045,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/dxvPHIQNBU2q788Xizy2</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3141,7 +3069,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/eCGxsau8wrU1VnbQjb6p</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3183,25 +3111,25 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/f4t1a6uQRHqBYpHQy249</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/fEjiuLIbsNilFj71nQMr</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/fFevCzfNMhbfP3VJo6Pq</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/fLo4lkOB7Prph9ixEzQl</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3219,13 +3147,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/fVT0nAMK3KqQizeZOF3n</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/ff5d1FX3cWiOuIU4iXiC</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3237,13 +3165,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/fiWwAEuxvnJUO5zFidhl</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/fiiVMwDKj1Pr1JAKK863</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3261,7 +3189,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/fpTqYP9b3LCUeEMYq8co</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3279,7 +3207,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/g2pPkaNqSVHbysPmD6kT</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3297,7 +3225,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/gKUnXSM0GWG5TYw0zyGw</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3339,7 +3267,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/gsr3vnS41jGjLxnI9wwd</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3357,25 +3285,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/h9eHec8kbJFWdLQRnmk9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/hCnmXdoIulC5OCRFAjZ9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/hCp5YDVKpfp2RucFFqtW</loc>
     <lastmod>2025-05-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://tubeheadlines.com/video/hUE4lerJvRvOm0NwtmWg</loc>
-    <lastmod>2025-08-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3387,7 +3309,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/hcBFu5uRivHXwqeO1mwL</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3399,7 +3321,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/hxCLKG2oPtNwKTLIIgwn</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3423,7 +3345,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/iQgopq767hJmY8weIvJd</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3441,7 +3363,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/iaxxH5UMA6wS6vlChNi5</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3465,7 +3387,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/j5BJRSufbdjmrOZ6Liic</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3489,7 +3411,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/jLQrOcHg12VP3qamnonl</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3500,14 +3422,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/video/jQmEs3K2X4EovpkBistX</loc>
-    <lastmod>2025-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://tubeheadlines.com/video/jS2COCtlZ8S6OFvV135z</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3525,7 +3441,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/jbdpnaDOjLfSL8vsI6pX</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3543,13 +3459,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/jxcKD6JwFjYsgKHQJUE9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/k0ksQKzyKFWkstyCsBMj</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3561,7 +3477,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/k5d5nwPX3gfxEnWqeUaQ</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3573,31 +3489,31 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/kAYhnxE3j80yoHfqq0Aa</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/kBt4PJAXTK9I1kUgYUvi</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/kMhsIUtYPnkU3tPPNGSa</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/kSN6956BYJi2eCvmjwc2</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/kSzdgiu9XsTM4sTjCwrY</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3639,13 +3555,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/lAmCWR8RYK64XmDAe2Pf</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/lGOKmWTFyLJSYuY2KyzD</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3669,13 +3585,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/ljeHQJHDbLEbLoPuNJx0</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/llS9kOzed6Cr35wlorK9</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3687,7 +3603,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/lvdLulQMgjynvV3pHQat</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3699,13 +3615,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/m4YkxxuhIK5TlSxC4yc0</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/m8J2mrvEA3B4IYnkOgMg</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3729,7 +3645,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/mO04pR71mXDAzeki3nN1</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3747,7 +3663,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/mX3TNPjCX4tI5FFshq26</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3765,13 +3681,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/n6KydOBAGKefyt3rbCEI</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/nDFAgFyFDPxZAPYcS1g7</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3801,13 +3717,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/nZKBcXOpwxfAb7aKWjJb</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/noXMcce0QxFZoRvOng2F</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3819,61 +3735,61 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/nskIAZmqKvdI1ZtBYhKB</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/nw6AyCTNzWwqcPWW0PzB</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/nzHkZYpRXvOfBx8kGMKl</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/nzdtRrCHLialPbbqE15s</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/o5B7I9I2EmTAGeSDHvTa</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/o5mZU7Q3OMjHqpVWkGkw</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/o6rnbrbOGrcQ1yadt08U</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/o7x543Ssp0wZLLAhwub8</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/oAE7I1ZMNKTDdEPmrHg4</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/oB2N1fORocTseSpODj7P</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3885,19 +3801,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/oGi4RzfvNJLo2EfVSD8B</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/oLXNJ1bBqBUoHZx6IFbm</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/oel29AWuaZCJf7NHB6WA</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3945,13 +3861,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/p8fgAfggnoaRWHhHate0</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/p9SZ8udiBiwjGaNv85aK</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3981,13 +3897,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/pTNhibU43JaK1f8dmjrA</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/pUDic0Is929tyiR9HvTZ</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4011,7 +3927,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/phjzPG2akURppbsQ8AfB</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4029,13 +3945,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/pqlQAFWbqHJdcjgHBcxH</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/qQKAApFNgFyxqALSgZ7x</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4047,7 +3963,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/qXVg5F83ldwWGuy6ib8F</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4065,19 +3981,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/qckM3C4jfB7W960ib7bm</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/qff3aESGeRnpwHZRbM9t</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/qgRdDpgcplQh72Y8v9dc</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4101,13 +4017,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/qygDjHYfOXje6nqqebwS</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/r6HVCEhb186qjwlIHvl5</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4119,7 +4035,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/rCREBEaaq0hNC3PNbRzv</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4131,7 +4047,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/rKTz7qARXJw65PYXX0j6</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4155,7 +4071,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/rYAlc0VnjjSAUdbA7XYt</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4227,19 +4143,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/sdkEWhMlCkWlqfLX2Uqa</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/sjCSwyiOqFbesPALQqDD</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/st1KboNYV7agbC97o5BU</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4251,7 +4167,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/t6Z59ehJrRuU18lU2DZD</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4275,7 +4191,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/tDgn0RifKSd4pA2hA1oM</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4317,7 +4233,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/tfa9Q9erxSFb1uIA3hLr</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4329,13 +4245,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/tnu8a1hMvFIqdID1vtP4</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/ts93Be3RWVsAbl3x0iKi</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4347,7 +4263,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/u1R17UkvsM6wJiadP0jj</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4359,7 +4275,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/u6sczg78MqcxTSyVmUEy</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4377,7 +4293,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/uJ7EiFqaMWyWIJafnrPh</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4419,7 +4335,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/ucPAFh4ArcLqpOaVB4em</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4437,7 +4353,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/upwfo81PTvx95OE9ocWU</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4449,25 +4365,25 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/v1VxYtyV6up2GJdf6qES</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/v5nzhReL1xmsLuG8dqrA</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/v67mPuiaazRtjmAjikxz</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/v8mLzLYurboeBpVKrBuM</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4479,7 +4395,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/vIk55QEy2uGq3wwt8fXM</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4491,19 +4407,19 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/vXJRF73pZ2VumUB2XY2d</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/vdwasaWsJEH6JXKuxRnT</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/viEvgYiSPXmyfsjlGBLd</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4527,25 +4443,25 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/vxr3zP764C8eYZXER4CO</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/vypPyVg8NZlQwknS5cUB</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/vzMOX3a4nDMTI1xc3kOE</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/w0JUOXZLSc8RewcU2L29</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4557,13 +4473,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/w3mE5bi6mzFwzI0kmLoF</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/wEqs9zd02AwLF8m2NF65</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4575,13 +4491,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/wOaB3Rcp6MMUcFECB07U</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/wTiCvM1VgeKFthp6RlAb</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4623,7 +4539,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/wtQ7qfTp7NzPwoF7gFBG</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4635,13 +4551,13 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/wwRITRcKV3ICgIOqwyH5</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/wyr7VgjJAS0TIFC9NeD0</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4665,31 +4581,31 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/xTbMLAHD3sCKuVy1chI8</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/xVsgcclrESZ7h4CHJLKI</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/xWna1z8Kt1ncmhncyYCd</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/xbjmxcBwGpcz1vBBDWuI</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/xftBvJkR8Vly1Sc6V5xK</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4791,7 +4707,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/yxVRYdaAyuzK5mlitsgj</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4815,7 +4731,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/zJVL72gUKt6iF7udpBIh</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4845,7 +4761,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/zUAlsAkSvpZgFga6tj5s</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4863,7 +4779,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/zYLq5BBIjVpxrKMSs7Ek</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4887,7 +4803,7 @@
   </url>
   <url>
     <loc>https://tubeheadlines.com/video/zxs037rQLgbgJaYDFV39</loc>
-    <lastmod>2025-08-29</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
