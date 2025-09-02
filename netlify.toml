@@ -17,4 +17,4 @@
   status = 200
 
 [[plugins]]
-  package = "@netlify/plugin-prerender"
+  package = "netlify-plugin-prerender"
