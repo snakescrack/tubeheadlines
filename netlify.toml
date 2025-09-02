@@ -1,4 +1,4 @@
-# Triggering a new build to resolve canceled deployment
+# Fixed build configuration for consolidated project
 [build]
   command = "npm run build"
   commandOrigin = "config"
