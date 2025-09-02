@@ -8,7 +8,7 @@
 
     [plugins.inputs.prerender]
       # Wait for the description to be loaded before prerendering
-      renderAfterElement = ".video-description"
+      renderAfterElement = ".video-description-container"
 
 
 [[redirects]]
