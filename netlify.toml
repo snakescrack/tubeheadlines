@@ -1,6 +1,6 @@
 # Triggering a new build to resolve canceled deployment
 [build]
-  command = "npm run build"
+  command = "npm install @netlify/plugin-prerender && npm run build"
   publish = "public"
 
 [[plugins]]
