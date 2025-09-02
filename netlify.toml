@@ -6,6 +6,10 @@
 [[plugins]]
   package = "@netlify/plugin-prerender"
 
+    [plugins.inputs.prerender]
+      # Wait for the description to be loaded before prerendering
+      renderAfterElement = ".video-description"
+
 
 [[redirects]]
   from = "/faq.html"
@@ -16,4 +20,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
