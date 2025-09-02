@@ -19,7 +19,7 @@
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^6.19.0",
-    "@netlify/plugin-prerender": "^1.0.0"
+    "@netlify/plugin-prerender": "^2.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
