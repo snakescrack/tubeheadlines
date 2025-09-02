@@ -15,13 +15,6 @@
   publish = "dist"
   publishOrigin = "config"
 
-[[plugins]]
-  package = "@netlify/plugin-prerender"
-
-    [plugins.inputs.prerender]
-      # Wait for the description to be loaded before prerendering
-      renderAfterElement = ".video-description-container"
-
 
 [[redirects]]
   from = "/faq.html"
