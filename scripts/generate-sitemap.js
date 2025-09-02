@@ -64,7 +64,7 @@ const generateSitemap = async () => {
     const SITE_URL = 'https://tubeheadlines.com';
     
     // Correct path: from /scripts up to project root, then to /public/sitemap.xml
-    const sitemapPath = path.resolve(__dirname, '..', '..', 'public', 'sitemap.xml');
+    const sitemapPath = path.resolve(__dirname, '..', 'public', 'sitemap.xml');
 
     const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
