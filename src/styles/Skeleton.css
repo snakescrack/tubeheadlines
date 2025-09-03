@@ -1,0 +1,58 @@
+.skeleton {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.skeleton-title {
+  height: 2rem;
+  width: 70%;
+  margin-bottom: 1rem;
+}
+
+.skeleton-thumbnail {
+  width: 100%;
+  max-width: 640px;
+  height: 360px; /* 16:9 aspect ratio */
+  margin-bottom: 1rem;
+}
+
+.skeleton-button {
+  height: 48px;
+  width: 200px;
+  margin-bottom: 2rem;
+}
+
+.skeleton-text-container {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.skeleton-text-header {
+    height: 1.5rem;
+    width: 30%;
+    margin-bottom: 1rem;
+}
+
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-text:last-child {
+  width: 80%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #f0f0f0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
