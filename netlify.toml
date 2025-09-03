@@ -1,5 +1,6 @@
 # Fixed build configuration for consolidated project
 [build]
+  environment = { NODE_VERSION = "18" }
   command = "npm run build"
   commandOrigin = "config"
   publish = "dist"
