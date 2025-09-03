@@ -1,46 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase.js';
 import SEO from './SEO';
 import { pageview } from '../utils/analytics';
 
 const VideoPage = () => {
-  const { videoId } = useParams();
+  const { id: videoId } = useParams();
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchVideo = async () => {
+    const fetchVideoDetails = async () => {
+      if (!videoId) return;
+
+      setLoading(true);
       try {
-        setLoading(true);
-        const videoDoc = await getDoc(doc(db, 'videos', videoId));
-        
-        if (videoDoc.exists()) {
-          const videoData = { id: videoDoc.id, ...videoDoc.data() };
+        const response = await fetch(`/.netlify/functions/youtube-proxy?videoId=${videoId}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        if (data.items && data.items.length > 0) {
+          const snippet = data.items[0].snippet;
+          const videoData = {
+            id: videoId,
+            customHeadline: snippet.title,
+            description: snippet.description,
+            thumbnailURL: snippet.thumbnails.high.url,
+            youtubeURL: `https://www.youtube.com/watch?v=${videoId}`
+          };
           setVideo(videoData);
-          
-          // Track page view
           pageview(
             `${videoData.customHeadline} | TubeHeadlines`,
             window.location.href,
             window.location.pathname
           );
         } else {
-          setError('Video not found');
+          setError('Video not found.');
         }
-      } catch (err) {
-        console.error('Error fetching video:', err);
-        setError('Error loading video');
+      } catch (e) {
+        console.error('Failed to fetch video details:', e);
+        setError('Failed to load video details.');
       } finally {
         setLoading(false);
       }
     };
 
-    if (videoId) {
-      fetchVideo();
-    }
+    fetchVideoDetails();
   }, [videoId]);
 
   if (loading) {

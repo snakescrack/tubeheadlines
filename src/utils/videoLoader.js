@@ -30,8 +30,8 @@ export const loadAllVideos = async () => {
     const videos = querySnapshot.docs.map(doc => {
       const data = doc.data();
       return {
-        id: doc.id,
         ...data,
+        id: data.videoId || doc.id, // Prefer the explicit videoId field, fallback to doc.id
         // Ensure createdAt is a JavaScript Date regardless of its stored format
         createdAt: parseDate(data.createdAt),
         // Ensure scheduledAt is a JavaScript Date if it exists
@@ -122,6 +122,7 @@ export const getVideosForPosition = async (positionType, page = 1, pageSize = 10
   // Filter by position and visibility
   const filteredVideos = allVideos
     .filter(video => video.position_type === positionType)
+    .filter(video => video.id) // Ensure video has a valid ID
     .filter(isVideoVisible)
     .sort((a, b) => b.createdAt - a.createdAt); // Sort by date descending
   
@@ -148,8 +149,8 @@ export const getVideosForPosition = async (positionType, page = 1, pageSize = 10
 export const getAllVideosForHomepage = async (pages = { top: 1, left: 1, right: 1 }, pageSize = 10) => {
   const allVideos = await loadAllVideos();
 
-  // Filter only visible videos
-  const visibleVideos = allVideos.filter(isVideoVisible);
+  // Filter only visible videos that have an ID
+  const visibleVideos = allVideos.filter(v => v.id && isVideoVisible(v));
 
   // 1. Get the featured video - the newest one from the 'top' position
   const featuredVideo = visibleVideos
