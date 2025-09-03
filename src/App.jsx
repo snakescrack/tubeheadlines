@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
 import { pageview, event } from './utils/analytics';
+import { Routes, Route, Link } from 'react-router-dom';
+import { getAllVideosForHomepage } from './utils/videoLoader';
 import { checkEnvironmentVariables } from './utils/envTest';
 import Stats from './components/Stats';
 import CookieNotice from './components/CookieNotice';
-import ShareButton from './components/ShareButton';
-import { getAllVideosForHomepage } from './utils/videoLoader';
 import SEO from './components/SEO';
+import ShareButton from './components/ShareButton';
 import WelcomeBanner from './components/WelcomeBanner';
-import HomepageDescription from './components/HomepageDescription';
-
 import Privacy from './components/Privacy';
 import Terms from './components/Terms';
 import FAQ from './components/FAQ';
 import BlogPost from './components/BlogPost';
 import VideoPage from './components/VideoPage';
-
+import HomepageDescription from './components/HomepageDescription';
 import './App.css';
 import './components/ShareButton.css';
 import './components/LoadingError.css';
@@ -23,6 +21,30 @@ import './components/WelcomeBanner.css';
 import './components/PaginationTest.css';
 
 function App() {
+  useEffect(() => {
+    // Track page view
+    pageview(
+      'TubeHeadlines - Home',
+      window.location.href,
+      window.location.pathname
+    );
+    
+    // Send test event to verify analytics is working
+    event({
+      action: 'page_loaded',
+      category: 'user_engagement',
+      label: 'home_page',
+      value: 1
+    });
+    
+    // Log analytics status for debugging
+    console.log('Analytics initialized:', !!window.gtag);
+    
+    // Check environment variables
+    const envCheck = checkEnvironmentVariables();
+    console.log('Environment variables check:', envCheck);
+  }, []);
+
   const [videos, setVideos] = useState({
     featured: null,
     columns: {
@@ -44,11 +66,14 @@ function App() {
     right: 1
   });
 
+
   const loadVideos = async () => {
     try {
+      console.log('Loading videos with pages:', pages);
       setLoading(true);
       setError(null);
       const result = await getAllVideosForHomepage(pages);
+      console.log('Received videos:', result);
 
       const newVideosState = {
         featured: result.featured || null,
@@ -65,6 +90,7 @@ function App() {
       };
 
       setVideos(newVideosState);
+      console.log('Videos state after update:', newVideosState);
     } catch (err) {
       setError('Failed to load videos. Please try again.');
       console.error('Error loading videos:', err);
@@ -77,12 +103,6 @@ function App() {
     loadVideos();
   }, [pages.left, pages.center, pages.right]);
 
-  useEffect(() => {
-    pageview(window.location.pathname, window.location.href, document.title);
-    const envCheck = checkEnvironmentVariables();
-    console.log('Environment variables check:', envCheck);
-  }, []);
-
   const handlePageChange = (position, newPage) => {
     if (newPage < 1 || newPage > videos.pagination[position].totalPages) {
       return;
@@ -92,6 +112,18 @@ function App() {
       [position]: newPage
     }));
   };
+
+  const handleCategoryChange = (category) => {
+    // Track category change event
+    event({
+      action: 'category_change',
+      category: 'navigation',
+      label: category,
+      value: 1
+    });
+    setSelectedCategory(category);
+  };
+
 
   const renderPagination = (position) => {
     const { currentPage, totalPages } = videos.pagination[position];
@@ -105,9 +137,13 @@ function App() {
         >
           Previous
         </button>
+        
+        {/* Page Numbers */}
         <div className="page-numbers">
           {[...Array(totalPages)].map((_, index) => {
             const pageNum = index + 1;
+            
+            // Show first page, last page, current page, and 1 page before/after current
             if (
               pageNum === 1 || 
               pageNum === totalPages || 
@@ -123,12 +159,16 @@ function App() {
                 </button>
               );
             }
+            
+            // Show ellipsis for gaps
             if (pageNum === 2 || pageNum === totalPages - 1) {
               return <span key={pageNum} className="ellipsis">...</span>;
             }
+            
             return null;
           })}
         </div>
+        
         <button 
           onClick={() => handlePageChange(position, currentPage + 1)}
           disabled={currentPage === totalPages}
@@ -148,8 +188,6 @@ function App() {
       default: return '';
     }
   };
-
-  const allVideos = [videos.featured, ...Object.values(videos.columns).flatMap(col => Object.values(col).flat())].filter(Boolean);
 
   const Homepage = () => {
     if (loading) {
@@ -172,6 +210,8 @@ function App() {
         </>
       );
     }
+
+    const allVideos = [videos.featured, ...Object.values(videos.columns).flatMap(col => Object.values(col).flat())].filter(Boolean);
 
     return (
       <>
@@ -243,14 +283,14 @@ function App() {
 
   return (
     <div className="app">
-               <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
-          <Route path="/video/:id" element={<VideoPage />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
+        <Route path="/video/:id" element={<VideoPage />} />
+      </Routes>
             
       <div className="fixed-links">
         <Link to="/privacy">PRIVACY</Link>

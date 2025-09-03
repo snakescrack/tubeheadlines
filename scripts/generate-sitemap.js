@@ -67,7 +67,7 @@ const generateSitemap = async () => {
     const sitemapPath = path.resolve(__dirname, '..', 'public', 'sitemap.xml');
 
     const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${SITE_URL}/</loc>
     <lastmod>${today}</lastmod>
@@ -98,7 +98,6 @@ const generateSitemap = async () => {
     <lastmod>${new Date(video.createdAt).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    ${video.thumbnailURL ? `<image:image><image:loc>${video.thumbnailURL.replace(/&/g, '&amp;')}</image:loc></image:image>` : ''}
   </url>`).join('')}
 </urlset>`;
 
