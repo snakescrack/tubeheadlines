@@ -3,7 +3,6 @@ import { useParams, Navigate } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase.js';
 import SEO from './SEO';
-import VideoPageSkeleton from './VideoPageSkeleton';
 import { pageview } from '../utils/analytics';
 
 const VideoPage = () => {
@@ -45,7 +44,11 @@ const VideoPage = () => {
   }, [videoId]);
 
   if (loading) {
-    return <VideoPageSkeleton />;
+    return (
+      <div style={{ padding: '2rem', textAlign: 'center' }}>
+        <h2>Loading...</h2>
+      </div>
+    );
   }
 
   if (error || !video) {
