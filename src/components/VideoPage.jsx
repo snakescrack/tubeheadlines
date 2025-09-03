@@ -1,55 +1,51 @@
-// Correct implementation using youtube-proxy
 import React, { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase'; 
 import SEO from './SEO';
 import { pageview } from '../utils/analytics';
 
 const VideoPage = () => {
-  const { id: videoId } = useParams();
+  const { id } = useParams(); // Use 'id' directly from the URL
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchVideoDetails = async () => {
-      if (!videoId) return;
+    const fetchVideo = async () => {
+      if (!id) {
+        setLoading(false);
+        setError('No video ID provided');
+        return;
+      }
 
-      setLoading(true);
       try {
-        const response = await fetch(`/.netlify/functions/youtube-proxy?videoId=${videoId}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        setLoading(true);
+        const videoDocRef = doc(db, 'videos', id);
+        const videoDoc = await getDoc(videoDocRef);
 
-        if (data.items && data.items.length > 0) {
-          const snippet = data.items[0].snippet;
-          const videoData = {
-            id: videoId,
-            customHeadline: snippet.title,
-            description: snippet.description,
-            thumbnailURL: snippet.thumbnails.high.url,
-            youtubeURL: `https://www.youtube.com/watch?v=${videoId}`
-          };
+        if (videoDoc.exists()) {
+          const videoData = { id: videoDoc.id, ...videoDoc.data() };
           setVideo(videoData);
+          
           pageview(
             `${videoData.customHeadline} | TubeHeadlines`,
             window.location.href,
             window.location.pathname
           );
         } else {
-          setError('Video not found.');
+          setError('Video not found');
         }
-      } catch (e) {
-        console.error('Failed to fetch video details:', e);
-        setError('Failed to load video details.');
+      } catch (err) {
+        console.error('Error fetching video:', err);
+        setError('Error loading video');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchVideoDetails();
-  }, [videoId]);
+    fetchVideo();
+  }, [id]);
 
   if (loading) {
     return (

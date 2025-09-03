@@ -230,7 +230,7 @@ function App() {
 
         {videos.featured && (
           <div className="featured-video">
-            <Link to={`/video/${videos.featured.id}`} className="video-link">
+            <Link to={`/video/${videos.featured.videoId}`} className="video-link">
               <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} />
               <h2>{videos.featured.customHeadline}</h2>
             </Link>
@@ -248,7 +248,7 @@ function App() {
                   <div key={category} className="category-section">
                     {categoryVideos.map((video) => (
                       <div key={video.id} className="video-item">
-                        <Link to={`/video/${video.id}`} className="video-link">
+                        <Link to={`/video/${video.videoId}`} className="video-link">
                           <img src={video.thumbnailURL} alt={video.customHeadline} />
                           <p>{video.customHeadline}</p>
                         </Link>
