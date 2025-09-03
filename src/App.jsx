@@ -239,10 +239,10 @@ function App() {
 
         {videos.featured && (
           <div className="featured-video">
-            <Link to={`/video/${videos.featured.videoId}`} className="video-link">
+            <a href={videos.featured.youtubeURL} target="_blank" rel="noopener noreferrer" className="video-link">
               <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} />
               <h2>{videos.featured.customHeadline}</h2>
-            </Link>
+            </a>
           </div>
         )}
 
@@ -257,10 +257,10 @@ function App() {
                   <div key={category} className="category-section">
                     {categoryVideos.map((video) => (
                       <div key={video.id} className="video-item">
-                        <Link to={`/video/${video.videoId}`} className="video-link">
+                        <a href={video.youtubeURL} target="_blank" rel="noopener noreferrer" className="video-link">
                           <img src={video.thumbnailURL} alt={video.customHeadline} />
                           <p>{video.customHeadline}</p>
-                        </Link>
+                        </a>
                         <button 
                           className="video-share-button"
                           onClick={(e) => {
