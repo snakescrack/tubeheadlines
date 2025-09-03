@@ -1,7 +1,6 @@
 # Fixed build configuration for consolidated project
 [build]
-  environment = { NODE_VERSION = "18" }
-  command = "rm -rf node_modules package-lock.json && npm install && node scripts/generate-sitemap.js && vite build"
+  command = "npm run build"
   commandOrigin = "config"
   publish = "dist"
   publishOrigin = "config"
