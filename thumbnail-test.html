@@ -9,38 +9,34 @@
     <div id="status">Testing API key...</div>
 
     <script>
-        const apiKey = "AIzaSyDAQP3Yp1p6s4yNgfQOr1OvGsvEr8v5BEk";
-
         // --- Do not change anything below this line ---
         const videoId = "lg4vijdIYg0"; // A sample video ID to test with
         const statusDiv = document.getElementById('status');
 
-        if (apiKey === "" || !apiKey) {
-            statusDiv.innerHTML = '<p style="color: orange;"><strong>Error:</strong> API key is missing.</p>';
-        } else {
-            fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        return response.json().then(errorData => {
-                            throw new Error(errorData.error.message || 'Unknown error');
-                        });
-                    }
-                })
-                .then(data => {
-                    if (data.items && data.items.length > 0) {
-                        statusDiv.innerHTML = '<p style="color: green;"><strong>Success!</strong> The API key is valid.</p>' +
-                                            '<p>Video Title: ' + data.items[0].snippet.title + '</p>';
-                    } else {
-                        statusDiv.innerHTML = '<p style="color: red;"><strong>Error:</strong> The API key is likely invalid or restricted. The API call succeeded but returned no video data.</p>';
-                    }
-                })
-                .catch(error => {
-                    statusDiv.innerHTML = '<p style="color: red;"><strong>Error:</strong> ' + error.message + '</p>' +
-                                        '<p>This likely means the API key is invalid or has restrictions (like HTTP referrer or IP address limits) preventing it from being used here.</p>';
-                });
-        }
+        fetch(`/.netlify/functions/youtube-proxy?videoId=${videoId}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.error.message || 'Unknown error');
+                    });
+                }
+            })
+            .then(data => {
+                if (data.items && data.items.length > 0) {
+                    statusDiv.innerHTML = '<p style="color: green;"><strong>Success!</strong> The API key is valid.</p>' +
+                                        '<p>Video Title: ' + data.items[0].snippet.title + '</p>';
+                } else if (data.error) {
+                     statusDiv.innerHTML = '<p style="color: red;"><strong>Error:</strong> ' + data.error + '</p>';
+                } else {
+                    statusDiv.innerHTML = '<p style="color: red;"><strong>Error:</strong> The API key is likely invalid or restricted. The API call succeeded but returned no video data.</p>';
+                }
+            })
+            .catch(error => {
+                statusDiv.innerHTML = '<p style="color: red;"><strong>Error:</strong> ' + error.message + '</p>' +
+                                    '<p>This likely means the API key is invalid or has restrictions (like HTTP referrer or IP address limits) preventing it from being used here.</p>';
+            });
     </script>
 
 </body>
