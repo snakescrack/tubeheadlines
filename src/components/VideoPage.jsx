@@ -69,7 +69,7 @@ const VideoPage = () => {
       <SEO
         title={pageTitle}
         description={pageDescription}
-        path={`/video/${videoId}`}
+        path={`/video/${id}`}
         videoData={video}
       />
       

@@ -13,15 +13,6 @@ import Terms from './components/Terms.jsx';
 import FAQ from './components/FAQ.jsx';
 import BlogPost from './components/BlogPost.jsx';
 import VideoPage from './components/VideoPage.jsx';
-import AdminPage from './components/Admin.jsx';
-import ManageVideos from './components/ManageVideos.jsx';
-import LoginPage from './components/Login.jsx';
-import FAQPage from './components/FAQPage.jsx';
-import PrivacyPolicy from './components/PrivacyPolicy.jsx';
-import TermsOfService from './components/TermsOfService.jsx';
-import ContactUs from './components/ContactUs.jsx';
-import AboutUs from './components/AboutUs.jsx';
-import Blog from './components/Blog.jsx';
 import HomepageDescription from './components/HomepageDescription.jsx';
 import './App.css';
 import './components/ShareButton.css';
@@ -239,10 +230,10 @@ function App() {
 
         {videos.featured && (
           <div className="featured-video">
-            <a href={videos.featured.youtubeURL} target="_blank" rel="noopener noreferrer" className="video-link">
+            <Link to={`/video/${videos.featured.videoId}`} className="video-link">
               <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} />
               <h2>{videos.featured.customHeadline}</h2>
-            </a>
+            </Link>
           </div>
         )}
 
@@ -257,10 +248,10 @@ function App() {
                   <div key={category} className="category-section">
                     {categoryVideos.map((video) => (
                       <div key={video.id} className="video-item">
-                        <a href={video.youtubeURL} target="_blank" rel="noopener noreferrer" className="video-link">
+                        <Link to={`/video/${video.videoId}`} className="video-link">
                           <img src={video.thumbnailURL} alt={video.customHeadline} />
                           <p>{video.customHeadline}</p>
-                        </a>
+                        </Link>
                         <button 
                           className="video-share-button"
                           onClick={(e) => {
