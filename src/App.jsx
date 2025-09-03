@@ -15,7 +15,7 @@ import BlogPost from './components/BlogPost.jsx';
 import VideoPage from './components/VideoPage.jsx';
 import AdminPage from './components/Admin.jsx';
 import ManageVideos from './components/ManageVideos.jsx';
-import LoginPage from './components/LoginPage.jsx';
+import LoginPage from './components/Login.jsx';
 import FAQPage from './components/FAQPage.jsx';
 import PrivacyPolicy from './components/PrivacyPolicy.jsx';
 import TermsOfService from './components/TermsOfService.jsx';
