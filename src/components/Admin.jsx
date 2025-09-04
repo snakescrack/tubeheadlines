@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { addVideo, CATEGORIES, getDefaultCategory, deleteVideo, getAllVideos, updateVideo, getScheduledVideos, checkScheduledVideos } from '../utils/dbOperations';
+import { db } from '../firebase';
 import '../styles/Admin.css';
 
 export default function Admin() {
@@ -213,6 +214,21 @@ export default function Admin() {
     setEditMode(true);
     setEditId(video.id);
   };
+
+  const loadSubmissions = async () => {
+    try {
+      const q = query(collection(db, 'creatorSubmissions'), orderBy('submittedAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      const subs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setSubmissions(subs);
+    } catch (error) {
+      console.error('Error loading submissions:', error);
+      setMessage('Error loading submissions: ' + error.message);
+    }
+  };
+
+
+
 
   const getCategoryDescription = (position) => {
     const categories = CATEGORIES[position];

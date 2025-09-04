@@ -55,8 +55,15 @@ const VideoPage = () => {
     );
   }
 
-  if (error || !video) {
-    return <Navigate to="/" replace />;
+    if (error || !video) {
+    return (
+      <div style={{ padding: '2rem', textAlign: 'center' }}>
+        <SEO title="Video Not Found | TubeHeadlines" path={`/video/${id}`} />
+        <h2>Video Not Found</h2>
+        <p>Sorry, the video you are looking for does not exist or has been moved.</p>
+        <a href="/">← Back to TubeHeadlines</a>
+      </div>
+    );
   }
 
   // Create SEO-optimized title and description
