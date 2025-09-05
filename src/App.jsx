@@ -13,6 +13,7 @@ import Terms from './components/Terms.jsx';
 import FAQ from './components/FAQ.jsx';
 import BlogPost from './components/BlogPost.jsx';
 import VideoPage from './components/VideoPage.jsx';
+import GetFeatured from './components/GetFeatured.jsx';
 import HomepageDescription from './components/HomepageDescription.jsx';
 import './App.css';
 import './components/ShareButton.css';
@@ -289,7 +290,8 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
-        <Route path="/video/:id" element={<VideoPage />} />
+                        <Route path="/video/:id" element={<VideoPage />} />
+        <Route path="/get-featured" element={<GetFeatured />} />
       </Routes>
             
       <div className="fixed-links">
@@ -301,7 +303,9 @@ function App() {
         <span className="link-separator">|</span>
         <Link to="/blog/why-i-built-tubeheadlines">BLOG</Link>
         <span className="link-separator">|</span>
-        <ShareButton />
+                        <ShareButton />
+        <span className="link-separator">|</span>
+        <Link to="/get-featured">GET FEATURED</Link>
       </div>
       <Stats />
       <CookieNotice />

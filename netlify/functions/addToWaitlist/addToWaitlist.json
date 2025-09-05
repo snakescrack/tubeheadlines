@@ -1,0 +1,3 @@
+{
+  "included_files": ["../../node_modules/firebase-admin/**"]
+}

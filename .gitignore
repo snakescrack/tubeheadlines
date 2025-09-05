@@ -31,3 +31,6 @@ Thumbs.db
 
 # Firebase cache
 .firebase/
+
+# Local Netlify folder
+.netlify

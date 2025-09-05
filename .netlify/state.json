@@ -1,3 +1,21 @@
 {
-	"siteId": "2e494326-c77c-41b8-94c4-d148c44071df"
+	"siteId": "2e494326-c77c-41b8-94c4-d148c44071df",
+	"geolocation": {
+		"data": {
+			"city": "Newham",
+			"country": {
+				"code": "GB",
+				"name": "United Kingdom"
+			},
+			"subdivision": {
+				"code": "ENG",
+				"name": "England"
+			},
+			"timezone": "Europe/London",
+			"latitude": 51.5277,
+			"longitude": 0.0252,
+			"postalCode": "E13"
+		},
+		"timestamp": 1756989023007
+	}
 }
