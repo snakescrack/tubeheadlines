@@ -1,5 +1,9 @@
-const { initializeApp, getApps, cert } = require('firebase-admin/app');
-const { getFirestore } = require('firebase-admin/firestore');
+import { initializeApp, getApps, cert } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
+import fs from 'fs';
+
+const logPath = 'd:/drudgereport/function-log.txt';
+const log = (message) => fs.appendFileSync(logPath, `[${new Date().toISOString()}] ${message}\n`);
 
 let db;
 
@@ -19,15 +23,18 @@ function initializeFirebase() {
       }
       
       db = getFirestore();
+      log('Firebase initialized successfully.');
       console.log('Firebase initialized successfully');
     } catch (error) {
+      log(`Firebase initialization error: ${error.message}`);
       console.error('Firebase initialization error:', error);
       throw error;
     }
   }
 }
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
+  log('Handler started.');
   // Set CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -49,6 +56,7 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    initializeFirebase();
     // Parse request body
     const { name, email, channelUrl } = JSON.parse(event.body);
 
@@ -76,6 +84,7 @@ exports.handler = async (event, context) => {
     // Add to Firestore
     const docRef = await db.collection('waitlist').add(entry);
     
+    log(`Successfully added entry with ID: ${docRef.id}`);
     console.log('Successfully added entry with ID:', docRef.id);
 
     return { 
@@ -88,6 +97,7 @@ exports.handler = async (event, context) => {
     };
 
   } catch (error) {
+    log(`Error adding to waitlist: ${error.message}`);
     console.error('Error adding to waitlist:', error);
     
     return { 

@@ -26,8 +26,16 @@ const GetFeatured = () => {
       return;
     }
 
+    // Validate YouTube URL format
+    const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+    if (!youtubeRegex.test(formData.channelUrl)) {
+      setError('Please enter a valid YouTube channel URL (e.g., https://www.youtube.com/yourchannel)');
+      setMessage('');
+      return;
+    }
+
     try {
-      const response = await fetch('/.netlify/functions/addToWaitlist', {
+      const response = await fetch('/api/addToWaitlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

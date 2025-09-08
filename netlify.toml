@@ -20,6 +20,11 @@
   status = 301
 
 [[redirects]]
+  from = "/api/addToWaitlist"
+  to = "/.netlify/functions/addToWaitlist"
+  status = 200
+
+[[redirects]]
   from = "/terms.html"
   to = "/terms"
   status = 301

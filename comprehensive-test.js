@@ -1,45 +1,44 @@
-const path = require('path');
+// Since the project is using ES modules ("type": "module" in package.json),
+// we cannot use 'require'. This script is updated to use dynamic import().
 
-// Add the netlify/functions directory to the module path
-const functionsDir = path.join(__dirname, 'netlify', 'functions');
+import path from 'path';
+import { promises as fs } from 'fs';
 
-// Mock the environment
+// Mock the environment for the test
 process.env.FIREBASE_PROJECT_ID = 'test-project';
 process.env.FIREBASE_CLIENT_EMAIL = 'test@test.com';
 process.env.FIREBASE_PRIVATE_KEY = 'test-key';
 
-// Test the function directly
-console.log('Testing addToWaitlist function...');
+async function runTest() {
+  console.log('Testing addToWaitlist function...');
 
-try {
-  // This will test if the function can be loaded without errors
-  const func = require('./netlify/functions/addToWaitlist.js');
-  console.log('Function loaded successfully');
-  
-  // Create a mock event
-  const mockEvent = {
-    httpMethod: 'POST',
-    body: JSON.stringify({
-      name: 'Test Creator',
-      email: 'test@example.com',
-      channelUrl: 'https://youtube.com/testchannel'
-    })
-  };
-  
-  // Test the handler
-  if (func.handler) {
-    console.log('Handler function found, testing...');
-    func.handler(mockEvent, {})
-      .then(result => {
-        console.log('Success:', JSON.stringify(result, null, 2));
+  try {
+    // Dynamically import the function to test it
+    const functionPath = path.resolve('./netlify/functions/addToWaitlist.js');
+    const { handler } = await import(`file://${functionPath}`);
+    console.log('Function loaded successfully.');
+
+    // Create a mock event to simulate a form submission
+    const mockEvent = {
+      httpMethod: 'POST',
+      body: JSON.stringify({
+        name: 'Test Creator',
+        email: 'test@example.com',
+        channelUrl: 'https://youtube.com/testchannel'
       })
-      .catch(error => {
-        console.log('Error:', error.message);
-      });
-  } else {
-    console.log('No handler function found');
+    };
+
+    // Test the handler function
+    if (handler) {
+      console.log('Handler function found, executing test...');
+      const result = await handler(mockEvent, {});
+      console.log('Success:', JSON.stringify(result, null, 2));
+    } else {
+      console.log('Error: No handler function was exported from the module.');
+    }
+  } catch (error) {
+    console.error('Error during test execution:', error);
   }
-} catch (error) {
-  console.log('Error loading function:', error.message);
-  console.log('Stack:', error.stack);
 }
+
+runTest();

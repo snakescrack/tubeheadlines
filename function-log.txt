@@ -1,0 +1,5 @@
+[2025-09-05T09:02:43.867Z] Handler started.
+[2025-09-05T09:02:43.871Z] Error adding to waitlist: Cannot read properties of undefined (reading 'collection')
+[2025-09-05T09:04:10.841Z] Handler started.
+[2025-09-05T09:04:11.838Z] Firebase initialization error: Failed to parse private key: Error: Invalid PEM formatted message.
+[2025-09-05T09:04:11.845Z] Error adding to waitlist: Failed to parse private key: Error: Invalid PEM formatted message.
