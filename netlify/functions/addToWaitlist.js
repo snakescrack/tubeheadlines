@@ -1,3 +1,6 @@
+import crypto from 'crypto';
+crypto.setEngine('node:crypto', 'legacy');
+
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import fs from 'fs';
