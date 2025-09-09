@@ -2,8 +2,11 @@ import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import fs from 'fs';
 
-const logPath = 'd:/drudgereport/function-log.txt';
-const log = (message) => fs.appendFileSync(logPath, `[${new Date().toISOString()}] ${message}\n`);
+// Log to console in production, don't write to filesystem
+const log = (message) => {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] ${message}`);
+};
 
 let db;
 
