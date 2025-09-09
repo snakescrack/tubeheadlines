@@ -69,22 +69,42 @@ const StructuredData = ({ videos, currentUrl }) => {
   
   // Create video schema array for all videos
   const videoSchemas = videos && videos.length > 0 
-    ? videos.map(video => ({
-        '@context': 'https://schema.org',
-        '@type': 'VideoObject',
-        'name': video.customHeadline || video.title,
-        'description': video.description || `${video.customHeadline || video.title} - Watch on TubeHeadlines`,
-        'thumbnailUrl': video.thumbnailURL,
-        'uploadDate': video.publishedAt || new Date().toISOString(),
-        'contentUrl': video.youtubeURL,
-        'embedUrl': `https://www.youtube.com/embed/${getYouTubeId(video.youtubeURL)}`,
-        'duration': video.duration || 'PT0M0S',
-        'interactionStatistic': {
-          '@type': 'InteractionCounter',
-          'interactionType': { '@type': 'WatchAction' },
-          'userInteractionCount': video.viewCount || 0
+    ? videos.map(video => {
+        const videoId = getYouTubeId(video.youtubeURL);
+        
+        // Don't generate schema if there's no valid video ID
+        if (!videoId) {
+          return null;
         }
-      }))
+
+        const thumbnailUrls = [
+          `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+          `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+          `https://img.youtube.com/vi/${videoId}/sddefault.jpg`
+        ];
+
+        // If a custom thumbnail is provided, add it to the front of the list
+        if (video.thumbnailURL) {
+          thumbnailUrls.unshift(video.thumbnailURL);
+        }
+
+        return {
+          '@context': 'https://schema.org',
+          '@type': 'VideoObject',
+          'name': video.customHeadline || video.title,
+          'description': video.description || `${video.customHeadline || video.title} - Watch on TubeHeadlines`,
+          'thumbnailUrl': thumbnailUrls,
+          'uploadDate': video.publishedAt || new Date().toISOString(),
+          'contentUrl': video.youtubeURL,
+          'embedUrl': `https://www.youtube.com/embed/${videoId}`,
+          'duration': video.duration || 'PT0M0S',
+          'interactionStatistic': {
+            '@type': 'InteractionCounter',
+            'interactionType': { '@type': 'WatchAction' },
+            'userInteractionCount': video.viewCount || 0
+          }
+        };
+      }).filter(Boolean) // Remove nulls from videos that couldn't be processed
     : [];
   
   return (

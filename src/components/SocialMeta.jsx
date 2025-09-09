@@ -22,6 +22,7 @@ const SocialMeta = ({
       {/* Primary Meta Tags */}
       <meta name="title" content={title} />
       <meta name="description" content={description} />
+      <link rel="canonical" href={url} />
       
       {/* Open Graph / Facebook / WhatsApp */}
       <meta property="og:type" content={type} />
