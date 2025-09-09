@@ -13,7 +13,6 @@ import Terms from './components/Terms.jsx';
 import FAQ from './components/FAQ.jsx';
 import BlogPost from './components/BlogPost.jsx';
 import VideoPage from './components/VideoPage.jsx';
-import GetFeatured from './components/GetFeatured.jsx';
 import HomepageDescription from './components/HomepageDescription.jsx';
 import './App.css';
 import './components/ShareButton.css';
