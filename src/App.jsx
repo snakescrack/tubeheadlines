@@ -291,7 +291,6 @@ function App() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
                         <Route path="/video/:id" element={<VideoPage />} />
-        <Route path="/get-featured" element={<GetFeatured />} />
       </Routes>
             
       <div className="fixed-links">
@@ -304,8 +303,6 @@ function App() {
         <Link to="/blog/why-i-built-tubeheadlines">BLOG</Link>
         <span className="link-separator">|</span>
                         <ShareButton />
-        <span className="link-separator">|</span>
-        <Link to="/get-featured">GET FEATURED</Link>
       </div>
       <Stats />
       <CookieNotice />
