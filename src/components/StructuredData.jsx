@@ -88,7 +88,7 @@ const StructuredData = ({ videos, currentUrl }) => {
           thumbnailUrls.unshift(video.thumbnailURL);
         }
 
-        return {
+        const schema = {
           '@context': 'https://schema.org',
           '@type': 'VideoObject',
           'name': video.customHeadline || video.title,
@@ -97,13 +97,18 @@ const StructuredData = ({ videos, currentUrl }) => {
           'uploadDate': video.publishedAt || new Date().toISOString(),
           'contentUrl': video.youtubeURL,
           'embedUrl': `https://www.youtube.com/embed/${videoId}`,
-          'duration': video.duration || 'PT0M0S',
           'interactionStatistic': {
             '@type': 'InteractionCounter',
             'interactionType': { '@type': 'WatchAction' },
             'userInteractionCount': video.viewCount || 0
           }
         };
+
+        if (video.duration && video.duration !== 'PT0S' && video.duration !== 'PT0M0S') {
+          schema.duration = video.duration;
+        }
+
+        return schema;
       }).filter(Boolean) // Remove nulls from videos that couldn't be processed
     : [];
   
