@@ -98,22 +98,30 @@ const SEO = ({
       {/* VideoObject Schema */}
       {videoData && (
         <script type="application/ld+json">
-          {JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'VideoObject',
-            name: videoData.customHeadline || title,
-            description,
-            thumbnailUrl: videoData.thumbnailURL,
-            uploadDate: videoData.publishedAt || videoData.createdAt || new Date().toISOString(),
-            contentUrl: videoData.youtubeURL,
-            embedUrl: `https://www.youtube.com/embed/${getYouTubeId(videoData.youtubeURL)}`,
-            duration: videoData.duration || 'PT0M0S',
-            interactionStatistic: {
-              '@type': 'InteractionCounter',
-              'interactionType': { '@type': 'WatchAction' },
-              'userInteractionCount': videoData.viewCount || 0
+          {JSON.stringify((() => {
+            const schema = {
+              '@context': 'https://schema.org',
+              '@type': 'VideoObject',
+              name: videoData.customHeadline || title,
+              description,
+              thumbnailUrl: videoData.thumbnailURL,
+              image: videoData.thumbnailURL, // Add image property
+              uploadDate: videoData.publishedAt || videoData.createdAt || new Date().toISOString(),
+              contentUrl: videoData.youtubeURL,
+              embedUrl: `https://www.youtube.com/embed/${getYouTubeId(videoData.youtubeURL)}`,
+              interactionStatistic: {
+                '@type': 'InteractionCounter',
+                'interactionType': { '@type': 'WatchAction' },
+                'userInteractionCount': videoData.viewCount || 0
+              }
+            };
+
+            if (videoData.duration && videoData.duration !== 'PT0S' && videoData.duration !== 'PT0M0S') {
+              schema.duration = videoData.duration;
             }
-          })}
+
+            return schema;
+          })())}
         </script>
       )}
       

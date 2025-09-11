@@ -1,19 +1,10 @@
-# TubeHeadlines robots.txt
+# Allow all crawlers full access
 User-agent: *
-Allow: /
-Disallow: /admin/
+Disallow:
 
-# Prevent caching of API responses
-Disallow: /api/
-
-# Allow all static content
-Allow: /*.js
-Allow: /*.css
-Allow: /*.png
-Allow: /*.jpg
-Allow: /*.gif
-Allow: /*.svg
-Allow: /*.ico
+# Specifically disallow the admin page
+User-agent: *
+Disallow: /admin
 
 # Point to sitemap
 Sitemap: https://tubeheadlines.com/sitemap.xml
