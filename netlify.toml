@@ -23,3 +23,9 @@
   from = "/terms.html"
   to = "/terms"
   status = 301
+
+# Single-Page App (SPA) catch-all rule
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
