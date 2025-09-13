@@ -16,7 +16,7 @@ const GetFeatured = () => {
         <div className="get-featured-card">
           <h2>Get Featured on TubeHeadlines</h2>
           <p>Are you a YouTube creator? Submit your channel for a chance to be featured on our homepage.</p>
-          <form name="get-featured" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <form name="get-featured" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you">
             {/* This hidden input is required for Netlify Forms */}
             <input type="hidden" name="form-name" value="get-featured" />
             <p className="hidden" style={{ display: 'none' }}>

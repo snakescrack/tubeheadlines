@@ -15,6 +15,7 @@ import BlogPost from './components/BlogPost.jsx';
 import VideoPage from './components/VideoPage.jsx';
 import NotFound from './components/NotFound.jsx';
 import GetFeatured from './components/GetFeatured.jsx';
+import ThankYou from './components/ThankYou.jsx';
 import HomepageDescription from './components/HomepageDescription.jsx';
 import './App.css';
 import './components/ShareButton.css';
@@ -293,6 +294,7 @@ function App() {
         <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
                         <Route path="/video/:id" element={<VideoPage />} />
         <Route path="/get-featured" element={<GetFeatured />} />
+        <Route path="/thank-you" element={<ThankYou />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
             
