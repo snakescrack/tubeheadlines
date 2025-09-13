@@ -19,7 +19,7 @@ const GetFeatured = () => {
           <form name="get-featured" method="POST" data-netlify="true" netlify-honeypot="bot-field">
             {/* This hidden input is required for Netlify Forms */}
             <input type="hidden" name="form-name" value="get-featured" />
-            <p className="hidden">
+            <p className="hidden" style={{ display: 'none' }}>
               <label>
                 Don’t fill this out if you’re human: <input name="bot-field" />
               </label>
