@@ -104,7 +104,7 @@ const SEO = ({
               '@type': 'VideoObject',
               name: videoData.customHeadline || title,
               description,
-              thumbnailUrl: videoData.thumbnailURL,
+              thumbnailUrl: [videoData.thumbnailURL],
               image: videoData.thumbnailURL, // Add image property
               uploadDate: videoData.publishedAt || videoData.createdAt || new Date().toISOString(),
               contentUrl: videoData.youtubeURL,
