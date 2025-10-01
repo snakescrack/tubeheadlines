@@ -1,0 +1,196 @@
+.submit-channel-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.submit-header {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 10px;
+}
+
+.submit-header h1 {
+  font-size: 2.5em;
+  margin: 0 0 15px 0;
+  font-weight: bold;
+}
+
+.submit-subtitle {
+  font-size: 1.2em;
+  margin: 0;
+  opacity: 0.95;
+}
+
+.submit-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.submit-info h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+}
+
+.benefits-list li {
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #f8f9fa;
+  border-left: 4px solid #667eea;
+  border-radius: 5px;
+}
+
+.benefits-list strong {
+  color: #667eea;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.what-we-look-for {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.what-we-look-for h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.what-we-look-for ul {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+
+.what-we-look-for li {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.quality-note {
+  margin-top: 20px;
+  padding: 15px;
+  background: #e8f4f8;
+  border-left: 4px solid #17a2b8;
+  border-radius: 5px;
+  font-style: italic;
+  color: #333;
+}
+
+.form-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.form-intro {
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 1.1em;
+}
+
+.submit-form-button {
+  display: inline-block;
+  padding: 18px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  margin: 20px 0;
+}
+
+.submit-form-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.form-note {
+  color: #666;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 10px;
+}
+
+.submit-footer {
+  text-align: center;
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  margin-top: 40px;
+}
+
+.submit-footer p {
+  margin: 0;
+  font-size: 1.1em;
+  color: #555;
+}
+
+.submit-footer a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.submit-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .submit-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .submit-header h1 {
+    font-size: 2em;
+  }
+  
+  .submit-subtitle {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 600px) {
+  .submit-channel-container {
+    padding: 20px 10px;
+  }
+  
+  .submit-header {
+    padding: 20px 15px;
+  }
+  
+  .submit-header h1 {
+    font-size: 1.5em;
+  }
+  
+  .form-container {
+    padding: 20px 15px;
+  }
+}
