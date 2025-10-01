@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { pageview, event } from './utils/analytics';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { getAllVideosForHomepage } from './utils/videoLoader';
 import { checkEnvironmentVariables } from './utils/envTest';
 import Stats from './components/Stats.jsx';
@@ -21,6 +21,17 @@ import './components/ShareButton.css';
 import './components/LoadingError.css';
 import './components/WelcomeBanner.css';
 import './components/PaginationTest.css';
+
+// Component to remove trailing slashes from URLs
+const RemoveTrailingSlash = ({ children }) => {
+  const location = useLocation();
+
+  if (location.pathname.length > 1 && location.pathname.endsWith('/')) {
+    return <Navigate to={location.pathname.slice(0, -1)} replace />;
+  }
+
+  return children;
+};
 
 function App() {
   useEffect(() => {
@@ -285,16 +296,18 @@ function App() {
 
   return (
     <div className="app">
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
-                        <Route path="/video/:id" element={<VideoPage />} />
-        <Route path="/submit" element={<SubmitChannel />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <RemoveTrailingSlash>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
+                          <Route path="/video/:id" element={<VideoPage />} />
+          <Route path="/submit" element={<SubmitChannel />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </RemoveTrailingSlash>
             
       <div className="fixed-links">
         <Link to="/privacy">PRIVACY</Link>

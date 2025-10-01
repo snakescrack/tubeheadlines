@@ -69,7 +69,7 @@ const SubmitChannel = () => {
         </div>
 
         <div className="submit-footer">
-          <p>Questions? Email us at <a href="mailto:creators@tubeheadlines.com">creators@tubeheadlines.com</a></p>
+          <p>Questions? Email us at <a href="mailto:info@tubeheadlines.com">info@tubeheadlines.com</a></p>
         </div>
       </div>
     </>
