@@ -55,18 +55,16 @@ const SubmitChannel = () => {
 
           <div className="form-container">
             <h2>Submit Your Channel</h2>
-            <p className="form-intro">Fill out the form below and we'll review your channel within 48 hours.</p>
-            <iframe 
-              src="https://docs.google.com/forms/d/e/1FAIpQLSdEFFTdWR25nhPm8fk9/viewform?embedded=true" 
-              width="100%" 
-              height="800" 
-              frameBorder="0" 
-              marginHeight="0" 
-              marginWidth="0"
-              title="Creator Submission Form"
+            <p className="form-intro">Click the button below to open our submission form. We'll review your channel within 48 hours.</p>
+            <a 
+              href="https://forms.gle/EFFTdWR25nhPm8fk9" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="submit-form-button"
             >
-              Loading…
-            </iframe>
+              Open Submission Form
+            </a>
+            <p className="form-note">The form will open in a new tab</p>
           </div>
         </div>
 
