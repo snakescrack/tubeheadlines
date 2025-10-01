@@ -57,7 +57,7 @@ const SubmitChannel = () => {
             <h2>Submit Your Channel</h2>
             <p className="form-intro">Fill out the form below and we'll review your channel within 48 hours.</p>
             <iframe 
-              src="https://docs.google.com/forms/d/e/1FAIpQLSfqQxPzYvLRj8kZGqNhKxMxEJFTdWR25nhPm8fk9/viewform?embedded=true" 
+              src="https://docs.google.com/forms/d/e/1FAIpQLSdEFFTdWR25nhPm8fk9/viewform?embedded=true" 
               width="100%" 
               height="800" 
               frameBorder="0" 
