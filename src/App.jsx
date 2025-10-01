@@ -14,6 +14,7 @@ import FAQ from './components/FAQ.jsx';
 import BlogPost from './components/BlogPost.jsx';
 import VideoPage from './components/VideoPage.jsx';
 import NotFound from './components/NotFound.jsx';
+import GetFeatured from './components/GetFeatured.jsx';
 import HomepageDescription from './components/HomepageDescription.jsx';
 import './App.css';
 import './components/ShareButton.css';
@@ -291,6 +292,7 @@ function App() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
                         <Route path="/video/:id" element={<VideoPage />} />
+        <Route path="/get-featured" element={<GetFeatured />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
             
@@ -302,6 +304,8 @@ function App() {
         <Link to="/faq">FAQ</Link>
         <span className="link-separator">|</span>
         <Link to="/blog/why-i-built-tubeheadlines">BLOG</Link>
+        <span className="link-separator">|</span>
+        <Link to="/get-featured">SUBMIT YOUR CHANNEL</Link>
         <span className="link-separator">|</span>
                         <ShareButton />
       </div>

@@ -103,7 +103,7 @@ const SEO = ({
             '@type': 'VideoObject',
             name: videoData.customHeadline || title,
             description,
-            thumbnailUrl: videoData.thumbnailURL,
+            thumbnailUrl: [videoData.thumbnailURL],
             uploadDate: videoData.publishedAt || videoData.createdAt || new Date().toISOString(),
             contentUrl: videoData.youtubeURL,
             embedUrl: `https://www.youtube.com/embed/${getYouTubeId(videoData.youtubeURL)}`,
@@ -132,7 +132,7 @@ const SEO = ({
                 '@type': 'VideoObject',
                 'name': video.customHeadline || video.title,
                 'description': video.description || `${video.customHeadline || video.title} - Watch on TubeHeadlines`,
-                'thumbnailUrl': video.thumbnailURL,
+                'thumbnailUrl': [video.thumbnailURL],
                 'image': video.thumbnailURL, // Add image property
                 'uploadDate': video.publishedAt || video.createdAt || new Date().toISOString(),
                 'contentUrl': `${siteUrl}/video/${video.id}`,

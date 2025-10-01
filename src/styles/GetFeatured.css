@@ -1,0 +1,41 @@
+.get-featured-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align to top */
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #121212; /* Dark background */
+  color: #fff;
+}
+
+.get-featured-card {
+  background-color: #1e1e1e; /* Slightly lighter card background */
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  max-width: 800px; /* Wider card for the form */
+  width: 100%;
+  text-align: center;
+}
+
+.get-featured-card h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.get-featured-card p {
+  font-size: 1.1rem;
+  color: #b0b0b0; /* Lighter text for paragraph */
+  margin-bottom: 2rem;
+}
+
+.google-form-container {
+  width: 100%;
+  max-width: 700px; /* Max width for the iframe */
+  margin: 0 auto; /* Center the container */
+}
+
+.google-form-container iframe {
+  border-radius: 8px;
+}
