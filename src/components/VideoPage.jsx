@@ -91,6 +91,11 @@ const VideoPage = () => {
           <img 
             src={video.thumbnailURL} 
             alt={video.customHeadline}
+            width="640"
+            height="360"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
             style={{ 
               width: '100%', 
               maxWidth: '640px', 

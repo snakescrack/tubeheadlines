@@ -244,7 +244,7 @@ function App() {
         {videos.featured && (
           <div className="featured-video">
             <Link to={`/video/${videos.featured.id}`} className="video-link">
-              <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} />
+              <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} width="640" height="360" loading="eager" decoding="async" fetchpriority="high" />
               <h2>{videos.featured.customHeadline}</h2>
             </Link>
           </div>
@@ -262,7 +262,7 @@ function App() {
                     {categoryVideos.map((video) => (
                       <div key={video.id} className="video-item">
                         <Link to={`/video/${video.id}`} className="video-link">
-                          <img src={video.thumbnailURL} alt={video.customHeadline} />
+                          <img src={video.thumbnailURL} alt={video.customHeadline} width="320" height="180" loading="lazy" decoding="async" />
                           <p>{video.customHeadline}</p>
                         </Link>
                         <button 
