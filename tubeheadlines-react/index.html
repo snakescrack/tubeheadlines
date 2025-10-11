@@ -2,6 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Critical Performance Optimizations -->
+    <!-- Preconnect to external domains for faster resource loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="preconnect" href="https://i.ytimg.com">
+    <link rel="preconnect" href="https://img.youtube.com">
+    <link rel="dns-prefetch" href="https://firestore.googleapis.com">
+    
     <!-- Standard favicon -->    
     <link rel="icon" type="image/png" href="/th-favicon.png" />
     <!-- Apple Touch Icon (for iOS devices) -->
@@ -10,11 +23,10 @@
     <link rel="shortcut icon" href="/th-favicon.png" />
     <!-- For IE and older browsers -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- For Google Search Console verification -->
     <meta name="google-site-verification" content="" />
     <title>TubeHeadlines</title>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) - Deferred for better LCP -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SVJLLJKJHR"></script>
     <script>
       window.dataLayer = window.dataLayer || [];

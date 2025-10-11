@@ -199,7 +199,7 @@ function App() {
         className="video-link"
         onClick={() => handleVideoClick(video)}
       >
-        <img src={video.thumbnailURL} alt={video.customHeadline} />
+        <img src={video.thumbnailURL} alt={video.customHeadline} loading="lazy" decoding="async" />
         <p>{video.customHeadline}</p>
       </a>
     </div>
@@ -277,7 +277,7 @@ function App() {
           {videos.featured && (
             <div className="featured-video">
               <a href={videos.featured.youtubeURL} target="_blank" rel="noopener noreferrer">
-                <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} />
+                <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} fetchpriority="high" loading="eager" decoding="async" />
                 <h2>{videos.featured.customHeadline}</h2>
               </a>
             </div>
