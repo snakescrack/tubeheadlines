@@ -4,6 +4,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase'; 
 import SEO from './SEO';
 import { pageview } from '../utils/analytics';
+import { getYouTubeId } from '../utils/youtubeUtils';
 
 const VideoPage = () => {
   const { id } = useParams(); // Use 'id' directly from the URL
@@ -87,26 +88,23 @@ const VideoPage = () => {
           {video.customHeadline}
         </h1>
         
-        {video.thumbnailURL && (
-          <img 
-            src={video.thumbnailURL} 
-            alt={video.customHeadline}
-            width="640"
-            height="360"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-            style={{ 
-              width: '100%', 
-              maxWidth: '640px', 
-              height: 'auto',
-              marginBottom: '1rem',
-              border: '1px solid #ddd',
-              borderRadius: '8px'
-            }}
-          />
-        )}
-        
+        <div className="video-embed-container" style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%', background: '#000', marginBottom: '1rem' }}>
+          <iframe
+            src={`https://www.youtube.com/embed/${getYouTubeId(video.youtubeURL)}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title={video.customHeadline}
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+          ></iframe>
+        </div>
+
+                
+        <div className="video-stats" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', padding: '0.5rem 0', borderTop: '1px solid #eee', borderBottom: '1px solid #eee' }}>
+          <span style={{ fontSize: '0.9rem', color: '#555' }}>Published on {new Date(video.publishedAt).toLocaleDateString()}</span>
+          <span style={{ fontSize: '0.9rem', color: '#555' }}>{video.viewCount ? `${parseInt(video.viewCount).toLocaleString()} views` : ''}</span>
+        </div>
+
         <div style={{ marginBottom: '2rem' }}>
           <a 
             href={video.youtubeURL} 

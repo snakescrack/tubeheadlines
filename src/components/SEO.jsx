@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { getYouTubeId } from '../utils/youtubeUtils';
+import { getYouTubeId, getOptimizedThumbnailUrl } from '../utils/youtubeUtils';
 
 const SEO = ({
   title = 'TubeHeadlines: Discover Trending YouTube Videos & News',
@@ -99,16 +99,20 @@ const SEO = ({
       {videoData && (
         <script type="application/ld+json">
           {JSON.stringify((() => {
+            // Always ensure we have a valid thumbnail URL
+            const videoId = getYouTubeId(videoData.youtubeURL);
+            const thumbnailUrl = videoData.thumbnailURL || getOptimizedThumbnailUrl(videoId, 'high');
+            
             const schema = {
               '@context': 'https://schema.org',
               '@type': 'VideoObject',
               name: videoData.customHeadline || title,
               description,
-              thumbnailUrl: [videoData.thumbnailURL],
-              image: videoData.thumbnailURL, // Add image property
+              thumbnailUrl: [thumbnailUrl],
+              image: thumbnailUrl,
               uploadDate: videoData.publishedAt || videoData.createdAt || new Date().toISOString(),
-              contentUrl: videoData.youtubeURL,
-              embedUrl: `https://www.youtube.com/embed/${getYouTubeId(videoData.youtubeURL)}`,
+              contentUrl: fullUrl,
+              embedUrl: `https://www.youtube.com/embed/${videoId}`,
               interactionStatistic: {
                 '@type': 'InteractionCounter',
                 'interactionType': { '@type': 'WatchAction' },
@@ -133,20 +137,25 @@ const SEO = ({
             '@type': 'ItemList',
             'name': 'Latest Video Headlines',
             'description': 'The latest trending video headlines from YouTube.',
-            'itemListElement': videos.map((video, index) => ({
-              '@type': 'ListItem',
-              'position': index + 1,
-              'item': {
-                '@type': 'VideoObject',
-                'name': video.customHeadline || video.title,
-                'description': video.description || `${video.customHeadline || video.title} - Watch on TubeHeadlines`,
-                'thumbnailUrl': video.thumbnailURL,
-                'image': video.thumbnailURL, // Add image property
-                'uploadDate': video.publishedAt || video.createdAt || new Date().toISOString(),
-                'contentUrl': `${siteUrl}/video/${video.id}`,
-                'embedUrl': `https://www.youtube.com/embed/${getYouTubeId(video.youtubeURL)}`
-              }
-            }))
+            'itemListElement': videos.map((video, index) => {
+              const videoId = getYouTubeId(video.youtubeURL);
+              const thumbnailUrl = video.thumbnailURL || getOptimizedThumbnailUrl(videoId, 'medium');
+              
+              return {
+                '@type': 'ListItem',
+                'position': index + 1,
+                'item': {
+                  '@type': 'VideoObject',
+                  'name': video.customHeadline || video.title,
+                  'description': video.description || `${video.customHeadline || video.title} - Watch on TubeHeadlines`,
+                  'thumbnailUrl': thumbnailUrl,
+                  'image': thumbnailUrl,
+                  'uploadDate': video.publishedAt || video.createdAt || new Date().toISOString(),
+                  'contentUrl': `${siteUrl}/video/${video.id}`,
+                  'embedUrl': `https://www.youtube.com/embed/${videoId}`
+                }
+              };
+            })
           })}
         </script>
       )}

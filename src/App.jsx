@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { pageview, event } from './utils/analytics';
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { getAllVideosForHomepage } from './utils/videoLoader';
+import { getYouTubeId, getOptimizedThumbnailUrl } from './utils/youtubeUtils';
 import { checkEnvironmentVariables } from './utils/envTest';
 import Stats from './components/Stats.jsx';
 import CookieNotice from './components/CookieNotice.jsx';
@@ -16,6 +17,10 @@ import VideoPage from './components/VideoPage.jsx';
 import NotFound from './components/NotFound.jsx';
 import SubmitChannel from './components/SubmitChannel.jsx';
 import HomepageDescription from './components/HomepageDescription.jsx';
+import ResourcesHub from './pages/resources/ResourcesHub.jsx';
+import HowToStartChannel from './pages/resources/HowToStartChannel.jsx';
+import EssentialEquipment from './pages/resources/EssentialEquipment.jsx';
+import CategoryPage from './components/CategoryPage.jsx';
 import './App.css';
 import './components/ShareButton.css';
 import './components/LoadingError.css';
@@ -244,7 +249,7 @@ function App() {
         {videos.featured && (
           <div className="featured-video">
             <Link to={`/video/${videos.featured.id}`} className="video-link">
-              <img src={videos.featured.thumbnailURL} alt={videos.featured.customHeadline} width="640" height="360" loading="eager" decoding="async" fetchpriority="high" />
+              <img src={getOptimizedThumbnailUrl(getYouTubeId(videos.featured.youtubeURL), 'high')} alt={videos.featured.customHeadline} width="480" height="270" loading="eager" decoding="async" fetchpriority="high" />
               <h2>{videos.featured.customHeadline}</h2>
             </Link>
           </div>
@@ -254,7 +259,12 @@ function App() {
           {['left', 'center', 'right'].map((position) => (
             <div key={position} className="column">
               <div className="column-header">
-                <h3>{getColumnTitle(position)}</h3>
+                <h3>
+                  {getColumnTitle(position)}
+                  <span style={{ fontSize: '0.7rem', fontWeight: '400', marginLeft: '8px' }}>
+                    <Link to={`/category/${position}`} style={{ color: '#4da6ff', textDecoration: 'none' }}>View All</Link>
+                  </span>
+                </h3>
               </div>
               {Object.entries(videos.columns[position]).length > 0 ? (
                 Object.entries(videos.columns[position]).map(([category, categoryVideos]) => (
@@ -262,7 +272,7 @@ function App() {
                     {categoryVideos.map((video) => (
                       <div key={video.id} className="video-item">
                         <Link to={`/video/${video.id}`} className="video-link">
-                          <img src={video.thumbnailURL} alt={video.customHeadline} width="320" height="180" loading="lazy" decoding="async" />
+                          <img src={getOptimizedThumbnailUrl(getYouTubeId(video.youtubeURL), 'medium')} alt={video.customHeadline} width="320" height="180" loading="lazy" decoding="async" />
                           <p>{video.customHeadline}</p>
                         </Link>
                         <button 
@@ -303,8 +313,12 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
-                          <Route path="/video/:id" element={<VideoPage />} />
+          <Route path="/video/:id" element={<VideoPage />} />
           <Route path="/submit" element={<SubmitChannel />} />
+          <Route path="/category/:position" element={<CategoryPage />} />
+          <Route path="/youtube-resources" element={<ResourcesHub />} />
+          <Route path="/youtube-resources/getting-started/how-to-start-channel" element={<HowToStartChannel />} />
+          <Route path="/youtube-resources/getting-started/essential-equipment" element={<EssentialEquipment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </RemoveTrailingSlash>
@@ -316,11 +330,13 @@ function App() {
         <span className="link-separator">|</span>
         <Link to="/faq">FAQ</Link>
         <span className="link-separator">|</span>
+        <Link to="/youtube-resources">YOUTUBE RESOURCES</Link>
+        <span className="link-separator">|</span>
         <Link to="/blog/why-i-built-tubeheadlines">BLOG</Link>
         <span className="link-separator">|</span>
         <Link to="/submit">SUBMIT YOUR CHANNEL</Link>
         <span className="link-separator">|</span>
-                        <ShareButton />
+        <ShareButton />
       </div>
       <Stats />
       <CookieNotice />
