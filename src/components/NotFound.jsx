@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import SEO from './SEO';
 
 export default function NotFound() {
   return (
     <>
+      <Helmet>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <SEO 
         title="Page Not Found - TubeHeadlines"
         description="The page you're looking for cannot be found. Return to TubeHeadlines for the latest videos and news."

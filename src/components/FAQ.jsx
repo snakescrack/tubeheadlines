@@ -1,4 +1,5 @@
 import React from 'react';
+import SEO from './SEO';
 
 export default function FAQ() {
   const faqs = [
@@ -37,21 +38,29 @@ export default function FAQ() {
   ];
 
   return (
-    <div style={{maxWidth: '800px', margin: '2rem auto', padding: '2rem', fontFamily: 'Arial, sans-serif'}}>
-      <h1 style={{textAlign: 'center', marginBottom: '2rem', color: '#333'}}>Frequently Asked Questions</h1>
-      
-      {faqs.map((faq, index) => (
-        <div key={index} style={{marginBottom: '2rem', borderBottom: '1px solid #eee', paddingBottom: '1.5rem'}}>
-          <h2 style={{color: '#333', marginBottom: '0.8rem', fontSize: '1.2rem'}}>{faq.question}</h2>
-          <p style={{color: '#555', lineHeight: '1.6', margin: '0'}}>{faq.answer}</p>
+    <>
+      <SEO 
+        title="Frequently Asked Questions | TubeHeadlines"
+        description="Common questions about TubeHeadlines, our mission to help small creators, and how we curate the best videos from YouTube."
+        path="/faq"
+        faqData={faqs}
+      />
+      <main style={{maxWidth: '800px', margin: '2rem auto', padding: '2rem', fontFamily: 'Arial, sans-serif'}}>
+        <h1 style={{textAlign: 'center', marginBottom: '2rem', color: '#333'}}>Frequently Asked Questions</h1>
+        
+        {faqs.map((faq, index) => (
+          <div key={index} style={{marginBottom: '2rem', borderBottom: '1px solid #eee', paddingBottom: '1.5rem'}}>
+            <h2 style={{color: '#333', marginBottom: '0.8rem', fontSize: '1.2rem'}}>{faq.question}</h2>
+            <p style={{color: '#555', lineHeight: '1.6', margin: '0'}}>{faq.answer}</p>
+          </div>
+        ))}
+        
+        <div style={{marginTop: '3rem', padding: '1.5rem', backgroundColor: '#f8f9fa', borderRadius: '8px', textAlign: 'center'}}>
+          <p style={{color: '#666', margin: '0', fontSize: '0.9rem'}}>
+            Have more questions? Feel free to reach out to us through our social media channels or contact page.
+          </p>
         </div>
-      ))}
-      
-      <div style={{marginTop: '3rem', padding: '1.5rem', backgroundColor: '#f8f9fa', borderRadius: '8px', textAlign: 'center'}}>
-        <p style={{color: '#666', margin: '0', fontSize: '0.9rem'}}>
-          Have more questions? Feel free to reach out to us through our social media channels or contact page.
-        </p>
-      </div>
-    </div>
+      </main>
+    </>
   );
 }

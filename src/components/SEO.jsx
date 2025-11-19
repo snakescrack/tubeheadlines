@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 import { getYouTubeId, getOptimizedThumbnailUrl } from '../utils/youtubeUtils';
 
 const SEO = ({
@@ -7,15 +8,29 @@ const SEO = ({
   path = '',
   image = '',
   videoData = null,
+  articleData = null,
+  faqData = null,
   videos = [],
   currentUrl = ''
 }) => {
+  const location = useLocation();
   const siteUrl = 'https://tubeheadlines.com';
-  const fullUrl = `${siteUrl}${path}`;
+  
+  // Determine the canonical path:
+  // 1. Use the explicitly provided 'path' prop if available.
+  // 2. Otherwise, use location.pathname (which automatically strips query params like ?ref=twitter).
+  // 3. Ensure we don't double-slash if path starts with /.
+  const effectivePath = path || location.pathname;
+  const cleanPath = effectivePath.startsWith('/') ? effectivePath : `/${effectivePath}`;
+  
+  // Remove trailing slash unless it is the root path '/'
+  const canonicalPath = cleanPath === '/' ? '/' : cleanPath.replace(/\/$/, '');
+  const fullUrl = `${siteUrl}${canonicalPath === '/' ? '' : canonicalPath}`;
+
   // Use the existing logo image for social sharing
   // For the homepage, always use the default social share image.
   // For other pages (like video detail pages), use the video's thumbnail.
-  const isHomePage = path === '/';
+  const isHomePage = effectivePath === '/' || effectivePath === '';
   const imageUrl = isHomePage 
     ? `${siteUrl}/social-share.jpg` 
     : videoData?.thumbnailURL || `${siteUrl}/social-share.jpg`;
@@ -58,20 +73,22 @@ const SEO = ({
       )}
 
       {/* Enhanced Structured Data */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: 'TubeHeadlines',
-          url: siteUrl,
-          description: 'Your source for breaking news, trending videos, and entertainment',
-          potentialAction: {
-            '@type': 'SearchAction',
-            'target': `${siteUrl}/search?q={search_term_string}`,
-            'query-input': 'required name=search_term_string'
-          }
-        })}
-      </script>
+      {isHomePage && (
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'TubeHeadlines',
+            url: siteUrl,
+            description: 'Your source for breaking news, trending videos, and entertainment',
+            potentialAction: {
+              '@type': 'SearchAction',
+              'target': `${siteUrl}/search?q={search_term_string}`,
+              'query-input': 'required name=search_term_string'
+            }
+          })}
+        </script>
+      )}
       
       {/* BreadcrumbList Schema */}
       <script type="application/ld+json">
@@ -88,12 +105,61 @@ const SEO = ({
             ...(path ? [{
               '@type': 'ListItem',
               'position': 2,
-              'name': title.replace('TubeHeadlines - ', ''),
+              'name': title.replace('TubeHeadlines - ', '').replace(' | TubeHeadlines', ''),
               'item': fullUrl
             }] : [])
           ]
         })}
       </script>
+
+      {/* NewsArticle Schema */}
+      {articleData && (
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'NewsArticle',
+            'mainEntityOfPage': {
+              '@type': 'WebPage',
+              '@id': fullUrl
+            },
+            'headline': articleData.headline || title,
+            'image': [articleData.image || imageUrl],
+            'datePublished': articleData.datePublished || new Date().toISOString(),
+            'dateModified': articleData.dateModified || articleData.datePublished || new Date().toISOString(),
+            'author': {
+              '@type': 'Person',
+              'name': articleData.author || 'TubeHeadlines'
+            },
+            'publisher': {
+              '@type': 'Organization',
+              'name': 'TubeHeadlines',
+              'logo': {
+                '@type': 'ImageObject',
+                'url': `${siteUrl}/th-favicon.png`
+              }
+            },
+            'description': description
+          })}
+        </script>
+      )}
+
+      {/* FAQPage Schema */}
+      {faqData && (
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            'mainEntity': faqData.map(faq => ({
+              '@type': 'Question',
+              'name': faq.question,
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': faq.answer
+              }
+            }))
+          })}
+        </script>
+      )}
 
       {/* VideoObject Schema */}
       {videoData && (

@@ -246,60 +246,62 @@ function App() {
 
         <HomepageDescription />
 
-        {videos.featured && (
-          <div className="featured-video">
-            <Link to={`/video/${videos.featured.id}`} className="video-link">
-              <img src={getOptimizedThumbnailUrl(getYouTubeId(videos.featured.youtubeURL), 'high')} alt={videos.featured.customHeadline} width="480" height="270" loading="eager" decoding="async" fetchpriority="high" />
-              <h2>{videos.featured.customHeadline}</h2>
-            </Link>
-          </div>
-        )}
-
-        <div className="columns">
-          {['left', 'center', 'right'].map((position) => (
-            <div key={position} className="column">
-              <div className="column-header">
-                <h3>
-                  {getColumnTitle(position)}
-                  <span style={{ fontSize: '0.7rem', fontWeight: '400', marginLeft: '8px' }}>
-                    <Link to={`/category/${position}`} style={{ color: '#4da6ff', textDecoration: 'none' }}>View All</Link>
-                  </span>
-                </h3>
-              </div>
-              {Object.entries(videos.columns[position]).length > 0 ? (
-                Object.entries(videos.columns[position]).map(([category, categoryVideos]) => (
-                  <div key={category} className="category-section">
-                    {categoryVideos.map((video) => (
-                      <div key={video.id} className="video-item">
-                        <Link to={`/video/${video.id}`} className="video-link">
-                          <img src={getOptimizedThumbnailUrl(getYouTubeId(video.youtubeURL), 'medium')} alt={video.customHeadline} width="320" height="180" loading="lazy" decoding="async" />
-                          <p>{video.customHeadline}</p>
-                        </Link>
-                        <button 
-                          className="video-share-button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            navigator.share({
-                              title: video.customHeadline,
-                              url: video.youtubeURL
-                            }).catch(console.error);
-                          }}
-                        >
-                          Share
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                ))
-              ) : (
-                <div className="category-section">
-                  <div className="no-videos">No videos available</div>
-                </div>
-              )}
-              {renderPagination(position)}
+        <main>
+          {videos.featured && (
+            <div className="featured-video">
+              <Link to={`/video/${videos.featured.id}`} className="video-link">
+                <img src={getOptimizedThumbnailUrl(getYouTubeId(videos.featured.youtubeURL), 'high')} alt={videos.featured.customHeadline} width="480" height="270" loading="eager" decoding="async" fetchpriority="high" />
+                <h2>{videos.featured.customHeadline}</h2>
+              </Link>
             </div>
-          ))}
-        </div>
+          )}
+
+          <div className="columns">
+            {['left', 'center', 'right'].map((position) => (
+              <div key={position} className="column">
+                <div className="column-header">
+                  <h3>
+                    {getColumnTitle(position)}
+                    <span style={{ fontSize: '0.7rem', fontWeight: '400', marginLeft: '8px' }}>
+                      <Link to={`/category/${position}`} style={{ color: '#4da6ff', textDecoration: 'none' }}>View All</Link>
+                    </span>
+                  </h3>
+                </div>
+                {Object.entries(videos.columns[position]).length > 0 ? (
+                  Object.entries(videos.columns[position]).map(([category, categoryVideos]) => (
+                    <div key={category} className="category-section">
+                      {categoryVideos.map((video) => (
+                        <div key={video.id} className="video-item">
+                          <Link to={`/video/${video.id}`} className="video-link">
+                            <img src={getOptimizedThumbnailUrl(getYouTubeId(video.youtubeURL), 'medium')} alt={video.customHeadline} width="320" height="180" loading="lazy" decoding="async" />
+                            <p>{video.customHeadline}</p>
+                          </Link>
+                          <button 
+                            className="video-share-button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              navigator.share({
+                                title: video.customHeadline,
+                                url: video.youtubeURL
+                              }).catch(console.error);
+                            }}
+                          >
+                            Share
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ))
+                ) : (
+                  <div className="category-section">
+                    <div className="no-videos">No videos available</div>
+                  </div>
+                )}
+                {renderPagination(position)}
+              </div>
+            ))}
+          </div>
+        </main>
       </>
     );
   };

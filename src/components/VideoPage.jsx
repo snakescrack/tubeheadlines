@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase'; 
 import SEO from './SEO';
+import NotFound from './NotFound';
 import { pageview } from '../utils/analytics';
 import { getYouTubeId } from '../utils/youtubeUtils';
 
@@ -74,7 +75,7 @@ const VideoPage = () => {
         videoData={video}
       />
       
-      <div style={{ 
+      <main style={{ 
         maxWidth: '800px', 
         margin: '0 auto', 
         padding: '2rem',
@@ -160,7 +161,7 @@ const VideoPage = () => {
             ← Back to TubeHeadlines
           </a>
         </div>
-      </div>
+      </main>
     </>
   );
 };
