@@ -318,9 +318,6 @@ function App() {
           <Route path="/video/:id" element={<VideoPage />} />
           <Route path="/submit" element={<SubmitChannel />} />
           <Route path="/category/:position" element={<CategoryPage />} />
-          <Route path="/youtube-resources" element={<ResourcesHub />} />
-          <Route path="/youtube-resources/getting-started/how-to-start-channel" element={<HowToStartChannel />} />
-          <Route path="/youtube-resources/getting-started/essential-equipment" element={<EssentialEquipment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </RemoveTrailingSlash>
