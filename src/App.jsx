@@ -17,9 +17,6 @@ import VideoPage from './components/VideoPage.jsx';
 import NotFound from './components/NotFound.jsx';
 import SubmitChannel from './components/SubmitChannel.jsx';
 import HomepageDescription from './components/HomepageDescription.jsx';
-import ResourcesHub from './pages/resources/ResourcesHub.jsx';
-import HowToStartChannel from './pages/resources/HowToStartChannel.jsx';
-import EssentialEquipment from './pages/resources/EssentialEquipment.jsx';
 import CategoryPage from './components/CategoryPage.jsx';
 import './App.css';
 import './components/ShareButton.css';
@@ -328,8 +325,6 @@ function App() {
         <Link to="/terms">TERMS</Link>
         <span className="link-separator">|</span>
         <Link to="/faq">FAQ</Link>
-        <span className="link-separator">|</span>
-        <Link to="/youtube-resources">YOUTUBE RESOURCES</Link>
         <span className="link-separator">|</span>
         <Link to="/blog/why-i-built-tubeheadlines">BLOG</Link>
         <span className="link-separator">|</span>
