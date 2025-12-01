@@ -6,12 +6,10 @@ import SEO from './SEO';
 export default function NotFound() {
   return (
     <>
-      <Helmet>
-        <meta name="robots" content="noindex" />
-      </Helmet>
-      <SEO 
+      <SEO
         title="Page Not Found - TubeHeadlines"
         description="The page you're looking for cannot be found. Return to TubeHeadlines for the latest videos and news."
+        noindex={true}
       />
       <div className="not-found-container">
         <h1>404 - Page Not Found</h1>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase'; 
+import { db } from '../firebase';
 import SEO from './SEO';
 import NotFound from './NotFound';
 import { pageview } from '../utils/analytics';
@@ -29,7 +29,7 @@ const VideoPage = () => {
         if (videoDoc.exists()) {
           const videoData = { id: videoDoc.id, ...videoDoc.data() };
           setVideo(videoData);
-          
+
           pageview(
             `${videoData.customHeadline} | TubeHeadlines`,
             window.location.href,
@@ -58,12 +58,12 @@ const VideoPage = () => {
   }
 
   if (error || !video) {
-    return <Navigate to="/404" replace />;
+    return <NotFound />;
   }
 
   // Create SEO-optimized title and description
   const pageTitle = `${video.customHeadline} | TubeHeadlines`;
-  const pageDescription = video.description || 
+  const pageDescription = video.description ||
     `Watch "${video.customHeadline}" - Latest video news and updates from top creators. Get breaking news, analysis, and trending stories delivered daily on TubeHeadlines.`;
 
   return (
@@ -74,21 +74,21 @@ const VideoPage = () => {
         path={`/video/${id}`}
         videoData={video}
       />
-      
-      <main style={{ 
-        maxWidth: '800px', 
-        margin: '0 auto', 
+
+      <main style={{
+        maxWidth: '800px',
+        margin: '0 auto',
         padding: '2rem',
         fontFamily: 'Arial, sans-serif'
       }}>
-        <h1 style={{ 
-          fontSize: '2rem', 
+        <h1 style={{
+          fontSize: '2rem',
           marginBottom: '1rem',
           color: '#333'
         }}>
           {video.customHeadline}
         </h1>
-        
+
         <div className="video-embed-container" style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%', background: '#000', marginBottom: '1rem' }}>
           <iframe
             src={`https://www.youtube.com/embed/${getYouTubeId(video.youtubeURL)}`}
@@ -100,16 +100,16 @@ const VideoPage = () => {
           ></iframe>
         </div>
 
-                
+
         <div className="video-stats" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', padding: '0.5rem 0', borderTop: '1px solid #eee', borderBottom: '1px solid #eee' }}>
           <span style={{ fontSize: '0.9rem', color: '#555' }}>Published on {new Date(video.publishedAt).toLocaleDateString()}</span>
           <span style={{ fontSize: '0.9rem', color: '#555' }}>{video.viewCount ? `${parseInt(video.viewCount).toLocaleString()} views` : ''}</span>
         </div>
 
         <div style={{ marginBottom: '2rem' }}>
-          <a 
-            href={video.youtubeURL} 
-            target="_blank" 
+          <a
+            href={video.youtubeURL}
+            target="_blank"
             rel="noopener noreferrer"
             style={{
               display: 'inline-block',
@@ -125,17 +125,17 @@ const VideoPage = () => {
             ▶ Watch on YouTube
           </a>
         </div>
-        
+
         {video.description && (
-          <div className="video-description-container" style={{ 
-            backgroundColor: '#f9f9f9', 
-            padding: '1rem', 
+          <div className="video-description-container" style={{
+            backgroundColor: '#f9f9f9',
+            padding: '1rem',
             borderRadius: '8px',
             marginBottom: '2rem'
           }}>
             <h3 style={{ marginTop: 0, color: '#555' }}>Description</h3>
-            <p style={{ 
-              lineHeight: '1.6', 
+            <p style={{
+              lineHeight: '1.6',
               color: '#666',
               whiteSpace: 'pre-wrap'
             }}>
@@ -143,14 +143,14 @@ const VideoPage = () => {
             </p>
           </div>
         )}
-        
-        <div style={{ 
+
+        <div style={{
           textAlign: 'center',
           marginTop: '3rem',
           paddingTop: '2rem',
           borderTop: '1px solid #eee'
         }}>
-          <a 
+          <a
             href="/"
             style={{
               color: '#0066cc',

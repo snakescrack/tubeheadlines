@@ -11,6 +11,7 @@ const SEO = ({
   articleData = null,
   faqData = null,
   videos = [],
+  noindex = false,
   currentUrl = ''
 }) => {
   const location = useLocation();
@@ -42,7 +43,7 @@ const SEO = ({
       <meta name="description" content={description} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="canonical" href={fullUrl} />
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content={noindex ? "noindex" : "index, follow"} />
       <meta name="keywords" content="youtube news, trending videos, viral content, youtube headlines, breaking news, youtube trends, viral videos, youtube updates, trending news" />
 
       {/* Open Graph Tags */}
