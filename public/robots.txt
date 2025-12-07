@@ -8,3 +8,8 @@ Disallow: /admin
 
 # Point to sitemap
 Sitemap: https://tubeheadlines.com/sitemap.xml
+
+# Block internal Netlify paths
+User-agent: *
+Disallow: /.netlify/
+
