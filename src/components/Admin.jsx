@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { addVideo, CATEGORIES, getDefaultCategory, deleteVideo, getAllVideos, updateVideo, getScheduledVideos, checkScheduledVideos } from '../utils/dbOperations';
-import { db } from '../firebase';
 import '../styles/Admin.css';
 
 export default function Admin() {
@@ -22,6 +21,8 @@ export default function Admin() {
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
   const [showScheduled, setShowScheduled] = useState(false);
+  const [deadVideos, setDeadVideos] = useState([]);
+  const [isScanning, setIsScanning] = useState(false);
 
   // Load videos on mount and start scheduling check
   useEffect(() => {
@@ -215,19 +216,53 @@ export default function Admin() {
     setEditId(video.id);
   };
 
-  const loadSubmissions = async () => {
-    try {
-      const q = query(collection(db, 'creatorSubmissions'), orderBy('submittedAt', 'desc'));
-      const querySnapshot = await getDocs(q);
-      const subs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setSubmissions(subs);
-    } catch (error) {
-      console.error('Error loading submissions:', error);
-      setMessage('Error loading submissions: ' + error.message);
+  const scanForDeadVideos = async () => {
+    if (!videos) return;
+    setIsScanning(true);
+    setMessage('Scanning for dead videos... This may take a moment.');
+    setDeadVideos([]);
+
+    const allVideos = [
+        ...(videos.featured ? [videos.featured] : []),
+        ...Object.values(videos.columns.left || {}).flat(),
+        ...Object.values(videos.columns.center || {}).flat(),
+        ...Object.values(videos.columns.right || {}).flat(),
+    ];
+
+    const foundDead = [];
+    const batchSize = 5;
+
+    for (let i = 0; i < allVideos.length; i += batchSize) {
+        const batch = allVideos.slice(i, i + batchSize);
+        await Promise.all(batch.map(async (video) => {
+            try {
+                // Extract ID
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+                const match = video.youtubeURL.match(regExp);
+                const videoId = (match && match[2].length === 11) ? match[2] : null;
+
+                if (videoId) {
+                    const res = await fetch(`/.netlify/functions/check-video-status?videoId=${videoId}`);
+                    const data = await res.json();
+                    if (data.status === 'dead') {
+                        foundDead.push(video);
+                    }
+                }
+            } catch (err) {
+                console.error('Error checking video:', video.customHeadline, err);
+            }
+        }));
     }
+
+    setDeadVideos(foundDead);
+    setIsScanning(false);
+    setMessage(foundDead.length > 0 ? `Found ${foundDead.length} dead videos.` : 'Scan complete. All videos look good!');
   };
 
-
+  const deleteDeadVideo = async (videoId) => {
+      await handleDelete(videoId);
+      setDeadVideos(prev => prev.filter(v => v.id !== videoId));
+  };
 
 
   const getCategoryDescription = (position) => {
@@ -502,6 +537,46 @@ export default function Admin() {
         </div>
 
         {showScheduled ? renderScheduledVideos() : renderVideoList()}
+      </div>
+
+      {/* Dead Video Scanner Section */}
+      <div className="admin-panel" style={{ marginTop: '2rem', borderTop: '2px solid #eee', paddingTop: '1rem' }}>
+          <h2>Maintenance Tool</h2>
+          <p>Scan your library for videos that have been deleted or made private on YouTube.</p>
+          <button
+              onClick={scanForDeadVideos}
+              disabled={isScanning}
+              style={{
+                  backgroundColor: isScanning ? '#ccc' : '#ff4444',
+                  color: 'white',
+                  padding: '10px 20px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: isScanning ? 'not-allowed' : 'pointer',
+                  fontSize: '1rem'
+              }}
+          >
+              {isScanning ? 'Scanning...' : 'Scan for Dead Videos'}
+          </button>
+
+          {deadVideos.length > 0 && (
+              <div style={{ marginTop: '1rem' }}>
+                  <h3>Found {deadVideos.length} Dead Videos</h3>
+                  <div className="dead-video-list">
+                      {deadVideos.map(video => (
+                          <div key={video.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', background: '#fff0f0', marginBottom: '5px', borderRadius: '4px' }}>
+                              <span>{video.customHeadline}</span>
+                              <button
+                                  onClick={() => deleteDeadVideo(video.id)}
+                                  style={{ background: 'red', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', borderRadius: '3px' }}
+                              >
+                                  Delete
+                              </button>
+                          </div>
+                      ))}
+                  </div>
+              </div>
+          )}
       </div>
     </div>
   );
