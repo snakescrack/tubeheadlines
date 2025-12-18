@@ -34,9 +34,18 @@ const SEO = ({
   // For the homepage, always use the default social share image.
   // For other pages (like video detail pages), use the video's thumbnail.
   const isHomePage = effectivePath === '/' || effectivePath === '';
-  const imageUrl = isHomePage 
-    ? `${siteUrl}/social-share.jpg` 
-    : videoData?.thumbnailURL || `${siteUrl}/social-share.jpg`;
+
+  // Determine the best image URL for Open Graph/Twitter
+  let imageUrl;
+  if (isHomePage) {
+    imageUrl = `${siteUrl}/social-share.jpg`;
+  } else if (videoData) {
+    // If it's a video page, prioritize the custom thumbnail, then fallback to YouTube optimized thumbnail
+    imageUrl = videoData.thumbnailURL || getOptimizedThumbnailUrl(getYouTubeId(videoData.youtubeURL), 'high');
+  } else {
+    // Default fallback
+    imageUrl = `${siteUrl}/social-share.jpg`;
+  }
 
   return (
     <Helmet>
