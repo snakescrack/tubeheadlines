@@ -4,6 +4,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import SEO from './SEO';
 import NotFound from './NotFound';
+import ServerError from './ServerError';
 import { pageview } from '../utils/analytics';
 import { getYouTubeId } from '../utils/youtubeUtils';
 
@@ -17,7 +18,7 @@ const VideoPage = () => {
     const fetchVideo = async () => {
       if (!id) {
         setLoading(false);
-        setError('No video ID provided');
+        setError('Video not found');
         return;
       }
 
@@ -57,7 +58,15 @@ const VideoPage = () => {
     );
   }
 
-  if (error || !video) {
+  if (error === 'Video not found') {
+    return <NotFound />;
+  }
+
+  if (error) {
+    return <ServerError />;
+  }
+
+  if (!video) {
     return <NotFound />;
   }
 

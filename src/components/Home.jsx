@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAllVideosForHomepage } from '../utils/videoLoader';
 import { getYouTubeId, getOptimizedThumbnailUrl } from '../utils/youtubeUtils';
 import SEO from './SEO';
+import ServerError from './ServerError';
 import WelcomeBanner from './WelcomeBanner';
 import HomepageDescription from './HomepageDescription';
 import './ShareButton.css';
@@ -153,15 +154,7 @@ const Home = () => {
   }
 
   if (error) {
-    return (
-      <>
-        <SEO currentUrl={window.location.href} />
-        <div className="error-message">
-          {error}
-          <button onClick={() => window.location.reload()}>Try Again</button>
-        </div>
-      </>
-    );
+    return <ServerError />;
   }
 
   const allVideos = [videos.featured, ...Object.values(videos.columns).flatMap(col => Object.values(col).flat())].filter(Boolean);

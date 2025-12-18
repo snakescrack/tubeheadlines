@@ -6,6 +6,9 @@ import SEO from './SEO';
 export default function NotFound() {
   return (
     <>
+      <Helmet>
+        <meta name="prerender-status-code" content="404" />
+      </Helmet>
       <SEO
         title="Page Not Found - TubeHeadlines"
         description="The page you're looking for cannot be found. Return to TubeHeadlines for the latest videos and news."
