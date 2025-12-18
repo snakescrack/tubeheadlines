@@ -50,7 +50,153 @@ export default function Admin() {
     }
   };
 
-  const loadVideos = async () => {
+
+  // Scanner state
+  const [lastScanTime, setLastScanTime] = useState(null);
+  const [scanResults, setScanResults] = useState(null);
+
+  // Safety wrapper with confirmation and cooldown
+  const scanForDeadVideos = async () => {
+    // Check cooldown (1 hour)
+    if (lastScanTime) {
+      const hoursSinceLastScan = (Date.now() - lastScanTime) / (1000 * 60 * 60);
+      if (hoursSinceLastScan < 1) {
+        const minutesRemaining = Math.ceil((1 - hoursSinceLastScan) * 60);
+        setMessage(`Please wait ${minutesRemaining} minutes before scanning again to preserve API quota.`);
+        return;
+      }
+    }
+
+    // Get video count for confirmation
+    const allVideos = await getAllVideos();
+    const estimatedCalls = Math.ceil(allVideos.length / 50);
+    
+    // Confirmation dialog
+    const confirmed = window.confirm(
+      `Scanner will check ${allVideos.length} videos using approximately ${estimatedCalls} YouTube API calls.\n\n` +
+      `Your daily quota is 10,000 calls.\n\n` +
+      `Continue with scan?`
+    );
+    
+    if (!confirmed) {
+      return;
+    }
+    
+    setLastScanTime(Date.now());
+    await performScan();
+  };
+
+  // Main scanner function with batch optimization
+  const performScan = async () => {
+    setIsScanning(true);
+    setMessage('Scanning videos for broken links...');
+    setDeadVideos([]);
+    setScanResults(null);
+    
+    try {
+      const allVideos = await getAllVideos();
+      const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+      
+      if (!apiKey) {
+        throw new Error('YouTube API key is missing');
+      }
+
+      const brokenVideos = [];
+      const workingVideos = [];
+      
+      // Extract all video IDs first
+      const videoIdRegex = /(?:youtube\.com\/(?:[^/]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?\&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
+      const videoMap = new Map();
+      
+      for (const video of allVideos) {
+        const videoIdMatch = video.youtubeURL?.match(videoIdRegex);
+        const videoId = videoIdMatch ? videoIdMatch[1] : null;
+        
+        if (!videoId) {
+          brokenVideos.push({ ...video, reason: 'Invalid URL format' });
+        } else {
+          videoMap.set(videoId, video);
+        }
+      }
+      
+      // Check videos in batches of 50 (YouTube API limit)
+      const videoIds = Array.from(videoMap.keys());
+      const batchSize = 50;
+      const totalBatches = Math.ceil(videoIds.length / batchSize);
+      
+      for (let i = 0; i < videoIds.length; i += batchSize) {
+        const batch = videoIds.slice(i, i + batchSize);
+        const currentBatch = Math.floor(i / batchSize) + 1;
+        setMessage(`Scanning batch ${currentBatch} of ${totalBatches} (${batch.length} videos)...`);
+        
+        try {
+          // Single API call for up to 50 videos
+          const response = await fetch(
+            `https://www.googleapis.com/youtube/v3/videos?id=${batch.join(',')}&part=snippet&key=${apiKey}`
+          );
+          const data = await response.json();
+          
+          if (data.error) {
+            // If batch fails, mark all as broken with API error
+            batch.forEach(videoId => {
+              brokenVideos.push({ ...videoMap.get(videoId), reason: `API Error: ${data.error.message}` });
+            });
+          } else {
+            // Create a set of found video IDs
+            const foundIds = new Set((data.items || []).map(item => item.id));
+            
+            // Check which videos were found and which weren't
+            batch.forEach(videoId => {
+              const video = videoMap.get(videoId);
+              if (foundIds.has(videoId)) {
+                workingVideos.push(video);
+              } else {
+                brokenVideos.push({ ...video, reason: 'Video not found on YouTube (deleted or private)' });
+              }
+            });
+          }
+          
+          // Small delay between batches to be respectful of API limits
+          if (i + batchSize < videoIds.length) {
+            await new Promise(resolve => setTimeout(resolve, 200));
+          }
+        } catch (error) {
+          // If batch request fails, mark all videos in batch as broken
+          batch.forEach(videoId => {
+            brokenVideos.push({ ...videoMap.get(videoId), reason: `Error: ${error.message}` });
+          });
+        }
+      }
+      
+      // Set dead videos for display
+      setDeadVideos(brokenVideos);
+      
+      setScanResults({
+        total: allVideos.length,
+        working: workingVideos.length,
+        broken: brokenVideos.length,
+        apiCallsUsed: totalBatches
+      });
+      
+      setMessage(`Scan complete! Used ${totalBatches} API calls. Found ${brokenVideos.length} broken videos. ${workingVideos.length} videos are working.`);
+    } catch (error) {
+      setMessage('Error scanning videos: ' + error.message);
+    } finally {
+      setIsScanning(false);
+    }
+  };
+
+  // Delete a single dead video
+  const deleteDeadVideo = async (videoId) => {
+    try {
+      await deleteVideo(videoId);
+      setDeadVideos(prev => prev.filter(v => v.id !== videoId));
+      setMessage('Video deleted successfully!');
+      await loadVideos();
+    } catch (error) {
+      setMessage('Error deleting video: ' + error.message);
+    }
+  };  const loadVideos = async () => {
     try {
       setLoading(true);
       const data = await getAllVideos();
@@ -594,3 +740,4 @@ export default function Admin() {
     </div>
   );
 }
+
