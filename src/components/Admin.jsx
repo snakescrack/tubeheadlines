@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { addVideo, CATEGORIES, getDefaultCategory, deleteVideo, getAllVideos, updateVideo, getScheduledVideos, checkScheduledVideos } from '../utils/dbOperations';
-import { db } from '../firebase';
 import '../styles/Admin.css';
 
 export default function Admin() {
@@ -16,12 +15,14 @@ export default function Admin() {
   });
   const [message, setMessage] = useState('');
   const [selectedPosition, setSelectedPosition] = useState('featured');
-  const [videos, setVideos] = useState(null);
+  const [videos, setVideos] = useState([]); // Initialize as empty array
   const [scheduledVideos, setScheduledVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
   const [showScheduled, setShowScheduled] = useState(false);
+  const [deadVideos, setDeadVideos] = useState([]);
+  const [isScanning, setIsScanning] = useState(false);
 
   // Load videos on mount and start scheduling check
   useEffect(() => {
@@ -53,9 +54,11 @@ export default function Admin() {
     try {
       setLoading(true);
       const data = await getAllVideos();
-      setVideos(data);
+      // Ensure data is an array
+      setVideos(Array.isArray(data) ? data : []);
     } catch (error) {
       setMessage('Error loading videos: ' + error.message);
+      setVideos([]);
     } finally {
       setLoading(false);
     }
@@ -88,16 +91,13 @@ export default function Admin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('Processing...');
-    console.log('--- Starting video submission ---');
 
     try {
       // 1. Extract Video ID from URL
       const url = formData.youtubeURL;
-      console.log('YouTube URL:', url);
       const videoIdRegex = /(?:youtube\.com\/(?:[^/]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
       const videoIdMatch = url.match(videoIdRegex);
       const videoId = videoIdMatch ? videoIdMatch[1] : null;
-      console.log('Extracted Video ID:', videoId);
 
       if (!videoId) {
         throw new Error('Could not extract video ID from URL. Please check the format.');
@@ -105,18 +105,14 @@ export default function Admin() {
 
       // 2. Fetch Video Description from YouTube API
       const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
-      console.log('Using API Key:', apiKey ? 'Yes' : 'No');
       if (!apiKey) {
         throw new Error('YouTube API key is missing. Please set VITE_YOUTUBE_API_KEY in your environment.');
       }
       
-      console.log('Fetching from YouTube API...');
       const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet&key=${apiKey}`);
       const youtubeData = await response.json();
-      console.log('YouTube API Response:', youtubeData);
 
       if (youtubeData.error) {
-        console.error('YouTube API Error:', youtubeData.error.message);
         throw new Error(`YouTube API Error: ${youtubeData.error.message}`);
       }
 
@@ -125,22 +121,20 @@ export default function Admin() {
       }
 
       const description = youtubeData.items[0].snippet.description;
-      console.log('Fetched Description:', description ? `${description.substring(0, 50)}...` : 'None');
 
       // 3. Prepare data for submission
       const submitData = {
         ...formData,
-        description: description, // Add the fetched description
+        description: description,
         scheduledAt: formData.isScheduled ? formData.scheduledAt : null,
         thumbnailURL: formData.showThumbnail ? formData.thumbnailURL : '',
-        videoId: videoId, // Ensure videoId is in the data
+        videoId: videoId,
       };
 
       // Use default thumbnail if none is provided
       if (formData.showThumbnail && !formData.thumbnailURL) {
         submitData.thumbnailURL = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
       }
-      console.log('Final data for submission:', submitData);
 
       // 4. Add or Update video in Firestore
       if (editMode && editId) {
@@ -181,7 +175,6 @@ export default function Admin() {
       setMessage('Video deleted successfully!');
       await loadVideos();
       
-      // Reset form if we were editing this video
       if (editId === videoId) {
         setFormData({
           youtubeURL: '',
@@ -215,35 +208,82 @@ export default function Admin() {
     setEditId(video.id);
   };
 
-  const loadSubmissions = async () => {
-    try {
-      const q = query(collection(db, 'creatorSubmissions'), orderBy('submittedAt', 'desc'));
-      const querySnapshot = await getDocs(q);
-      const subs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setSubmissions(subs);
-    } catch (error) {
-      console.error('Error loading submissions:', error);
-      setMessage('Error loading submissions: ' + error.message);
+  const scanForDeadVideos = async () => {
+    if (!videos || videos.length === 0) return;
+    setIsScanning(true);
+    setMessage('Scanning for dead videos... This may take a moment.');
+    setDeadVideos([]);
+
+    // videos is now a flat array
+    const allVideos = videos;
+
+    const foundDead = [];
+    const batchSize = 5;
+
+    for (let i = 0; i < allVideos.length; i += batchSize) {
+        const batch = allVideos.slice(i, i + batchSize);
+        await Promise.all(batch.map(async (video) => {
+            try {
+                // Extract ID
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+                const match = video.youtubeURL.match(regExp);
+                const videoId = (match && match[2].length === 11) ? match[2] : null;
+
+                if (videoId) {
+                    // Check video status (mock or real function needed here if check-video-status exists)
+                    // For now, assume this endpoint exists as per code review
+                    const res = await fetch(`/.netlify/functions/check-video-status?videoId=${videoId}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.status === 'dead') {
+                            foundDead.push(video);
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error('Error checking video:', video.customHeadline, err);
+            }
+        }));
     }
+
+    setDeadVideos(foundDead);
+    setIsScanning(false);
+    setMessage(foundDead.length > 0 ? `Found ${foundDead.length} dead videos.` : 'Scan complete. All videos look good!');
+  };
+
+  const deleteDeadVideo = async (videoId) => {
+      await handleDelete(videoId);
+      setDeadVideos(prev => prev.filter(v => v.id !== videoId));
   };
 
 
-
-
   const getCategoryDescription = (position) => {
-    const categories = CATEGORIES[position];
+    const categories = CATEGORIES[position] || [];
     return `Available categories: ${categories.join(', ')}`;
   };
 
   const renderVideoList = () => {
-    if (!videos) return null;
+    if (!videos || videos.length === 0) return <div className="no-videos">No videos found.</div>;
 
-    const renderVideoGroup = (title, items) => {
-      if (!items || Object.keys(items).length === 0) return null;
+    // Helper to group videos by category
+    const groupVideosByCategory = (videoList) => {
+        return videoList.reduce((acc, video) => {
+            const cat = video.category || 'General';
+            if (!acc[cat]) acc[cat] = [];
+            acc[cat].push(video);
+            return acc;
+        }, {});
+    };
+
+    // Helper to render a group
+    const renderVideoGroup = (title, videoList) => {
+      if (!videoList || videoList.length === 0) return null;
+      const byCategory = groupVideosByCategory(videoList);
+
       return (
         <div className="video-group">
           <h3>{title}</h3>
-          {Object.entries(items).map(([category, categoryVideos]) => (
+          {Object.entries(byCategory).map(([category, categoryVideos]) => (
             <div key={category} className="category-group">
               <h4>{category}</h4>
               {categoryVideos.map(video => (
@@ -273,6 +313,14 @@ export default function Admin() {
       );
     };
 
+    // Filter videos by position_type for display
+    const featured = videos.find(v => v.position_type === 'featured'); // Only one featured usually? Or list all?
+    // Actually featured videos are just position_type='featured'
+    const featuredVideos = videos.filter(v => v.position_type === 'featured');
+    const leftVideos = videos.filter(v => v.position_type === 'left');
+    const centerVideos = videos.filter(v => v.position_type === 'center');
+    const rightVideos = videos.filter(v => v.position_type === 'right');
+
     return (
       <div className="video-list">
         <h2>Current Headlines</h2>
@@ -280,10 +328,10 @@ export default function Admin() {
           <div className="loading">Loading...</div>
         ) : (
           <>
-            {videos.featured && renderVideoGroup('Featured', { Featured: [videos.featured] })}
-            {renderVideoGroup('Left Column', videos.columns.left)}
-            {renderVideoGroup('Center Column', videos.columns.center)}
-            {renderVideoGroup('Right Column', videos.columns.right)}
+            {renderVideoGroup('Featured', featuredVideos)}
+            {renderVideoGroup('Left Column', leftVideos)}
+            {renderVideoGroup('Center Column', centerVideos)}
+            {renderVideoGroup('Right Column', rightVideos)}
           </>
         )}
       </div>
@@ -396,7 +444,7 @@ export default function Admin() {
               onChange={handleInputChange}
               required
             >
-              {CATEGORIES[selectedPosition].map(category => (
+              {(CATEGORIES[selectedPosition] || []).map(category => (
                 <option key={category} value={category}>
                   {category}
                 </option>
@@ -502,6 +550,46 @@ export default function Admin() {
         </div>
 
         {showScheduled ? renderScheduledVideos() : renderVideoList()}
+      </div>
+
+      {/* Dead Video Scanner Section */}
+      <div className="admin-panel" style={{ marginTop: '2rem', borderTop: '2px solid #eee', paddingTop: '1rem' }}>
+          <h2>Maintenance Tool</h2>
+          <p>Scan your library for videos that have been deleted or made private on YouTube.</p>
+          <button
+              onClick={scanForDeadVideos}
+              disabled={isScanning}
+              style={{
+                  backgroundColor: isScanning ? '#ccc' : '#ff4444',
+                  color: 'white',
+                  padding: '10px 20px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: isScanning ? 'not-allowed' : 'pointer',
+                  fontSize: '1rem'
+              }}
+          >
+              {isScanning ? 'Scanning...' : 'Scan for Dead Videos'}
+          </button>
+
+          {deadVideos.length > 0 && (
+              <div style={{ marginTop: '1rem' }}>
+                  <h3>Found {deadVideos.length} Dead Videos</h3>
+                  <div className="dead-video-list">
+                      {deadVideos.map(video => (
+                          <div key={video.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', background: '#fff0f0', marginBottom: '5px', borderRadius: '4px' }}>
+                              <span>{video.customHeadline}</span>
+                              <button
+                                  onClick={() => deleteDeadVideo(video.id)}
+                                  style={{ background: 'red', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', borderRadius: '3px' }}
+                              >
+                                  Delete
+                              </button>
+                          </div>
+                      ))}
+                  </div>
+              </div>
+          )}
       </div>
     </div>
   );

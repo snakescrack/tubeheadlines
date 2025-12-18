@@ -9,8 +9,37 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// This script now runs from within the tubeheadlines-react directory,
-// so it can access the project's node_modules.
+// Helper to extract YouTube ID (replicated from youtubeUtils.js to avoid ESM import issues)
+function getYouTubeId(url) {
+  if (!url) return '';
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : '';
+}
+
+// Helper to get optimized thumbnail URL
+function getOptimizedThumbnailUrl(videoId, quality = 'high') {
+  if (!videoId) return '';
+  switch (quality) {
+    case 'high': return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+    case 'medium': return `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
+    default: return `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
+  }
+}
+
+// Escape XML special characters
+function escapeXml(unsafe) {
+    if (!unsafe) return '';
+    return unsafe.replace(/[<>&'"]/g, function (c) {
+        switch (c) {
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '&': return '&amp;';
+            case '\'': return '&apos;';
+            case '"': return '&quot;';
+        }
+    });
+}
 
 const firebaseConfig = {
     apiKey: process.env.VITE_FIREBASE_API_KEY,
@@ -63,11 +92,12 @@ const generateSitemap = async () => {
     const today = new Date().toISOString().split('T')[0];
     const SITE_URL = 'https://tubeheadlines.com';
     
-    // Correct path: from /scripts up to project root, then to /dist/sitemap.xml
     const sitemapPath = path.resolve(__dirname, '..', 'dist', 'sitemap.xml');
 
-    const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    // Header now includes the video namespace
+    let sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>${SITE_URL}/</loc>
     <lastmod>${today}</lastmod>
@@ -76,13 +106,19 @@ const generateSitemap = async () => {
   </url>
   <url>
     <loc>${SITE_URL}/privacy</loc>
-    <lastmod>2025-05-06</lastmod>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>${SITE_URL}/terms</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>${SITE_URL}/faq</loc>
-    <lastmod>2025-05-15</lastmod>
+    <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -127,19 +163,44 @@ const generateSitemap = async () => {
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
-  ${videos.map(video => `
+  </url>`;
+
+    // Add video URLs with rich metadata
+    videos.forEach(video => {
+        const videoId = getYouTubeId(video.youtubeURL);
+        const thumbnailUrl = video.thumbnailURL || getOptimizedThumbnailUrl(videoId, 'high');
+        const title = escapeXml(video.customHeadline || video.title || 'TubeHeadlines Video');
+        const description = escapeXml(video.description || 'Watch this video on TubeHeadlines');
+        const pubDate = new Date(video.createdAt).toISOString(); // ISO 8601 required
+        const videoPageUrl = `${SITE_URL}/video/${video.id}`;
+
+        // Only add if we have a valid thumbnail and ID
+        if (videoId && thumbnailUrl) {
+            sitemapContent += `
   <url>
-    <loc>${SITE_URL}/video/${video.id}</loc>
+    <loc>${videoPageUrl}</loc>
     <lastmod>${new Date(video.createdAt).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>`).join('')}
+    <video:video>
+      <video:thumbnail_loc>${escapeXml(thumbnailUrl)}</video:thumbnail_loc>
+      <video:title>${title}</video:title>
+      <video:description>${description}</video:description>
+      <video:player_loc>https://www.youtube.com/embed/${videoId}</video:player_loc>
+      <video:publication_date>${pubDate}</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:requires_subscription>no</video:requires_subscription>
+      <video:live>no</video:live>
+    </video:video>
+  </url>`;
+        }
+    });
+
+    sitemapContent += `
 </urlset>`;
 
     writeFileSync(sitemapPath, sitemapContent.trim());
     console.log(`Sitemap generated successfully at ${sitemapPath}`);
-    // process.exit(0) is removed to allow the build process to continue
 };
 
 generateSitemap().catch(error => {

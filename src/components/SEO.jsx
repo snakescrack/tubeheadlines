@@ -6,12 +6,14 @@ const SEO = ({
   title = 'TubeHeadlines: Discover Trending YouTube Videos & News',
   description = 'TubeHeadlines curates the best YouTube videos from emerging and established creators. Find trending content, breaking news, educational videos, and viral content with a focus on quality over popularity.',
   path = '',
+  // eslint-disable-next-line no-unused-vars
   image = '',
   videoData = null,
   articleData = null,
   faqData = null,
   videos = [],
   noindex = false,
+  // eslint-disable-next-line no-unused-vars
   currentUrl = ''
 }) => {
   const location = useLocation();
@@ -32,9 +34,18 @@ const SEO = ({
   // For the homepage, always use the default social share image.
   // For other pages (like video detail pages), use the video's thumbnail.
   const isHomePage = effectivePath === '/' || effectivePath === '';
-  const imageUrl = isHomePage 
-    ? `${siteUrl}/social-share.jpg` 
-    : videoData?.thumbnailURL || `${siteUrl}/social-share.jpg`;
+
+  // Determine the best image URL for Open Graph/Twitter
+  let imageUrl;
+  if (isHomePage) {
+    imageUrl = `${siteUrl}/social-share.jpg`;
+  } else if (videoData) {
+    // If it's a video page, prioritize the custom thumbnail, then fallback to YouTube optimized thumbnail
+    imageUrl = videoData.thumbnailURL || getOptimizedThumbnailUrl(getYouTubeId(videoData.youtubeURL), 'high');
+  } else {
+    // Default fallback
+    imageUrl = `${siteUrl}/social-share.jpg`;
+  }
 
   return (
     <Helmet>
@@ -53,9 +64,12 @@ const SEO = ({
       <meta property="og:type" content="website" />
       <meta property="og:image" content={imageUrl} />
       <meta property="og:site_name" content="TubeHeadlines" />
+      <meta property="og:locale" content="en_US" />
 
       {/* Twitter Card Tags */}
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@TubeHeadlines" />
+      <meta name="twitter:creator" content="@TubeHeadlines" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={imageUrl} />
