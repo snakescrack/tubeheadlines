@@ -76,13 +76,19 @@ const generateSitemap = async () => {
   </url>
   <url>
     <loc>${SITE_URL}/privacy</loc>
-    <lastmod>2025-05-06</lastmod>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>${SITE_URL}/terms</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>${SITE_URL}/faq</loc>
-    <lastmod>2025-05-15</lastmod>
+    <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

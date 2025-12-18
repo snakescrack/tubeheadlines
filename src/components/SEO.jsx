@@ -6,12 +6,14 @@ const SEO = ({
   title = 'TubeHeadlines: Discover Trending YouTube Videos & News',
   description = 'TubeHeadlines curates the best YouTube videos from emerging and established creators. Find trending content, breaking news, educational videos, and viral content with a focus on quality over popularity.',
   path = '',
+  // eslint-disable-next-line no-unused-vars
   image = '',
   videoData = null,
   articleData = null,
   faqData = null,
   videos = [],
   noindex = false,
+  // eslint-disable-next-line no-unused-vars
   currentUrl = ''
 }) => {
   const location = useLocation();
@@ -53,9 +55,12 @@ const SEO = ({
       <meta property="og:type" content="website" />
       <meta property="og:image" content={imageUrl} />
       <meta property="og:site_name" content="TubeHeadlines" />
+      <meta property="og:locale" content="en_US" />
 
       {/* Twitter Card Tags */}
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@TubeHeadlines" />
+      <meta name="twitter:creator" content="@TubeHeadlines" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={imageUrl} />
