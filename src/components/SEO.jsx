@@ -204,6 +204,17 @@ const SEO = ({
               uploadDate: parseDate(videoData.publishedAt || videoData.createdAt).toISOString(),
               contentUrl: fullUrl,
               embedUrl: `https://www.youtube.com/embed/${videoId}`,
+              // AI-optimized metadata
+              keywords: videoData.category ? `${videoData.category}, youtube news, trending videos` : 'youtube news, trending videos',
+              genre: videoData.category || 'News',
+              publisher: {
+                '@type': 'Organization',
+                name: 'TubeHeadlines',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: `${siteUrl}/th-favicon.png`
+                }
+              },
               interactionStatistic: {
                 '@type': 'InteractionCounter',
                 'interactionType': { '@type': 'WatchAction' },
@@ -250,6 +261,21 @@ const SEO = ({
           })}
         </script>
       )}
+
+      {/* Organization Schema for AI Authority Signals */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          'name': 'TubeHeadlines',
+          'url': siteUrl,
+          'logo': `${siteUrl}/th-favicon.png`,
+          'description': 'Curating the best YouTube videos from emerging and established creators',
+          'sameAs': [
+            'https://twitter.com/TubeHeadlines'
+          ]
+        })}
+      </script>
     </Helmet>
   );
 };
