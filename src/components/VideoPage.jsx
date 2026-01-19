@@ -8,6 +8,16 @@ import ServerError from './ServerError';
 import { pageview } from '../utils/analytics';
 import { getYouTubeId } from '../utils/youtubeUtils';
 
+// Helper to safely parse dates from various formats (Firestore, string, Date)
+const parseDate = (date) => {
+  if (!date) return new Date();
+  if (date.toDate) return date.toDate();
+  if (date.seconds) return new Date(date.seconds * 1000);
+  if (typeof date === 'string') return new Date(date);
+  if (date instanceof Date) return date;
+  return new Date();
+};
+
 const VideoPage = () => {
   const { id } = useParams(); // Use 'id' directly from the URL
   const [video, setVideo] = useState(null);
@@ -29,6 +39,9 @@ const VideoPage = () => {
 
         if (videoDoc.exists()) {
           const videoData = { id: videoDoc.id, ...videoDoc.data() };
+          // Ensure dates are parsed correctly
+          videoData.publishedAt = parseDate(videoData.publishedAt);
+          videoData.createdAt = parseDate(videoData.createdAt);
           setVideo(videoData);
 
           pageview(
@@ -75,6 +88,8 @@ const VideoPage = () => {
   const pageDescription = video.description ||
     `Watch "${video.customHeadline}" - Latest video news and updates from top creators. Get breaking news, analysis, and trending stories delivered daily on TubeHeadlines.`;
 
+  const formattedDate = video.publishedAt instanceof Date ? video.publishedAt.toLocaleDateString() : 'Unknown date';
+
   return (
     <>
       <SEO
@@ -111,7 +126,7 @@ const VideoPage = () => {
 
 
         <div className="video-stats" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', padding: '0.5rem 0', borderTop: '1px solid #eee', borderBottom: '1px solid #eee' }}>
-          <span style={{ fontSize: '0.9rem', color: '#555' }}>Published on {new Date(video.publishedAt).toLocaleDateString()}</span>
+          <span style={{ fontSize: '0.9rem', color: '#555' }}>Published on {formattedDate}</span>
           <span style={{ fontSize: '0.9rem', color: '#555' }}>{video.viewCount ? `${parseInt(video.viewCount).toLocaleString()} views` : ''}</span>
         </div>
 

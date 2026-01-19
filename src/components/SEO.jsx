@@ -2,6 +2,16 @@ import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { getYouTubeId, getOptimizedThumbnailUrl } from '../utils/youtubeUtils';
 
+// Helper to safely parse dates from various formats (Firestore, string, Date)
+const parseDate = (date) => {
+  if (!date) return new Date();
+  if (date.toDate) return date.toDate();
+  if (date.seconds) return new Date(date.seconds * 1000);
+  if (typeof date === 'string') return new Date(date);
+  if (date instanceof Date) return date;
+  return new Date();
+};
+
 const SEO = ({
   title = 'TubeHeadlines: Discover Trending YouTube Videos & News',
   description = 'TubeHeadlines curates the best YouTube videos from emerging and established creators. Find trending content, breaking news, educational videos, and viral content with a focus on quality over popularity.',
@@ -18,14 +28,14 @@ const SEO = ({
 }) => {
   const location = useLocation();
   const siteUrl = 'https://tubeheadlines.com';
-  
+
   // Determine the canonical path:
   // 1. Use the explicitly provided 'path' prop if available.
   // 2. Otherwise, use location.pathname (which automatically strips query params like ?ref=twitter).
   // 3. Ensure we don't double-slash if path starts with /.
   const effectivePath = path || location.pathname;
   const cleanPath = effectivePath.startsWith('/') ? effectivePath : `/${effectivePath}`;
-  
+
   // Remove trailing slash unless it is the root path '/'
   const canonicalPath = cleanPath === '/' ? '/' : cleanPath.replace(/\/$/, '');
   const fullUrl = `${siteUrl}${canonicalPath === '/' ? '' : canonicalPath}`;
@@ -104,7 +114,7 @@ const SEO = ({
           })}
         </script>
       )}
-      
+
       {/* BreadcrumbList Schema */}
       <script type="application/ld+json">
         {JSON.stringify({
@@ -139,8 +149,8 @@ const SEO = ({
             },
             'headline': articleData.headline || title,
             'image': [articleData.image || imageUrl],
-            'datePublished': articleData.datePublished || new Date().toISOString(),
-            'dateModified': articleData.dateModified || articleData.datePublished || new Date().toISOString(),
+            'datePublished': parseDate(articleData.datePublished).toISOString(),
+            'dateModified': parseDate(articleData.dateModified || articleData.datePublished).toISOString(),
             'author': {
               '@type': 'Person',
               'name': articleData.author || 'TubeHeadlines'
@@ -183,7 +193,7 @@ const SEO = ({
             // Always ensure we have a valid thumbnail URL
             const videoId = getYouTubeId(videoData.youtubeURL);
             const thumbnailUrl = videoData.thumbnailURL || getOptimizedThumbnailUrl(videoId, 'high');
-            
+
             const schema = {
               '@context': 'https://schema.org',
               '@type': 'VideoObject',
@@ -191,7 +201,7 @@ const SEO = ({
               description,
               thumbnailUrl: [thumbnailUrl],
               image: thumbnailUrl,
-              uploadDate: videoData.publishedAt || videoData.createdAt || new Date().toISOString(),
+              uploadDate: parseDate(videoData.publishedAt || videoData.createdAt).toISOString(),
               contentUrl: fullUrl,
               embedUrl: `https://www.youtube.com/embed/${videoId}`,
               interactionStatistic: {
@@ -209,7 +219,7 @@ const SEO = ({
           })())}
         </script>
       )}
-      
+
       {/* Structured Data for lists of videos (e.g., homepage) */}
       {isHomePage && videos && videos.length > 0 && (
         <script type="application/ld+json">
@@ -221,7 +231,7 @@ const SEO = ({
             'itemListElement': videos.map((video, index) => {
               const videoId = getYouTubeId(video.youtubeURL);
               const thumbnailUrl = video.thumbnailURL || getOptimizedThumbnailUrl(videoId, 'medium');
-              
+
               return {
                 '@type': 'ListItem',
                 'position': index + 1,
@@ -231,7 +241,7 @@ const SEO = ({
                   'description': video.description || `${video.customHeadline || video.title} - Watch on TubeHeadlines`,
                   'thumbnailUrl': thumbnailUrl,
                   'image': thumbnailUrl,
-                  'uploadDate': video.publishedAt || video.createdAt || new Date().toISOString(),
+                  'uploadDate': parseDate(video.publishedAt || video.createdAt).toISOString(),
                   'contentUrl': `${siteUrl}/video/${video.id}`,
                   'embedUrl': `https://www.youtube.com/embed/${videoId}`
                 }

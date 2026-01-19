@@ -5,10 +5,16 @@
   position: relative;
 }
 
-.logout-button {
+.header-controls {
   position: absolute;
   top: 20px;
   right: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.logout-button {
   padding: 8px 16px;
   background-color: #cc0000;
   color: white;
@@ -525,6 +531,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .thumbnail-controls input[type="url"] {
@@ -648,6 +655,23 @@
 
 .cancel-button:hover {
   background-color: #5a6268;
+}
+
+.header-controls .clean-btn {
+  background-color: #ff9800;
+}
+
+.header-controls .clean-btn:hover {
+  background-color: #f57c00;
+}
+
+.status-message {
+  margin: 0;
+  font-weight: 500;
+  color: #555;
+  background: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 4px;
 }
 
 .loading {

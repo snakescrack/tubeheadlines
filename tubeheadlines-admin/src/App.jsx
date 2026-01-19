@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
 import './components/Login.css';
 import { db } from './firebase';
-import { collection, query, where, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
-import { migrateCreatedAt } from './utils/dbOperations';
+import { collection, query, where, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc, writeBatch } from 'firebase/firestore';
 import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return localStorage.getItem('isAdminLoggedIn') === 'true';
   });
+
+  const [cleaningStatus, setCleaningStatus] = useState('');
+  const [scanProgress, setScanProgress] = useState(null);
+  const [brokenVideos, setBrokenVideos] = useState([]);
+  const [showBrokenList, setShowBrokenList] = useState(false);
 
   const [formData, setFormData] = useState({
     youtubeURL: '',
@@ -27,7 +31,6 @@ function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [successMessage, setSuccessMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [migrationStatus, setMigrationStatus] = useState('');
 
   const POSITION_TYPES = {
     featured: 'featured',
@@ -65,19 +68,19 @@ function App() {
       if (forceRefresh) {
         setVideos([]);
       }
-      
+
       const videosRef = collection(db, 'videos');
-      
+
       // Create a query to fetch videos (sorting removed temporarily)
       const q = query(videosRef);
-      
+
       const querySnapshot = await getDocs(q);
-      
+
       const loadedVideos = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
-      
+
       // Set the videos in state
       setVideos(loadedVideos);
     } catch (error) {
@@ -157,7 +160,7 @@ function App() {
       // Show success message
       const message = editMode ? 'Headline updated successfully!' : 'New headline added!';
       setSuccessMessage(message);
-      
+
       // Reset form
       setFormData({
         youtubeURL: '',
@@ -171,7 +174,7 @@ function App() {
       setEditMode(false);
       setEditId(null);
       await loadVideos();
-      
+
       // Clear success message after 2 seconds
       setTimeout(() => {
         setSuccessMessage('');
@@ -227,7 +230,7 @@ function App() {
       ...prev,
       youtubeURL: url
     }));
-    
+
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
       getVideoTitle(url);
     }
@@ -237,7 +240,7 @@ function App() {
     try {
       const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/shorts\/|\/watch\?v=|\/watch\?.+&v=))([^"&?\/\s]{11})/);
       const videoId = videoIdMatch && videoIdMatch[1];
-      
+
       if (!videoId) return;
 
       fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`)
@@ -261,8 +264,8 @@ function App() {
 
   const convertToSEOTitle = (title) => {
     title = title.replace(/\s*\|.*$/, '')
-                .replace(/\s*-\s*YouTube$/, '')
-                .replace(/\s*\(.*?\)/, '');
+      .replace(/\s*-\s*YouTube$/, '')
+      .replace(/\s*\(.*?\)/, '');
 
     title = title.replace(/\w\S*/g, (txt) => {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -280,13 +283,149 @@ function App() {
     return title;
   };
 
-  const handleMigrate = async () => {
-    setMigrationStatus('Migrating...');
+  const checkVideoAvailability = async () => {
+    if (!window.confirm('Start DEEP SCAN (Embed & Restriction Check)?\n\nThis will check for:\n- Broken/Deleted videos\n- Embedding disabled\n- Age restrictions\n- Region blocks')) {
+      return;
+    }
+
+    setBrokenVideos([]);
+    setShowBrokenList(false);
+    setScanProgress({ current: 0, total: videos.length, status: 'Starting scan (Enhanced Mode)...' });
+
     try {
-      const count = await migrateCreatedAt();
-      setMigrationStatus(`Migration successful! Updated ${count} videos.`);
+      const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+      if (!apiKey) {
+        throw new Error('YouTube API key is missing.');
+      }
+
+      const allVideos = [...videos];
+      const videosToDelete = [];
+      const videoIds = [];
+      const videoIdToDocId = {};
+
+      // Extract IDs
+      allVideos.forEach(video => {
+        if (video.youtubeURL) {
+          const match = video.youtubeURL.match(/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)|(?:\?v=))([^#\&?]*).*/);
+          const videoId = match ? match[1] : null;
+          if (videoId) {
+            videoIds.push(videoId);
+            videoIdToDocId[videoId] = { id: video.id, title: video.customHeadline };
+          }
+        }
+      });
+
+      // Process in batches of 50
+      for (let i = 0; i < videoIds.length; i += 50) {
+        const batchIds = videoIds.slice(i, i + 50).map(id => id.trim()).filter(id => id);
+        if (batchIds.length === 0) continue;
+
+        setScanProgress({
+          current: i + batchIds.length,
+          total: videoIds.length,
+          status: `Scanning batch ${Math.floor(i / 50) + 1} of ${Math.ceil(videoIds.length / 50)}...`
+        });
+
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails,snippet&id=${batchIds.join(',')}&key=${apiKey}`);
+
+        if (!response.ok) {
+          console.error('API Error:', response.status);
+          continue;
+        }
+
+        const data = await response.json();
+        console.log('Batch results:', data.items?.map(i => ({ id: i.id, embeddable: i.status?.embeddable, status: i.status })));
+
+        const foundIds = new Set();
+
+        if (data.items) {
+          data.items.forEach(item => {
+            foundIds.add(item.id);
+            if (item.status) {
+              const isPrivate = item.status.privacyStatus === 'private';
+              const isRejected = item.status.uploadStatus === 'rejected';
+              const isDeleted = item.status.uploadStatus === 'deleted';
+              const isFailed = item.status.uploadStatus === 'failed';
+              const isEmbedDisabled = item.status.embeddable === false;
+
+              const isAgeRestricted = item.contentDetails?.contentRating?.ytRating === 'ytAgeRestricted';
+              const isRegionRestricted = item.contentDetails?.regionRestriction?.blocked?.includes('US'); // Assume US target for now
+
+              if (isPrivate || isRejected || isDeleted || isFailed || isEmbedDisabled || isAgeRestricted || isRegionRestricted) {
+                let reason = 'Unknown';
+                if (isPrivate) reason = 'Private';
+                else if (isDeleted) reason = 'Deleted';
+                else if (isFailed) reason = 'Upload Failed';
+                else if (isRejected) reason = 'Rejected';
+                else if (isEmbedDisabled) reason = 'Embedding Disabled';
+                else if (isAgeRestricted) reason = 'Age Restricted';
+                else if (isRegionRestricted) reason = 'Region Blocked';
+
+                videosToDelete.push({
+                  ...videoIdToDocId[item.id],
+                  reason: reason
+                });
+              }
+            }
+          });
+        }
+
+        // Videos not found at all
+        batchIds.forEach(id => {
+          if (!foundIds.has(id) && videoIdToDocId[id]) {
+            videosToDelete.push({
+              ...videoIdToDocId[id],
+              reason: 'Not found (deleted)'
+            });
+          }
+        });
+      }
+
+      const uniqueToDelete = Array.from(new Map(videosToDelete.map(v => [v.id, v])).values());
+      const skippedCount = videos.length - videoIds.length;
+
+      if (uniqueToDelete.length > 0) {
+        setBrokenVideos(uniqueToDelete);
+        setShowBrokenList(true);
+        setScanProgress(null);
+        setCleaningStatus(`Scan Complete. Found ${uniqueToDelete.length} issues in ${videoIds.length} videos. (${skippedCount} skipped due to invalid URLs)`);
+      } else {
+        setScanProgress(null);
+        setCleaningStatus(`Scan Complete. Clean bill of health! Scanned ${videoIds.length} videos. (${skippedCount} skipped)`);
+        setTimeout(() => setCleaningStatus(''), 5000);
+      }
+
     } catch (error) {
-      setMigrationStatus(`Migration failed: ${error.message}`);
+      console.error('Error scanning videos:', error);
+      setScanProgress(null);
+      setCleaningStatus(`Error: ${error.message}`);
+    }
+  };
+
+  const deleteBrokenVideos = async () => {
+    if (!window.confirm(`Delete ${brokenVideos.length} broken videos?\n\nThis cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const batch = writeBatch(db);
+      brokenVideos.forEach(video => {
+        const docRef = doc(db, 'videos', video.id);
+        batch.delete(docRef);
+      });
+
+      await batch.commit();
+      setCleaningStatus(`Successfully deleted ${brokenVideos.length} videos!`);
+      setBrokenVideos([]);
+      setShowBrokenList(false);
+
+      // Refresh
+      setVideos([]);
+      await loadVideos(true);
+
+      setTimeout(() => setCleaningStatus(''), 3000);
+    } catch (error) {
+      setCleaningStatus(`Error deleting: ${error.message}`);
     }
   };
 
@@ -296,17 +435,107 @@ function App() {
 
   return (
     <div className="admin-container">
-      <div className="migration-controls">
-        <button onClick={handleMigrate}>Migrate Video Data</button>
-        {migrationStatus && <p>{migrationStatus}</p>}
-      </div>
       <header className="admin-header">
         <h1>TubeHeadlines Admin</h1>
         <p>Local admin tool for managing your headlines</p>
         <div className="clock">{currentTime.toLocaleTimeString()}</div>
-        <button onClick={handleLogout} className="logout-button">Logout</button>
+        <div className="header-controls">
+          <button onClick={checkVideoAvailability} className="clean-btn" title="Uses free YouTube API quota">
+            Scan & Clean Broken Videos
+          </button>
+          <button onClick={handleLogout} className="logout-button">Logout</button>
+        </div>
       </header>
-      
+
+      {scanProgress && (
+        <div className="status-bar">
+          <p className="status-message">
+            {scanProgress.status} ({scanProgress.current}/{scanProgress.total})
+          </p>
+          <div style={{ width: '100%', backgroundColor: '#eee', borderRadius: '4px', marginTop: '10px' }}>
+            <div style={{
+              width: `${(scanProgress.current / scanProgress.total) * 100}%`,
+              backgroundColor: '#4CAF50',
+              height: '20px',
+              borderRadius: '4px',
+              transition: 'width 0.3s'
+            }}></div>
+          </div>
+        </div>
+      )}
+
+      {cleaningStatus && (
+        <div className="status-bar">
+          <p className="status-message">{cleaningStatus}</p>
+        </div>
+      )}
+
+      {showBrokenList && brokenVideos.length > 0 && (
+        <div className="broken-videos-panel" style={{
+          margin: '20px',
+          padding: '20px',
+          backgroundColor: '#fff3cd',
+          border: '2px solid #ffc107',
+          borderRadius: '8px'
+        }}>
+          <h3 style={{ color: '#856404' }}> Found {brokenVideos.length} Broken Videos</h3>
+          <div style={{ maxHeight: '400px', overflowY: 'auto', marginTop: '15px' }}>
+            {brokenVideos.map((video, index) => (
+              <div key={video.id} style={{
+                padding: '10px',
+                marginBottom: '8px',
+                backgroundColor: 'white',
+                borderLeft: '4px solid #dc3545',
+                borderRadius: '4px'
+              }}>
+                <strong>{index + 1}. {video.title}</strong>
+                <span style={{
+                  marginLeft: '10px',
+                  padding: '2px 8px',
+                  backgroundColor: '#dc3545',
+                  color: 'white',
+                  borderRadius: '3px',
+                  fontSize: '12px'
+                }}>
+                  {video.reason}
+                </span>
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={deleteBrokenVideos}
+            style={{
+              marginTop: '15px',
+              padding: '12px 24px',
+              backgroundColor: '#dc3545',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '16px',
+              fontWeight: 'bold'
+            }}
+          >
+            Delete All {brokenVideos.length} Broken Videos
+          </button>
+          <button
+            onClick={() => { setBrokenVideos([]); setShowBrokenList(false); setCleaningStatus(''); }}
+            style={{
+              marginLeft: '10px',
+              padding: '12px 24px',
+              backgroundColor: '#6c757d',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '16px'
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+
       <div className="search-container">
         <input
           type="text"
@@ -445,17 +674,17 @@ function App() {
 
         <div className="headlines-section">
           <h2 className="section-header">Current Headlines</h2>
-          
+
           <div className="video-list">
             <h3 className="section-header">Featured</h3>
             {videos
               .filter(video => video.position_type === 'featured')
-              .filter(video => 
-                searchTerm === '' || 
-                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+              .filter(video =>
+                searchTerm === '' ||
+                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 video.youtubeURL?.toLowerCase().includes(searchTerm.toLowerCase())
               )
-              
+
               .map(video => (
                 <div key={video.id} className="video-item">
                   <h4>{video.customHeadline}</h4>
@@ -482,12 +711,12 @@ function App() {
             <h3 className="section-header">Breaking News</h3>
             {videos
               .filter(video => video.position_type === 'left')
-              .filter(video => 
-                searchTerm === '' || 
-                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+              .filter(video =>
+                searchTerm === '' ||
+                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 video.youtubeURL?.toLowerCase().includes(searchTerm.toLowerCase())
               )
-              
+
               .map(video => (
                 <div key={video.id} className="video-item">
                   <h4>{video.customHeadline}</h4>
@@ -514,12 +743,12 @@ function App() {
             <h3 className="section-header">Trending Now</h3>
             {videos
               .filter(video => video.position_type === 'center')
-              .filter(video => 
-                searchTerm === '' || 
-                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+              .filter(video =>
+                searchTerm === '' ||
+                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 video.youtubeURL?.toLowerCase().includes(searchTerm.toLowerCase())
               )
-              
+
               .map(video => (
                 <div key={video.id} className="video-item">
                   <h4>{video.customHeadline}</h4>
@@ -546,9 +775,9 @@ function App() {
             <h3 className="section-header">Entertainment</h3>
             {videos
               .filter(video => video.position_type === 'right')
-              .filter(video => 
-                searchTerm === '' || 
-                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+              .filter(video =>
+                searchTerm === '' ||
+                video.customHeadline?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 video.youtubeURL?.toLowerCase().includes(searchTerm.toLowerCase())
               )
               .map(video => (
@@ -579,3 +808,7 @@ function App() {
 }
 
 export default App;
+
+
+
+
