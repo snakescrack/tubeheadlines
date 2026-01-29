@@ -33,14 +33,14 @@
   <!-- Primary Meta Tags -->
   <meta name="title" content="TubeHeadlines | Discover Trending YouTube Videos & News">
   <meta name="description"
-    content="TubeHeadlines is your one-stop destination for the most important video headlines, updated in real-time. We cut through the noise to bring you the videos that matter.">
+    content="TubeHeadlines delivers trending YouTube video headlines in real-time. Discover breaking news, politics, entertainment and more - curated and updated daily.">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.tubeheadlines.com/">
   <meta property="og:title" content="TubeHeadlines | Discover Trending YouTube Videos & News">
   <meta property="og:description"
-    content="TubeHeadlines is your one-stop destination for the most important video headlines, updated in real-time. We cut through the noise to bring you the videos that matter.">
+    content="TubeHeadlines delivers trending YouTube video headlines in real-time. Discover breaking news, politics, entertainment and more.">
   <meta property="og:image" content="https://www.tubeheadlines.com/th-social-share.jpg">
 
   <!-- Twitter -->
@@ -48,7 +48,7 @@
   <meta property="twitter:url" content="https://www.tubeheadlines.com/">
   <meta property="twitter:title" content="TubeHeadlines | Discover Trending YouTube Videos & News">
   <meta property="twitter:description"
-    content="TubeHeadlines is your one-stop destination for the most important video headlines, updated in real-time. We cut through the noise to bring you the videos that matter.">
+    content="TubeHeadlines delivers trending YouTube video headlines in real-time. Discover breaking news, politics, entertainment and more.">
   <meta property="twitter:image" content="https://www.tubeheadlines.com/th-social-share.jpg">
 
   <!-- Google tag (gtag.js) -->
@@ -74,14 +74,23 @@
 
 <body>
   <div id="root">
-    <div style="text-align: center; padding: 2rem; font-family: sans-serif; color: #333;">
-      <h1>TubeHeadlines</h1>
-      <p>Loading the latest video headlines...</p>
+    <main
+      style="text-align: center; padding: 2rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #333; max-width: 800px; margin: 0 auto;">
+      <h1>TubeHeadlines - Trending YouTube Videos & News</h1>
+      <p>Discover the most important YouTube video headlines, updated in real-time. Breaking news, politics,
+        entertainment, technology and more.</p>
+      <nav style="margin: 1.5rem 0;">
+        <strong>Browse by Category:</strong>
+        <a href="/category/left" style="margin: 0 10px;">Left</a> |
+        <a href="/category/center" style="margin: 0 10px;">Center</a> |
+        <a href="/category/right" style="margin: 0 10px;">Right</a>
+      </nav>
+      <p><a href="/sitemap.xml">View all videos in our sitemap</a></p>
       <noscript>
-        <p>This website requires JavaScript to function properly. Please enable JavaScript to continue.</p>
-        <p>Visit our <a href="/sitemap.xml">sitemap</a> to see all our videos.</p>
+        <p style="color: #666;">JavaScript is required for the full experience. <a href="/sitemap.xml">Browse our
+            sitemap</a> for all videos.</p>
       </noscript>
-    </div>
+    </main>
   </div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
