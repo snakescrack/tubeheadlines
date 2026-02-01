@@ -170,6 +170,20 @@ const Home = () => {
       <header>
         <h1>TUBE HEADLINES</h1>
         <div className="updated">Updated {new Date().toLocaleString()}</div>
+
+        <nav className="main-nav">
+          <div className="nav-dropdown">
+            <button className="nav-dropbtn">FREE TOOLS ▼</button>
+            <div className="nav-dropdown-content">
+              <a href="/viral-idea-generator.html" target="_blank">Viral Idea Generator 🚀</a>
+              <a href="/youtube-income-calculator.html" target="_blank">Income Calculator 💰</a>
+              <a href="/script-timer.html" target="_blank">Script Timer ⏱️</a>
+              <a href="/description-generator.html" target="_blank">Description Generator 📝</a>
+            </div>
+          </div>
+          <Link to="/blog" className="nav-link">BLOG</Link>
+          <Link to="/submit" className="nav-link highlight">SUBMIT CHANNEL</Link>
+        </nav>
       </header>
 
       <HomepageDescription />

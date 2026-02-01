@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Script Timer | TubeHeadlines</title>
+    <meta name="description"
+        content="Estimate your YouTube video length from your script. Free script timer with word count and speaking speed calculator.">
+    <link rel="canonical" href="https://tubeheadlines.com/script-timer.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "YouTube Script Timer",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A free tool to estimate YouTube video length from script word count based on speaking speed.",
+      "softwareVersion": "1.0",
+      "featureList": "Real-time word count, Multiple speaking speeds, Time estimation in MM:SS format"
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 50px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 15px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .script-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: #34495e;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 400px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            color: #2c3e50;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .stats-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+        }
+
+        .stats-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .stats-value {
+            font-size: 48px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .speed-selector {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .speed-selector h3 {
+            font-size: 14px;
+            color: #34495e;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .speed-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .speed-option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .speed-option label {
+            cursor: pointer;
+            margin: 0;
+            font-size: 14px;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .time-display {
+            background: #27ae60;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+        }
+
+        .time-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .time-value {
+            font-size: 56px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .cta-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .cta-text {
+            color: #34495e;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #FF0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #95a5a6;
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .time-value {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>⏱️ YouTube Script Timer</h1>
+        <p class="subtitle">Estimate your video length before you hit record</p>
+
+        <div class="main-content">
+            <div class="script-area">
+                <label for="script">Paste Your Script</label>
+                <textarea id="script" placeholder="Start typing or paste your script here..."></textarea>
+            </div>
+
+            <div class="sidebar">
+                <div class="stats-box">
+                    <div class="stats-label">Word Count</div>
+                    <div class="stats-value" id="wordCount">0</div>
+                </div>
+
+                <div class="speed-selector">
+                    <h3>Speaking Speed</h3>
+                    <div class="speed-option">
+                        <input type="radio" id="slow" name="speed" value="130">
+                        <label for="slow">Slow (130 wpm)</label>
+                    </div>
+                    <div class="speed-option">
+                        <input type="radio" id="average" name="speed" value="150" checked>
+                        <label for="average">Average (150 wpm)</label>
+                    </div>
+                    <div class="speed-option">
+                        <input type="radio" id="fast" name="speed" value="170">
+                        <label for="fast">Fast (170 wpm)</label>
+                    </div>
+                </div>
+
+                <div class="time-display">
+                    <div class="time-label">Estimated Time</div>
+                    <div class="time-value" id="timeEstimate">00:00</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <p class="cta-text">Script ready? Once you film it, promote your video on TubeHeadlines!</p>
+            <a href="https://tubeheadlines.com/submit" class="cta-btn" target="_blank">
+                Submit Your Video →
+            </a>
+        </div>
+
+        <div class="footer">
+            Powered by <a href="https://tubeheadlines.com/" target="_blank">TubeHeadlines.com</a>
+        </div>
+    </div>
+
+    <script>
+        const scriptInput = document.getElementById('script');
+        const wordCountDisplay = document.getElementById('wordCount');
+        const timeEstimateDisplay = document.getElementById('timeEstimate');
+        const speedRadios = document.querySelectorAll('input[name="speed"]');
+
+        function countWords(text) {
+            const trimmed = text.trim();
+            if (trimmed === '') return 0;
+            return trimmed.split(/\s+/).length;
+        }
+
+        function formatTime(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = Math.floor(totalSeconds % 60);
+            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function calculateTime() {
+            const words = countWords(scriptInput.value);
+            const selectedSpeed = document.querySelector('input[name="speed"]:checked').value;
+            const wpm = parseInt(selectedSpeed);
+
+            wordCountDisplay.textContent = words.toLocaleString();
+
+            if (words === 0) {
+                timeEstimateDisplay.textContent = '00:00';
+                return;
+            }
+
+            const totalSeconds = (words / wpm) * 60;
+            timeEstimateDisplay.textContent = formatTime(totalSeconds);
+        }
+
+        scriptInput.addEventListener('input', calculateTime);
+        speedRadios.forEach(radio => {
+            radio.addEventListener('change', calculateTime);
+        });
+
+        // Initialize
+        calculateTime();
+    </script>
+</body>
+
+</html>

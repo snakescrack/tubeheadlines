@@ -9,6 +9,9 @@ import Privacy from './components/Privacy.jsx';
 import Terms from './components/Terms.jsx';
 import FAQ from './components/FAQ.jsx';
 import BlogPost from './components/BlogPost.jsx';
+import BlogIndex from './components/BlogIndex.jsx';
+import TenFreeToolsPost from './components/TenFreeToolsPost.jsx';
+import ViralStrategyPost from './components/ViralStrategyPost.jsx';
 import VideoPage from './components/VideoPage.jsx';
 import NotFound from './components/NotFound.jsx';
 import SubmitChannel from './components/SubmitChannel.jsx';
@@ -64,6 +67,9 @@ function App() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/blog" element={<BlogIndex />} />
+          <Route path="/blog/10-free-tools-for-youtubers" element={<TenFreeToolsPost />} />
+          <Route path="/blog/viral-youtube-strategy" element={<ViralStrategyPost />} />
           <Route path="/blog/why-i-built-tubeheadlines" element={<BlogPost />} />
           <Route path="/video/:id" element={<VideoPage />} />
           <Route path="/submit" element={<SubmitChannel />} />
@@ -79,7 +85,7 @@ function App() {
         <span className="link-separator">|</span>
         <Link to="/faq">FAQ</Link>
         <span className="link-separator">|</span>
-        <Link to="/blog/why-i-built-tubeheadlines">BLOG</Link>
+        <Link to="/blog">BLOG</Link>
         <span className="link-separator">|</span>
         <Link to="/submit">SUBMIT YOUR CHANNEL</Link>
         <span className="link-separator">|</span>

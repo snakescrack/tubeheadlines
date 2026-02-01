@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Description Generator | TubeHeadlines</title>
+    <meta name="description"
+        content="Generate professional YouTube video descriptions in seconds. Free tool with social media links, affiliate disclaimers, and emoji formatting.">
+    <link rel="canonical" href="https://tubeheadlines.com/description-generator.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "YouTube Description Generator",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A free tool to generate perfectly formatted YouTube video descriptions with social links and legal disclaimers.",
+      "softwareVersion": "1.0",
+      "featureList": "Social media link formatting, Affiliate disclaimer generator, One-click copy to clipboard"
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #FF6B6B 0%, #556270 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 50px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 15px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: #34495e;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #FF6B6B;
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .checkbox-group input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            text-transform: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .output-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e9ecef;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .output-label {
+            font-weight: 700;
+            color: #2c3e50;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        #output {
+            flex-grow: 1;
+            background: white;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: inherit;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            min-height: 300px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 16px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .generate-btn:hover {
+            background: #34495e;
+            transform: translateY(-2px);
+        }
+
+        .copy-btn {
+            background: #FF0000;
+            /* YouTube Red */
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-btn:hover {
+            background: #cc0000;
+        }
+
+        .cta-section {
+            margin-top: 40px;
+            padding: 25px;
+            background: #fdf2f2;
+            border-left: 5px solid #FF0000;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .cta-text {
+            color: #2c3e50;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .cta-link {
+            color: #FF0000;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .cta-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #bdc3c7;
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📝 YouTube Description Generator</h1>
+        <p class="subtitle">Format your video description instantly with social links & disclaimers</p>
+
+        <div class="main-content">
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="about">About This Video</label>
+                    <textarea id="about" placeholder="Write a short summary of your video..."></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="subscribe">Subscribe Link (URL)</label>
+                    <input type="text" id="subscribe" placeholder="https://youtube.com/c/yourchannel">
+                </div>
+
+                <div class="input-group">
+                    <label for="instagram">Instagram URL</label>
+                    <input type="text" id="instagram" placeholder="https://instagram.com/yourhandle">
+                </div>
+
+                <div class="input-group">
+                    <label for="twitter">Twitter/X URL</label>
+                    <input type="text" id="twitter" placeholder="https://twitter.com/yourhandle">
+                </div>
+
+                <div class="input-group">
+                    <label for="website">Website / Store URL</label>
+                    <input type="text" id="website" placeholder="https://yourwebsite.com">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="affiliate">
+                    <label for="affiliate">Add Affiliate Disclaimer?</label>
+                </div>
+
+                <button class="generate-btn" onclick="generateDescription()">Generate Description ✨</button>
+            </div>
+
+            <div class="output-section">
+                <div class="output-header">
+                    <span class="output-label">Preview</span>
+                    <button class="copy-btn" onclick="copyToClipboard()">
+                        📋 Copy
+                    </button>
+                </div>
+                <div id="output">YOUR GENERATED DESCRIPTION WILL APPEAR HERE...</div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <p class="cta-text">Description sorted? Get more traffic to your video at <a
+                    href="https://tubeheadlines.com/" class="cta-link" target="_blank">TubeHeadlines.com</a></p>
+        </div>
+
+        <div class="footer">
+            <p style="color: #95a5a6;">Powered by <a href="https://tubeheadlines.com/" target="_blank"
+                    style="color: #7f8c8d;">TubeHeadlines.com</a></p>
+        </div>
+    </div>
+
+    <script>
+        function generateDescription() {
+            const about = document.getElementById('about').value.trim();
+            const subscribe = document.getElementById('subscribe').value.trim();
+            const instagram = document.getElementById('instagram').value.trim();
+            const twitter = document.getElementById('twitter').value.trim();
+            const website = document.getElementById('website').value.trim();
+            const includeDisclaimer = document.getElementById('affiliate').checked;
+
+            let desc = "";
+
+            // About Section
+            if (about) {
+                desc += `${about}\n\n`;
+            }
+
+            desc += `▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n`;
+
+            // Subscribe
+            if (subscribe) {
+                desc += `▶️ SUBSCRIBE HERE:\n${subscribe}\n\n`;
+            }
+
+            // Socials
+            if (instagram || twitter || website) {
+                desc += `📱 CONNECT WITH ME:\n`;
+                if (instagram) desc += `📸 Instagram: ${instagram}\n`;
+                if (twitter) desc += `🐦 Twitter: ${twitter}\n`;
+                if (website) desc += `🌍 Website: ${website}\n`;
+                desc += `\n`;
+            }
+
+            // TubeHeadlines Promo (Subtle)
+            desc += `🔥 Get Discovered on TubeHeadlines:\nhttps://tubeheadlines.com\n\n`;
+
+            // Disclaimer
+            if (includeDisclaimer) {
+                desc += `▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n`;
+                desc += `DISCLAIMER: This description likely contains affiliate links, which means that if you click on one of the product links, I’ll receive a small commission. This helps support the channel and allows us to continue to make videos like this. Thank you for the support!`;
+            }
+
+            document.getElementById('output').textContent = desc;
+        }
+
+        async function copyToClipboard() {
+            const text = document.getElementById('output').textContent;
+            try {
+                await navigator.clipboard.writeText(text);
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = "✅ Copied!";
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                alert("Failed to copy. Please manually select and copy the text.");
+            }
+        }
+    </script>
+</body>
+
+</html>
