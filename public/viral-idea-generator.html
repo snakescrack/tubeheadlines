@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viral YouTube Video Idea Generator | TubeHeadlines</title>
+    <meta name="description"
+        content="Generate viral YouTube video ideas for any niche. Get inspired with proven video templates for Gaming, Tech, Vlogging, Finance, and more.">
+    <link rel="canonical" href="https://tubeheadlines.com/viral-idea-generator.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Viral YouTube Video Idea Generator",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A free tool to generate viral YouTube video ideas for Gaming, Tech, Finance, Vlogging, and Education niches using proven viral templates.",
+      "softwareVersion": "1.0",
+      "featureList": "Generate 50+ viral title templates across 6 niches",
+      "screenshot": "https://tubeheadlines.com/viral-idea-generator-screenshot.jpg"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How does the Viral Video Idea Generator work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool uses a database of proven, high-performing YouTube video templates (like challenges, listicles, and storytelling arcs) and adapts them to your specific niche (Gaming, Tech, Finance, etc.)."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is this YouTube video idea generator free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, this tool is 100% free to use for all creators. No signup required."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What niches are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Currently, we support Gaming, Tech Reviews, Vlogging/Lifestyle, Personal Finance, Education, and Entertainment niches."
+        }
+      }]
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            color: #282828;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            max-width: 800px;
+            /* Wider container */
+            width: 100%;
+            padding: 60px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: #282828;
+            font-size: 36px;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: #606060;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .youtube-logo {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        .tool-section {
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #282828;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 18px;
+            color: #282828;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 20px;
+        }
+
+        select:hover {
+            border-color: #FF0000;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #FF0000;
+            box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.1);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 20px;
+            background: #FF0000;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+        }
+
+        .generate-btn:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+        }
+
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+
+        .result-container {
+            margin-top: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+            border-left: 6px solid #FF0000;
+            border-radius: 12px;
+            display: none;
+            animation: slideIn 0.4s ease-out;
+            text-align: center;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-container.show {
+            display: block;
+        }
+
+        .result-label {
+            color: #606060;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .result-text {
+            color: #282828;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background: #282828;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #FF0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .info-block h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #282828;
+        }
+
+        .info-block p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #606060;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #909090;
+            font-size: 14px;
+            border-top: 1px solid #eeeeee;
+            padding-top: 30px;
+        }
+
+        .footer a {
+            color: #FF0000;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            .info-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .result-text {
+                font-size: 24px;
+            }
+        }
+
+        .faq-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #282828;
+            margin-bottom: 30px;
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+        }
+
+        .faq-item h3 {
+            font-size: 18px;
+            color: #282828;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            font-size: 16px;
+            color: #606060;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 Viral Video Idea Generator</h1>
+            <p class="subtitle">Stuck on what to film next? Use our AI-powered engine to generate proven <span
+                    class="youtube-logo">YouTube</span> video ideas that get clicks.</p>
+        </header>
+
+        <div class="tool-section">
+            <div class="input-group">
+                <label for="niche">Select Your Niche:</label>
+                <select id="niche">
+                    <option value="gaming">🎮 Gaming</option>
+                    <option value="tech">💻 Tech Reviews</option>
+                    <option value="vlogging">📹 Vlogging & Lifestyle</option>
+                    <option value="finance">💰 Personal Finance</option>
+                    <option value="education">📚 Education</option>
+                    <option value="entertainment">✨ Entertainment</option>
+                </select>
+            </div>
+
+            <button class="generate-btn" onclick="generateIdea()">Generate Viral Idea</button>
+
+            <div class="result-container" id="result">
+                <div class="result-label">Your Next Video Title:</div>
+                <div class="result-text" id="ideaText"></div>
+                <a href="https://tubeheadlines.com/submit" class="cta-btn" target="_blank">
+                    Got a video like this? Submit it to TubeHeadlines! →
+                </a>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-block">
+                <h3>Why These Ideas Work</h3>
+                <p>These templates are based on high-performing YouTube formats like "Challenge Videos", "Listicles",
+                    and "Storytelling" arcs. They are designed to trigger curiosity not just search traffic.</p>
+            </div>
+            <div class="info-block">
+                <h3>How to Use This Tool</h3>
+                <p>Select your niche and click generate. Don't just copy the title—add your personality! If you get "I
+                    Played Minecraft..." change it to "I Played [Your Favorite Game]...".</p>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>How does the Viral Video Idea Generator work?</h3>
+                <p>The tool uses a database of proven, high-performing YouTube video templates (like "Challenge Videos",
+                    "Listicles", and "Storytelling" arcs) and adapts them to your specific niche (Gaming, Tech, Finance,
+                    etc.).</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Is this YouTube video idea generator free?</h3>
+                <p>Yes, this tool is 100% free to use for all creators. No signup required.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What niches are supported?</h3>
+                <p>Currently, we support Gaming, Tech Reviews, Vlogging/Lifestyle, Personal Finance, Education, and
+                    Entertainment niches.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Built for creators by creators.</p>
+            <p style="margin-top: 10px;">Powered by <a href="https://tubeheadlines.com/"
+                    target="_blank">TubeHeadlines.com</a></p>
+        </div>
+    </div>
+
+    <script>
+        const ideas = {
+            gaming: [
+                "I Played [GAME] But Every Time I Die, I [PUNISHMENT]",
+                "The Complete History of [GAME] in 10 Minutes",
+                "Can I Beat [HARD GAME] Using Only a [WEAK ITEM]?",
+                "I Played [GAME] for 24 Hours Straight - Here's What Happened",
+                "10 Secrets in [GAME] You Definitely Missed",
+                "I Challenged a Pro Player in [GAME] (I Regret This)",
+                "Playing [OLD GAME] in 2024: Does it Hold Up?",
+                "How [GAME] Changed the Gaming Industry Forever",
+                "I Built a Massive Base in [SURVIVAL GAME] in One Day",
+                "Ranking Every Weapon in [GAME] From Worst to Best"
+            ],
+            tech: [
+                "Is the [PRODUCT] Worth It in 2024? (Honest Review)",
+                "I Bought the Cheapest [GADGET] on Amazon",
+                "Don't Buy [PRODUCT] Until You Watch This",
+                "The Ultimate Desk Setup for Productivity (Under $500)",
+                "iPhone vs Android: I Switched for 30 Days",
+                "5 Hidden Features in [SOFTWARE] You Need to Know",
+                "Building the Ultimate Gaming PC for Under $1000",
+                "Why Everyone is Buying [PRODUCT] Right Now",
+                "The Future of AI: What You Need to Know",
+                "I Tested 10 Fake Airpods - Here's What I Found"
+            ],
+            vlogging: [
+                "I Said Yes To Everything For 24 Hours",
+                "Surviving in [CITY] with $0 Budget",
+                "The Truth About Being a [JOB TITLE] - Day in the Life",
+                "I Let My Subscribers Control My Life for a Day",
+                "My 5AM Morning Routine (Real vs Fake)",
+                "Traveling to the Cheapest Country in the World",
+                "I Ate Like [CELEBRITY] for 24 Hours",
+                "10 Things I Wish I Knew Before Moving to [CITY]",
+                "Addressing the Rumors... (Storytime)",
+                "Cleaning My Entire House in 1 Hour"
+            ],
+            finance: [
+                "How to Make $100/Day with [SIDE HUSTLE] (Step-by-Step)",
+                "I Tried [GURU'S] Advice for 30 Days - Did I Get Rich?",
+                "Stop Doing This With Your Money (You're Losing Thousands)",
+                "7 Passive Income Ideas You Can Start Today",
+                "How I Saved $10k in 6 Months (Budgeting Guide)",
+                "Investing for Beginners: Where to Put Your Money",
+                "The Truth About Dropshipping in 2024",
+                "I Started a Business with $0 - Here's How",
+                "Credit Cards Explained: How to Travel for Free",
+                "Why You're Stay Poor (Harsh Truth)"
+            ],
+            education: [
+                "Learn [SKILL] in 10 Minutes (Complete Beginner's Guide)",
+                "How I Learned [LANGUAGE] in 30 Days",
+                "The Only Study Method You'll Ever Need (Scientific)",
+                "A Brief History of [TOPIC] Explained",
+                "How [COMPLEX THING] Actually Works",
+                "5 Books That Changed My Life",
+                "How to Be More Productive (Stop Procrastinating)",
+                "The Science of Sleep: How to Wake Up Refreshed",
+                "Coding for Beginners: Your First Program",
+                "Psychology Tricks to Read Anyone Instantly"
+            ],
+            entertainment: [
+                "Reacting to My Old Videos (Cringe Warning)",
+                "Guess the Song Challenge (Impossible Edition)",
+                "I Tried Following a Bob Ross Tutorial",
+                "Testing Viral TikTok Hacks - Do They Work?",
+                "Asking Strangers awkward Questions",
+                "Eating only [COLOR] Food for 24 Hours",
+                "Hide and Seek in a Massive Mansion",
+                "Truth or Drink with My Ex",
+                "Spending $10,000 in 1 Hour Challenge",
+                "Rating My Subscribers' Setups"
+            ]
+        };
+
+        function generateIdea() {
+            const niche = document.getElementById('niche').value;
+            const nicheIdeas = ideas[niche];
+            const randomIdea = nicheIdeas[Math.floor(Math.random() * nicheIdeas.length)];
+
+            const resultContainer = document.getElementById('result');
+            const ideaText = document.getElementById('ideaText');
+
+            // Add loading effect
+            const btn = document.querySelector('.generate-btn');
+            const originalText = btn.innerText;
+            btn.innerText = "Thinking...";
+            btn.style.opacity = "0.8";
+
+            setTimeout(() => {
+                ideaText.textContent = randomIdea;
+                resultContainer.classList.add('show');
+
+                btn.innerText = originalText;
+                btn.style.opacity = "1";
+
+                // Smooth scroll to result
+                resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 300); // Small delay for effect
+        }
+
+        // Allow Enter key to generate
+        document.getElementById('niche').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                generateIdea();
+            }
+        });
+    </script>
+</body>
+
+</html>

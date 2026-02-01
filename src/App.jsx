@@ -39,7 +39,7 @@ function App() {
       window.location.href,
       window.location.pathname
     );
-    
+
     // Send test event to verify analytics is working
     event({
       action: 'page_loaded',
@@ -47,10 +47,10 @@ function App() {
       label: 'home_page',
       value: 1
     });
-    
+
     // Log analytics status for debugging
     console.log('Analytics initialized:', !!window.gtag);
-    
+
     // Check environment variables
     const envCheck = checkEnvironmentVariables();
     console.log('Environment variables check:', envCheck);
@@ -71,7 +71,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </RemoveTrailingSlash>
-            
+
       <div className="fixed-links">
         <Link to="/privacy">PRIVACY</Link>
         <span className="link-separator">|</span>
@@ -82,6 +82,10 @@ function App() {
         <Link to="/blog/why-i-built-tubeheadlines">BLOG</Link>
         <span className="link-separator">|</span>
         <Link to="/submit">SUBMIT YOUR CHANNEL</Link>
+        <span className="link-separator">|</span>
+        <a href="/viral-idea-generator.html" target="_blank" rel="noopener noreferrer">IDEA GENERATOR</a>
+        <span className="link-separator">|</span>
+        <a href="/youtube-income-calculator.html" target="_blank" rel="noopener noreferrer">INCOME CALCULATOR</a>
         <span className="link-separator">|</span>
         <ShareButton />
       </div>

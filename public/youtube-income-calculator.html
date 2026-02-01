@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Income Estimator | TubeHeadlines</title>
+    <meta name="description"
+        content="Calculate your potential YouTube earnings based on views and RPM. Free YouTube income calculator with daily, monthly, and yearly projections.">
+    <link rel="canonical" href="https://tubeheadlines.com/youtube-income-calculator.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "YouTube Income Estimator",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A free tool to calculate estimated YouTube earnings based on daily views and niche-specific RPM rates.",
+      "softwareVersion": "1.0",
+      "featureList": "Real-time earnings calculation, Niche-specific RPM data, Daily/Monthly/Yearly projections",
+      "screenshot": "https://tubeheadlines.com/youtube-income-calculator-screenshot.jpg"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How usage YouTube RPM calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "RPM (Revenue Per Mille) is the amount of money you earn per 1,000 video views. It varies by niche, with Finance/Tech typically having higher RPMs than Vlogging/Gaming."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How accurate is this YouTube money calculator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This calculator uses industry-standard RPM ranges for 2024 to provide a realistic estimate. However, actual earnings can vary based on viewer location, ad blockers, and video length."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Does YouTube pay for every view?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, YouTube only pays for monetized playbacks where an ad is shown. This calculator assumes a standard monetization rate typical for established channels."
+        }
+      }]
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            max-width: 650px;
+            width: 100%;
+            padding: 50px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 15px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .money-icon {
+            color: #27ae60;
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #34495e;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 18px;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+            background: white;
+            cursor: pointer;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #27ae60;
+            box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.1);
+        }
+
+        .slider-container {
+            margin-top: 10px;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .slider-value {
+            color: #27ae60;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #27ae60 0%, #27ae60 var(--value), #e0e0e0 var(--value), #e0e0e0 100%);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #27ae60;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(39, 174, 96, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.6);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #27ae60;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(39, 174, 96, 0.4);
+        }
+
+        .results-container {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f0fff4 0%, #e8f8f0 100%);
+            border-radius: 15px;
+            border-left: 5px solid #27ae60;
+        }
+
+        .results-title {
+            color: #27ae60;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .earnings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .earnings-table th {
+            color: #34495e;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding-bottom: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .earnings-table td {
+            padding: 15px 0;
+            border-top: 1px solid rgba(39, 174, 96, 0.2);
+        }
+
+        .period-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .earnings-value {
+            color: #27ae60;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .cta-section {
+            margin-top: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .cta-text {
+            color: #34495e;
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #FF0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #95a5a6;
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: #27ae60;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .faq-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+        }
+
+        .faq-item h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            font-size: 16px;
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .earnings-value {
+                font-size: 22px;
+            }
+
+            .earnings-table th,
+            .earnings-table td {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="money-icon">💰</div>
+        <h1>YouTube Income Estimator</h1>
+        <p class="subtitle">Calculate your potential earnings based on views and RPM</p>
+
+        <div class="input-group">
+            <label for="niche">Select Your Niche</label>
+            <select id="niche">
+                <option value="gaming">🎮 Gaming ($1.50 - $5.00 RPM)</option>
+                <option value="tech">💻 Tech Reviews ($3.00 - $8.00 RPM)</option>
+                <option value="finance" selected>💰 Finance ($5.00 - $15.00 RPM)</option>
+                <option value="education">📚 Education ($2.00 - $6.00 RPM)</option>
+                <option value="lifestyle">✨ Lifestyle ($1.00 - $4.00 RPM)</option>
+                <option value="vlogging">📹 Vlogging ($0.50 - $3.00 RPM)</option>
+                <option value="entertainment">🎬 Entertainment ($1.00 - $4.00 RPM)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="views">Daily Video Views</label>
+            <input type="text" id="views" placeholder="e.g., 10,000" value="10,000">
+            <div class="error-message" id="viewsError">Please enter a valid number</div>
+        </div>
+
+        <div class="input-group">
+            <label>Estimated RPM (Revenue Per 1,000 Views)</label>
+            <div class="slider-container">
+                <div class="slider-label">
+                    <span style="color: #7f8c8d; font-size: 14px;" id="minRpm">$5.00</span>
+                    <span class="slider-value" id="rpmValue">$9.00</span>
+                    <span style="color: #7f8c8d; font-size: 14px;" id="maxRpm">$15.00</span>
+                </div>
+                <input type="range" id="rpm" min="0.5" max="10" step="0.1" value="2.5">
+            </div>
+        </div>
+
+        <div class="results-container">
+            <div class="results-title">📊 Your Estimated Earnings</div>
+            <table class="earnings-table">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Earnings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="period-label">Daily</td>
+                        <td class="earnings-value" id="dailyEarnings">$25.00</td>
+                    </tr>
+                    <tr>
+                        <td class="period-label">Monthly (30 days)</td>
+                        <td class="earnings-value" id="monthlyEarnings">$750.00</td>
+                    </tr>
+                    <tr>
+                        <td class="period-label">Yearly (365 days)</td>
+                        <td class="earnings-value" id="yearlyEarnings">$9,125.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="cta-section">
+            <p class="cta-text">
+                Want to increase your views and earnings?<br>
+                <strong>Get discovered on TubeHeadlines!</strong>
+            </p>
+            <a href="https://tubeheadlines.com/submit" class="cta-btn" target="_blank">
+                Submit Your Channel →
+            </a>
+        </div>
+
+        <div class="faq-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>How is YouTube RPM calculated?</h3>
+                <p>RPM (Revenue Per Mille) is the amount of money you earn per 1,000 video views. It varies by niche,
+                    with Finance/Tech typically having higher RPMs than Vlogging/Gaming.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How accurate is this YouTube money calculator?</h3>
+                <p>This calculator uses industry-standard RPM ranges for 2024 to provide a realistic estimate. However,
+                    actual earnings can vary based on viewer location, ad blockers, and video length.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Does YouTube pay for every view?</h3>
+                <p>No, YouTube only pays for monetized playbacks where an ad is shown. This calculator assumes a
+                    standard monetization rate typical for established channels.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            Powered by <a href="https://tubeheadlines.com/" target="_blank">TubeHeadlines.com</a>
+        </div>
+    </div>
+
+    <script>
+        // Niche-specific RPM ranges (based on industry averages)
+        const nicheData = {
+            gaming: { min: 1.5, max: 5.0, default: 3.0 },
+            tech: { min: 3.0, max: 8.0, default: 5.0 },
+            finance: { min: 5.0, max: 15.0, default: 9.0 },
+            education: { min: 2.0, max: 6.0, default: 3.5 },
+            lifestyle: { min: 1.0, max: 4.0, default: 2.0 },
+            vlogging: { min: 0.5, max: 3.0, default: 1.5 },
+            entertainment: { min: 1.0, max: 4.0, default: 2.0 }
+        };
+
+        const nicheSelect = document.getElementById('niche');
+        const viewsInput = document.getElementById('views');
+        const rpmSlider = document.getElementById('rpm');
+        const rpmValue = document.getElementById('rpmValue');
+        const minRpmLabel = document.getElementById('minRpm');
+        const maxRpmLabel = document.getElementById('maxRpm');
+        const dailyEarnings = document.getElementById('dailyEarnings');
+        const monthlyEarnings = document.getElementById('monthlyEarnings');
+        const yearlyEarnings = document.getElementById('yearlyEarnings');
+        const viewsError = document.getElementById('viewsError');
+
+        // Format number with commas
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Format currency
+        function formatCurrency(num) {
+            return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        // Parse views input (remove commas)
+        function parseViews(value) {
+            return parseFloat(value.replace(/,/g, '')) || 0;
+        }
+
+        // Update RPM slider range based on niche
+        function updateNicheRange() {
+            const niche = nicheSelect.value;
+            const data = nicheData[niche];
+
+            // Update slider attributes
+            rpmSlider.min = data.min;
+            rpmSlider.max = data.max;
+            rpmSlider.value = data.default;
+            rpmSlider.step = 0.1;
+
+            // Update labels
+            minRpmLabel.textContent = formatCurrency(data.min);
+            maxRpmLabel.textContent = formatCurrency(data.max);
+
+            // Update RPM display and calculate
+            updateRPM();
+        }
+
+        // Calculate earnings
+        function calculateEarnings() {
+            const views = parseViews(viewsInput.value);
+            const rpm = parseFloat(rpmSlider.value);
+
+            // Validate views
+            if (isNaN(views) || views < 0) {
+                viewsError.style.display = 'block';
+                return;
+            } else {
+                viewsError.style.display = 'none';
+            }
+
+            // Calculate
+            const daily = (views / 1000) * rpm;
+            const monthly = daily * 30;
+            const yearly = daily * 365;
+
+            // Update display
+            dailyEarnings.textContent = formatCurrency(daily);
+            monthlyEarnings.textContent = formatCurrency(monthly);
+            yearlyEarnings.textContent = formatCurrency(yearly);
+        }
+
+        // Update RPM display and slider gradient
+        function updateRPM() {
+            const rpm = parseFloat(rpmSlider.value);
+            const min = parseFloat(rpmSlider.min);
+            const max = parseFloat(rpmSlider.max);
+
+            rpmValue.textContent = formatCurrency(rpm);
+
+            // Update slider gradient
+            const percentage = ((rpm - min) / (max - min)) * 100;
+            rpmSlider.style.setProperty('--value', percentage + '%');
+
+            calculateEarnings();
+        }
+
+        // Auto-format views input with commas
+        viewsInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/,/g, '');
+
+            // Only allow numbers
+            if (!/^\d*$/.test(value)) {
+                value = value.replace(/\D/g, '');
+            }
+
+            // Format with commas
+            if (value) {
+                e.target.value = formatNumber(value);
+            }
+
+            calculateEarnings();
+        });
+
+        // Niche change
+        nicheSelect.addEventListener('change', updateNicheRange);
+
+        // RPM slider change
+        rpmSlider.addEventListener('input', updateRPM);
+
+        // Initialize
+        updateNicheRange();
+    </script>
+</body>
+
+</html>
