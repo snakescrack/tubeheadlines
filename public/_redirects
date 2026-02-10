@@ -9,9 +9,10 @@
 /*  https://service.prerender.io/https://tubeheadlines.com/:splat  200!  X-Prerender-Token=7Ny2wCAz41dlCOOHcYDm  User-Agent=*bingbot*
 /*  https://service.prerender.io/https://tubeheadlines.com/:splat  200!  X-Prerender-Token=7Ny2wCAz41dlCOOHcYDm  User-Agent=*Bingbot*
 
-# Prerender Verification & Crawler
-/*  https://service.prerender.io/https://tubeheadlines.com/:splat  200!  X-Prerender-Token=7Ny2wCAz41dlCOOHcYDm  User-Agent=*Prerender*
+# Explicit Prerender Verification Bot Rules
 /*  https://service.prerender.io/https://tubeheadlines.com/:splat  200!  X-Prerender-Token=7Ny2wCAz41dlCOOHcYDm  User-Agent=Prerender
+/*  https://service.prerender.io/https://tubeheadlines.com/:splat  200!  X-Prerender-Token=7Ny2wCAz41dlCOOHcYDm  User-Agent=Prerender/1.0
+
 
 # Yandex & Others
 /*  https://service.prerender.io/https://tubeheadlines.com/:splat  200!  X-Prerender-Token=7Ny2wCAz41dlCOOHcYDm  User-Agent=*yandex*
