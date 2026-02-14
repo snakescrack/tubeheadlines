@@ -5,6 +5,8 @@ import { checkEnvironmentVariables } from './utils/envTest';
 import Stats from './components/Stats.jsx';
 import CookieNotice from './components/CookieNotice.jsx';
 import ShareButton from './components/ShareButton.jsx';
+import Contact from './components/Contact.jsx';
+import About from './components/About.jsx';
 import Privacy from './components/Privacy.jsx';
 import Terms from './components/Terms.jsx';
 import FAQ from './components/FAQ.jsx';
@@ -64,6 +66,8 @@ function App() {
       <RemoveTrailingSlash>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/faq" element={<FAQ />} />
@@ -79,6 +83,10 @@ function App() {
       </RemoveTrailingSlash>
 
       <div className="fixed-links">
+        <Link to="/about">ABOUT</Link>
+        <span className="link-separator">|</span>
+        <Link to="/contact">CONTACT</Link>
+        <span className="link-separator">|</span>
         <Link to="/privacy">PRIVACY</Link>
         <span className="link-separator">|</span>
         <Link to="/terms">TERMS</Link>
