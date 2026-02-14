@@ -92,134 +92,64 @@ const generateSitemap = async () => {
   const videos = await loadAllVideos(db);
   const today = new Date().toISOString().split('T')[0];
   const SITE_URL = 'https://tubeheadlines.com';
+  const DIST_DIR = path.resolve(__dirname, '..', 'dist');
 
-  const sitemapPath = path.resolve(__dirname, '..', 'dist', 'sitemap.xml');
+  // Limit per sitemap (Google allows 50,000, but we stay safe with 5,000 for speed)
+  const URLS_PER_SITEMAP = 5000;
 
-  // Header now includes the video namespace
-  let sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+  // 1. Generate Static Pages Sitemap (sitemap-main.xml)
+  const staticSitemapPath = path.join(DIST_DIR, 'sitemap-main.xml');
+  let staticSitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${SITE_URL}/</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>${SITE_URL}/about</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>${SITE_URL}/contact</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>${SITE_URL}/privacy</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>${SITE_URL}/terms</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>${SITE_URL}/faq</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>${SITE_URL}/blog</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/blog/why-i-built-tubeheadlines</loc><lastmod>2025-05-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>${SITE_URL}/blog/10-free-tools-for-youtubers</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${SITE_URL}/blog/viral-youtube-strategy</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>${SITE_URL}/category/left</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/category/center</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/category/right</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/youtube-resources</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>${SITE_URL}/viral-idea-generator.html</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/youtube-income-calculator.html</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/script-timer.html</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/description-generator.html</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+</urlset>`;
+  writeFileSync(staticSitemapPath, staticSitemapContent.trim());
+  console.log(`Generated: sitemap-main.xml`);
+
+  // 2. Generate Video Sitemaps (sitemap-videos-1.xml, etc.)
+  const videoChunks = [];
+  for (let i = 0; i < videos.length; i += URLS_PER_SITEMAP) {
+    videoChunks.push(videos.slice(i, i + URLS_PER_SITEMAP));
+  }
+
+  const generatedVideoSitemaps = [];
+
+  videoChunks.forEach((chunk, index) => {
+    const sitemapFilename = `sitemap-videos-${index + 1}.xml`;
+    const sitemapPath = path.join(DIST_DIR, sitemapFilename);
+    const lastMod = new Date(chunk[0].createdAt).toISOString().split('T')[0]; // Use newest video as lastmod for the file
+
+    let chunkContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-  <url>
-    <loc>${SITE_URL}/</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/privacy</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/terms</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/faq</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/blog/why-i-built-tubeheadlines</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/category/left</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/category/center</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/category/right</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/youtube-resources</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/youtube-resources/getting-started/how-to-start-channel</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/youtube-resources/getting-started/essential-equipment</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/blog</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/blog/10-free-tools-for-youtubers</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/blog/viral-youtube-strategy</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/viral-idea-generator.html</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/youtube-income-calculator.html</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/script-timer.html</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/description-generator.html</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>`;
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">`;
 
-  // Add video URLs with rich metadata
-  videos.forEach(video => {
-    const videoId = getYouTubeId(video.youtubeURL);
-    const thumbnailUrl = video.thumbnailURL || getOptimizedThumbnailUrl(videoId, 'high');
-    const title = escapeXml(video.customHeadline || video.title || 'TubeHeadlines Video');
-    const description = escapeXml(video.description || 'Watch this video on TubeHeadlines');
-    const pubDate = new Date(video.createdAt).toISOString(); // ISO 8601 required
-    const videoPageUrl = `${SITE_URL}/video/${video.id}`;
+    chunk.forEach(video => {
+      const videoId = getYouTubeId(video.youtubeURL);
+      const thumbnailUrl = video.thumbnailURL || getOptimizedThumbnailUrl(videoId, 'high');
+      const title = escapeXml(video.customHeadline || video.title || 'TubeHeadlines Video');
+      const description = escapeXml(video.description || 'Watch this video on TubeHeadlines');
+      const pubDate = new Date(video.createdAt).toISOString();
+      const videoPageUrl = `${SITE_URL}/video/${video.id}`;
 
-    // Only add if we have a valid thumbnail and ID
-    if (videoId && thumbnailUrl) {
-      sitemapContent += `
+      if (videoId && thumbnailUrl) {
+        chunkContent += `
   <url>
     <loc>${videoPageUrl}</loc>
     <lastmod>${new Date(video.createdAt).toISOString().split('T')[0]}</lastmod>
@@ -236,14 +166,38 @@ const generateSitemap = async () => {
       <video:live>no</video:live>
     </video:video>
   </url>`;
-    }
+      }
+    });
+
+    chunkContent += `
+</urlset>`;
+    writeFileSync(sitemapPath, chunkContent.trim());
+    console.log(`Generated: ${sitemapFilename} (${chunk.length} videos)`);
+    generatedVideoSitemaps.push({ filename: sitemapFilename, lastmod: lastMod });
   });
 
-  sitemapContent += `
-</urlset>`;
+  // 3. Generate Sitemap Index (sitemap.xml)
+  const sitemapIndexPath = path.join(DIST_DIR, 'sitemap.xml');
+  let indexContent = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>${SITE_URL}/sitemap-main.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>`;
 
-  writeFileSync(sitemapPath, sitemapContent.trim());
-  console.log(`Sitemap generated successfully at ${sitemapPath}`);
+  generatedVideoSitemaps.forEach(map => {
+    indexContent += `
+  <sitemap>
+    <loc>${SITE_URL}/${map.filename}</loc>
+    <lastmod>${map.lastmod}</lastmod>
+  </sitemap>`;
+  });
+
+  indexContent += `
+</sitemapindex>`;
+
+  writeFileSync(sitemapIndexPath, indexContent.trim());
+  console.log(`Generated: sitemap.xml (Index) -> Points to main + ${generatedVideoSitemaps.length} video sitemaps`);
 };
 
 generateSitemap().catch(error => {
