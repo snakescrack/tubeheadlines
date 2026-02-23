@@ -11,7 +11,8 @@ export default function Admin() {
     showThumbnail: true,
     thumbnailURL: '',
     isScheduled: false,
-    scheduledAt: ''
+    scheduledAt: '',
+    editorsTake: ''
   });
   const [message, setMessage] = useState('');
   const [selectedPosition, setSelectedPosition] = useState('featured');
@@ -23,12 +24,13 @@ export default function Admin() {
   const [showScheduled, setShowScheduled] = useState(false);
   const [deadVideos, setDeadVideos] = useState([]);
   const [isScanning, setIsScanning] = useState(false);
+  const [isGeneratingAI, setIsGeneratingAI] = useState(false);
 
   // Load videos on mount and start scheduling check
   useEffect(() => {
     loadVideos();
     loadScheduledVideos();
-    
+
     // Check for scheduled videos every minute
     const interval = setInterval(async () => {
       const published = await checkScheduledVideos();
@@ -70,18 +72,18 @@ export default function Admin() {
     // Get video count for confirmation
     const allVideos = await getAllVideos();
     const estimatedCalls = Math.ceil(allVideos.length / 50);
-    
+
     // Confirmation dialog
     const confirmed = window.confirm(
       `Scanner will check ${allVideos.length} videos using approximately ${estimatedCalls} YouTube API calls.\n\n` +
       `Your daily quota is 10,000 calls.\n\n` +
       `Continue with scan?`
     );
-    
+
     if (!confirmed) {
       return;
     }
-    
+
     setLastScanTime(Date.now());
     await performScan();
   };
@@ -92,50 +94,50 @@ export default function Admin() {
     setMessage('Scanning videos for broken links...');
     setDeadVideos([]);
     setScanResults(null);
-    
+
     try {
       const allVideos = await getAllVideos();
       const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
-      
+
       if (!apiKey) {
         throw new Error('YouTube API key is missing');
       }
 
       const brokenVideos = [];
       const workingVideos = [];
-      
+
       // Extract all video IDs first
       const videoIdRegex = /(?:youtube\.com\/(?:[^/]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?\&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
       const videoMap = new Map();
-      
+
       for (const video of allVideos) {
         const videoIdMatch = video.youtubeURL?.match(videoIdRegex);
         const videoId = videoIdMatch ? videoIdMatch[1] : null;
-        
+
         if (!videoId) {
           brokenVideos.push({ ...video, reason: 'Invalid URL format' });
         } else {
           videoMap.set(videoId, video);
         }
       }
-      
+
       // Check videos in batches of 50 (YouTube API limit)
       const videoIds = Array.from(videoMap.keys());
       const batchSize = 50;
       const totalBatches = Math.ceil(videoIds.length / batchSize);
-      
+
       for (let i = 0; i < videoIds.length; i += batchSize) {
         const batch = videoIds.slice(i, i + batchSize);
         const currentBatch = Math.floor(i / batchSize) + 1;
         setMessage(`Scanning batch ${currentBatch} of ${totalBatches} (${batch.length} videos)...`);
-        
+
         try {
           // Single API call for up to 50 videos
           const response = await fetch(
             `https://www.googleapis.com/youtube/v3/videos?id=${batch.join(',')}&part=snippet&key=${apiKey}`
           );
           const data = await response.json();
-          
+
           if (data.error) {
             // If batch fails, mark all as broken with API error
             batch.forEach(videoId => {
@@ -144,7 +146,7 @@ export default function Admin() {
           } else {
             // Create a set of found video IDs
             const foundIds = new Set((data.items || []).map(item => item.id));
-            
+
             // Check which videos were found and which weren't
             batch.forEach(videoId => {
               const video = videoMap.get(videoId);
@@ -155,7 +157,7 @@ export default function Admin() {
               }
             });
           }
-          
+
           // Small delay between batches to be respectful of API limits
           if (i + batchSize < videoIds.length) {
             await new Promise(resolve => setTimeout(resolve, 200));
@@ -167,17 +169,17 @@ export default function Admin() {
           });
         }
       }
-      
+
       // Set dead videos for display
       setDeadVideos(brokenVideos);
-      
+
       setScanResults({
         total: allVideos.length,
         working: workingVideos.length,
         broken: brokenVideos.length,
         apiCallsUsed: totalBatches
       });
-      
+
       setMessage(`Scan complete! Used ${totalBatches} API calls. Found ${brokenVideos.length} broken videos. ${workingVideos.length} videos are working.`);
     } catch (error) {
       setMessage('Error scanning videos: ' + error.message);
@@ -196,7 +198,7 @@ export default function Admin() {
     } catch (error) {
       setMessage('Error deleting video: ' + error.message);
     }
-  };  const loadVideos = async () => {
+  }; const loadVideos = async () => {
     try {
       setLoading(true);
       const data = await getAllVideos();
@@ -234,6 +236,66 @@ export default function Admin() {
     }
   };
 
+  const handleGenerateAI = async () => {
+    if (!formData.customHeadline) {
+      setMessage('Error: Please enter a Custom Headline first.');
+      return;
+    }
+
+    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+    if (!apiKey) {
+      setMessage('Error: OpenAI API key is missing. Please set VITE_OPENAI_API_KEY in your .env file.');
+      return;
+    }
+
+    setIsGeneratingAI(true);
+    setMessage('Generating Editor\'s Take...');
+
+    try {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            {
+              role: 'system',
+              content: 'You are a professional SEO content editor for a YouTube curation platform called TubeHeadlines. Write a 3-sentence, highly engaging editorial paragraph about the following video title. Do not summarize it directly; tease the value, create curiosity, and include relevant keywords naturally. Tone: Authoritative but exciting.'
+            },
+            {
+              role: 'user',
+              content: formData.customHeadline
+            }
+          ]
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error.message);
+      }
+
+      if (data.choices && data.choices[0]) {
+        setFormData(prev => ({
+          ...prev,
+          editorsTake: data.choices[0].message.content.trim()
+        }));
+        setMessage('AI generation successful!');
+      } else {
+        throw new Error('Unexpected response format from OpenAI');
+      }
+    } catch (error) {
+      console.error('AI Generation Error:', error);
+      setMessage(`Error generating AI text: ${error.message}`);
+    } finally {
+      setIsGeneratingAI(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('Processing...');
@@ -254,7 +316,7 @@ export default function Admin() {
       if (!apiKey) {
         throw new Error('YouTube API key is missing. Please set VITE_YOUTUBE_API_KEY in your environment.');
       }
-      
+
       const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet&key=${apiKey}`);
       const youtubeData = await response.json();
 
@@ -275,6 +337,7 @@ export default function Admin() {
         scheduledAt: formData.isScheduled ? formData.scheduledAt : null,
         thumbnailURL: formData.showThumbnail ? formData.thumbnailURL : '',
         videoId: videoId,
+        editorsTake: formData.editorsTake,
       };
 
       // Use default thumbnail if none is provided
@@ -303,7 +366,8 @@ export default function Admin() {
         showThumbnail: true,
         thumbnailURL: '',
         isScheduled: false,
-        scheduledAt: ''
+        scheduledAt: '',
+        editorsTake: ''
       });
       setSelectedPosition('featured');
       setEditMode(false);
@@ -315,12 +379,12 @@ export default function Admin() {
 
   const handleDelete = async (videoId) => {
     if (!videoId) return;
-    
+
     try {
       await deleteVideo(videoId);
       setMessage('Video deleted successfully!');
       await loadVideos();
-      
+
       if (editId === videoId) {
         setFormData({
           youtubeURL: '',
@@ -328,7 +392,8 @@ export default function Admin() {
           position: 'featured',
           category: 'Featured',
           showThumbnail: true,
-          thumbnailURL: ''
+          thumbnailURL: '',
+          editorsTake: ''
         });
         setEditMode(false);
         setEditId(null);
@@ -347,59 +412,12 @@ export default function Admin() {
       showThumbnail: !!video.thumbnailURL,
       thumbnailURL: video.thumbnailURL || '',
       isScheduled: !!video.scheduledAt,
-      scheduledAt: video.scheduledAt ? video.scheduledAt.slice(0, 16) : ''
+      scheduledAt: video.scheduledAt ? video.scheduledAt.slice(0, 16) : '',
+      editorsTake: video.editorsTake || ''
     });
     setSelectedPosition(video.position);
     setEditMode(true);
     setEditId(video.id);
-  };
-
-  const scanForDeadVideos = async () => {
-    if (!videos || videos.length === 0) return;
-    setIsScanning(true);
-    setMessage('Scanning for dead videos... This may take a moment.');
-    setDeadVideos([]);
-
-    // videos is now a flat array
-    const allVideos = videos;
-
-    const foundDead = [];
-    const batchSize = 5;
-
-    for (let i = 0; i < allVideos.length; i += batchSize) {
-        const batch = allVideos.slice(i, i + batchSize);
-        await Promise.all(batch.map(async (video) => {
-            try {
-                // Extract ID
-                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-                const match = video.youtubeURL.match(regExp);
-                const videoId = (match && match[2].length === 11) ? match[2] : null;
-
-                if (videoId) {
-                    // Check video status (mock or real function needed here if check-video-status exists)
-                    // For now, assume this endpoint exists as per code review
-                    const res = await fetch(`/.netlify/functions/check-video-status?videoId=${videoId}`);
-                    if (res.ok) {
-                        const data = await res.json();
-                        if (data.status === 'dead') {
-                            foundDead.push(video);
-                        }
-                    }
-                }
-            } catch (err) {
-                console.error('Error checking video:', video.customHeadline, err);
-            }
-        }));
-    }
-
-    setDeadVideos(foundDead);
-    setIsScanning(false);
-    setMessage(foundDead.length > 0 ? `Found ${foundDead.length} dead videos.` : 'Scan complete. All videos look good!');
-  };
-
-  const deleteDeadVideo = async (videoId) => {
-      await handleDelete(videoId);
-      setDeadVideos(prev => prev.filter(v => v.id !== videoId));
   };
 
 
@@ -413,12 +431,12 @@ export default function Admin() {
 
     // Helper to group videos by category
     const groupVideosByCategory = (videoList) => {
-        return videoList.reduce((acc, video) => {
-            const cat = video.category || 'General';
-            if (!acc[cat]) acc[cat] = [];
-            acc[cat].push(video);
-            return acc;
-        }, {});
+      return videoList.reduce((acc, video) => {
+        const cat = video.category || 'General';
+        if (!acc[cat]) acc[cat] = [];
+        acc[cat].push(video);
+        return acc;
+      }, {});
     };
 
     // Helper to render a group
@@ -497,7 +515,7 @@ export default function Admin() {
           const timeUntil = scheduledDate - new Date();
           const hoursUntil = Math.floor(timeUntil / (1000 * 60 * 60));
           const minutesUntil = Math.floor((timeUntil % (1000 * 60 * 60)) / (1000 * 60));
-          
+
           return (
             <div key={video.id} className="video-item scheduled">
               <div className="video-info">
@@ -528,7 +546,7 @@ export default function Admin() {
     <div className="admin-container">
       <div className="admin-panel">
         <h2>{editMode ? 'Edit' : 'Add'} Video Headline</h2>
-        
+
         {message && (
           <div className={message.includes('Error') ? 'error' : 'success'}>
             {message}
@@ -559,6 +577,41 @@ export default function Admin() {
               onChange={handleInputChange}
               required
               placeholder="Enter headline in DRUDGE style..."
+            />
+          </div>
+
+          <div className="form-group" style={{ position: 'relative' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <label htmlFor="editorsTake" style={{ margin: 0 }}>Editor's Take (SEO Paragraph):</label>
+              <button
+                type="button"
+                onClick={handleGenerateAI}
+                disabled={isGeneratingAI || !formData.customHeadline}
+                style={{
+                  backgroundColor: '#6b21a8',
+                  color: 'white',
+                  border: 'none',
+                  padding: '4px 12px',
+                  borderRadius: '16px',
+                  fontSize: '0.85rem',
+                  cursor: isGeneratingAI || !formData.customHeadline ? 'not-allowed' : 'pointer',
+                  opacity: isGeneratingAI || !formData.customHeadline ? 0.7 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
+              >
+                {isGeneratingAI ? '⏳ Generating...' : '✨ Auto-Generate SEO Hook'}
+              </button>
+            </div>
+            <textarea
+              id="editorsTake"
+              name="editorsTake"
+              value={formData.editorsTake}
+              onChange={handleInputChange}
+              rows={4}
+              placeholder="Enter optimal SEO editorial paragraph (or generate with AI)..."
+              style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc', resize: 'vertical' }}
             />
           </div>
 
@@ -668,7 +721,8 @@ export default function Admin() {
                     showThumbnail: true,
                     thumbnailURL: '',
                     isScheduled: false,
-                    scheduledAt: ''
+                    scheduledAt: '',
+                    editorsTake: ''
                   });
                 }}
               >
@@ -681,13 +735,13 @@ export default function Admin() {
 
       <div className="video-lists">
         <div className="list-controls">
-          <button 
+          <button
             className={`tab-button ${!showScheduled ? 'active' : ''}`}
             onClick={() => setShowScheduled(false)}
           >
             Published Videos
           </button>
-          <button 
+          <button
             className={`tab-button ${showScheduled ? 'active' : ''}`}
             onClick={() => setShowScheduled(true)}
           >
@@ -700,42 +754,42 @@ export default function Admin() {
 
       {/* Dead Video Scanner Section */}
       <div className="admin-panel" style={{ marginTop: '2rem', borderTop: '2px solid #eee', paddingTop: '1rem' }}>
-          <h2>Maintenance Tool</h2>
-          <p>Scan your library for videos that have been deleted or made private on YouTube.</p>
-          <button
-              onClick={scanForDeadVideos}
-              disabled={isScanning}
-              style={{
-                  backgroundColor: isScanning ? '#ccc' : '#ff4444',
-                  color: 'white',
-                  padding: '10px 20px',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: isScanning ? 'not-allowed' : 'pointer',
-                  fontSize: '1rem'
-              }}
-          >
-              {isScanning ? 'Scanning...' : 'Scan for Dead Videos'}
-          </button>
+        <h2>Maintenance Tool</h2>
+        <p>Scan your library for videos that have been deleted or made private on YouTube.</p>
+        <button
+          onClick={scanForDeadVideos}
+          disabled={isScanning}
+          style={{
+            backgroundColor: isScanning ? '#ccc' : '#ff4444',
+            color: 'white',
+            padding: '10px 20px',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: isScanning ? 'not-allowed' : 'pointer',
+            fontSize: '1rem'
+          }}
+        >
+          {isScanning ? 'Scanning...' : 'Scan for Dead Videos'}
+        </button>
 
-          {deadVideos.length > 0 && (
-              <div style={{ marginTop: '1rem' }}>
-                  <h3>Found {deadVideos.length} Dead Videos</h3>
-                  <div className="dead-video-list">
-                      {deadVideos.map(video => (
-                          <div key={video.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', background: '#fff0f0', marginBottom: '5px', borderRadius: '4px' }}>
-                              <span>{video.customHeadline}</span>
-                              <button
-                                  onClick={() => deleteDeadVideo(video.id)}
-                                  style={{ background: 'red', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', borderRadius: '3px' }}
-                              >
-                                  Delete
-                              </button>
-                          </div>
-                      ))}
-                  </div>
-              </div>
-          )}
+        {deadVideos.length > 0 && (
+          <div style={{ marginTop: '1rem' }}>
+            <h3>Found {deadVideos.length} Dead Videos</h3>
+            <div className="dead-video-list">
+              {deadVideos.map(video => (
+                <div key={video.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', background: '#fff0f0', marginBottom: '5px', borderRadius: '4px' }}>
+                  <span>{video.customHeadline}</span>
+                  <button
+                    onClick={() => deleteDeadVideo(video.id)}
+                    style={{ background: 'red', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', borderRadius: '3px' }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

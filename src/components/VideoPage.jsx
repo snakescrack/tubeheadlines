@@ -163,7 +163,11 @@ const VideoPage = () => {
             <span style={{ fontSize: '1.2rem' }}>📝</span> Editor's Take
           </h3>
           <p style={{ lineHeight: '1.6', color: '#333', fontSize: '1.05rem', margin: 0 }}>
-            In this latest update, "{video.customHeadline}" delivers crucial insights into today's trending discussions. We've curated this specific breakdown because it offers a unique perspective that cuts through the noise. Watch the full segment above to understand the complete context before diving into the creator's original notes below.
+            {video.editorsTake ? (
+              video.editorsTake
+            ) : (
+              `In this latest update, "${video.customHeadline}" delivers crucial insights into today's trending discussions. We've curated this specific breakdown because it offers a unique perspective that cuts through the noise. Watch the full segment above to understand the complete context before diving into the creator's original notes below.`
+            )}
           </p>
         </div>
 
