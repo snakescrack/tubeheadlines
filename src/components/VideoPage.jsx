@@ -57,6 +57,8 @@ const VideoPage = () => {
         setError('Error loading video');
       } finally {
         setLoading(false);
+        // Tell Prerender it's safe to take the snapshot
+        setTimeout(() => { window.prerenderReady = true; }, 500);
       }
     };
 
