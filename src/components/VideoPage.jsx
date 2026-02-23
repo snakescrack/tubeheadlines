@@ -150,6 +150,21 @@ const VideoPage = () => {
           </a>
         </div>
 
+        <div className="editor-summary" style={{
+          backgroundColor: '#e8f4fd',
+          borderLeft: '4px solid #0066cc',
+          padding: '1.5rem',
+          borderRadius: '4px 8px 8px 4px',
+          marginBottom: '2rem'
+        }}>
+          <h3 style={{ marginTop: 0, color: '#0066cc', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '1.2rem' }}>📝</span> Editor's Take
+          </h3>
+          <p style={{ lineHeight: '1.6', color: '#333', fontSize: '1.05rem', margin: 0 }}>
+            In this latest update, "{video.customHeadline}" delivers crucial insights into today's trending discussions. We've curated this specific breakdown because it offers a unique perspective that cuts through the noise. Watch the full segment above to understand the complete context before diving into the creator's original notes below.
+          </p>
+        </div>
+
         {video.description && (
           <div className="video-description-container" style={{
             backgroundColor: '#f9f9f9',
