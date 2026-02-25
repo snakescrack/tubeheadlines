@@ -163,9 +163,10 @@ const VideoPage = () => {
             <h3 style={{ marginTop: 0, color: '#0066cc', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ fontSize: '1.2rem' }}>📝</span> Editor's Take
             </h3>
-            <p style={{ lineHeight: '1.6', color: '#333', fontSize: '1.05rem', margin: 0 }}>
-              {video.editorsTake}
-            </p>
+            <p
+              style={{ lineHeight: '1.6', color: '#333', fontSize: '1.05rem', margin: 0 }}
+              dangerouslySetInnerHTML={{ __html: video.editorsTake }}
+            />
           </div>
         )}
 
