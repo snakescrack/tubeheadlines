@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/cookie-consent.css">`n
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1894186094794269"
+        crossorigin="anonymous"></script>
+    <script src="/cookie-consent.js" defer></script>
+    <title>Advertiser-Friendly Title Checker - Avoid YouTube Demonetization</title>
+    <meta name="description"
+        content="Free Advertiser-Friendly Title Checker. Instantly scan your YouTube titles for risky keywords that cause the yellow dollar sign and get safe alternatives.">
+    <link rel="canonical" href="https://tubeheadlines.com/advertiser-friendly-title-checker.html">
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tubeheadlines.com/advertiser-friendly-title-checker.html">
+    <meta property="og:title" content="YouTube Advertiser-Friendly Title Checker | Free Tool">
+    <meta property="og:description"
+        content="Instantly check if your YouTube video title will get demonetised. Scan for risky keywords that trigger the yellow dollar icon before you hit publish.">
+    <meta property="og:image" content="https://tubeheadlines.com/assets/images/og-advertiser-title-checker.jpg">
+    <meta property="og:site_name" content="TubeHeadlines">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TubeHeadlines">
+    <meta name="twitter:title" content="YouTube Advertiser-Friendly Title Checker | Free Tool">
+    <meta name="twitter:description"
+        content="Instantly check if your YouTube video title will get demonetised. Scan for risky keywords that trigger the yellow dollar icon before you hit publish.">
+    <meta name="twitter:image" content="https://tubeheadlines.com/assets/images/og-advertiser-title-checker.jpg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Advertiser-Friendly Title Checker",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Scan YouTube titles for keywords that trigger demonetization and receive journalistic alternatives to preserve ad revenue.",
+      "softwareVersion": "1.0",
+      "featureList": "Real-time keyword scanning, Risk assessment badges, Suggested journalistic alternatives",
+      "screenshot": "https://tubeheadlines.com/title-checker-screenshot.jpg"
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            color: #282828;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            max-width: 800px;
+            width: 100%;
+            padding: 60px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: #282828;
+            font-size: 36px;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: #606060;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .youtube-logo {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        .tool-section {
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #282828;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 18px;
+            color: #282828;
+            background: white;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #FF0000;
+            box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.1);
+        }
+
+        .output-box {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 20px;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .badge.safe {
+            background: rgba(39, 174, 96, 0.1);
+            color: #27ae60;
+            border: 2px solid #27ae60;
+        }
+
+        .badge.risk {
+            background: rgba(243, 156, 18, 0.1);
+            color: #f39c12;
+            border: 2px solid #f39c12;
+        }
+
+        .risk-item {
+            background: #fdfdfd;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+            font-size: 16px;
+        }
+
+        .risk-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .risk-word {
+            font-weight: 700;
+            color: #c0392b;
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+
+        .safe-alt {
+            font-weight: 700;
+            color: #27ae60;
+        }
+
+        .check-btn {
+            width: 100%;
+            padding: 20px;
+            background: #282828;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .check-btn:hover {
+            background: #111111;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-btn {
+            display: block;
+            padding: 18px 28px;
+            background: #FF0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .cta-btn:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #909090;
+            font-size: 14px;
+            border-top: 1px solid #eeeeee;
+            padding-top: 30px;
+        }
+
+        .footer a {
+            color: #FF0000;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .page-layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .main-content {
+            width: 100%;
+        }
+
+        .sidebar-right {
+            position: sticky;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sticky-ad-slot {
+            width: 300px;
+            min-height: 600px;
+            background: #f8f9fa;
+            border: 1px dashed #cccccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            border-radius: 8px;
+        }
+
+        .ad-buffer-slot {
+            width: 100%;
+            min-height: 90px;
+            background: #f8f9fa;
+            border: 1px dashed #cccccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+
+        .traffic-loop-widget {
+            display: block;
+            margin-top: 25px;
+            padding: 18px 25px;
+            background: #f8f9fa;
+            border: 2px solid #eeeeee;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #282828;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+        }
+
+        .traffic-loop-widget:hover {
+            border-color: #4da6ff;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(77, 166, 255, 0.15);
+        }
+
+        .traffic-loop-widget span {
+            color: #4da6ff;
+            font-weight: 800;
+        }
+
+        @media (max-width: 992px) {
+            .page-layout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-right {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+
+        .faq-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+        }
+
+        .faq-item h3 {
+            font-size: 20px;
+            color: #282828;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .faq-item p {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container page-layout-grid">
+        <div class="main-content">
+            <header>
+                <h1>⚠️ Advertiser-Friendly Title Checker</h1>
+                <p class="subtitle">Scan your <span class="youtube-logo">YouTube</span> title for risky keywords that
+                    trigger the "yellow dollar sign" before you hit publish.</p>
+            </header>
+
+            <div class="tool-section">
+                <div class="input-group">
+                    <label for="titleInput">Paste your YouTube Title here...</label>
+                    <textarea id="titleInput"
+                        placeholder="e.g. He literally killed him in this brutal war..."></textarea>
+                </div>
+
+                <button class="check-btn" onclick="checkTitle()">
+                    🔍 Check Title for Demonetization Risk
+                </button>
+
+                <div id="outputArea" class="output-box">
+                    <!-- Badges and results injected here via JS -->
+                </div>
+
+                <a href="/youtube-sponsorship-calculator.html" class="traffic-loop-widget">
+                    Title is safe? <span>Calculate what sponsors should pay you for this video ➡️</span>
+                </a>
+            </div>
+
+            <div class="info-section seo-content"
+                style="display: block; width: 100%; margin-top: 20px; padding-top: 40px; border-top: 1px solid #eeeeee;">
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        What are YouTube's Advertiser-Friendly Guidelines?
+                    </h2>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        In the creator economy, few things are as universally dreaded as the "Yellow Dollar Sign." This
+                        icon
+                        indicates that a video has been flagged for limited or no ads because it violates YouTube's
+                        <strong>Advertiser-Friendly Content Guidelines</strong>. While your video remains live and
+                        viewable,
+                        major advertisers (like car manufacturers, banks, and software companies) refuse to have their
+                        brands associated with controversial, violent, or overly sensitive content. As a result, your
+                        potential ad revenue plummets, often earning you only a fraction of pennies on the dollar
+                        compared
+                        to a fully monetized video.
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        YouTube employs a highly complex, automated machine-learning system to scan
+                        metadata—specifically
+                        your title, description, and tags—the second you upload a file. If the bots detect words
+                        associated
+                        with tragedy, violence, illicit substances, or extreme profanity, the system instantly triggers
+                        a
+                        demonetization flag before a human ever watches the video. Because the algorithm relies so
+                        heavily
+                        on text, using a tool like an Advertiser-Friendly Title Checker is imperative. It acts as a
+                        safety
+                        net, allowing you to identify and replace trigger words before the algorithm permanently
+                        associates
+                        your content with risky metadata.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        Clickbait vs. Journalism: How to Frame Your Titles
+                    </h2>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        But what if you run a True Crime channel, a news commentary show, or a historical documentary
+                        channel? You inherently have to discuss serious, often violent topics. The secret to surviving
+                        the
+                        algorithm lies in the difference between <strong>sensationalized clickbait</strong> and
+                        <strong>objective journalism</strong>. YouTube's policies explicitly state that advertisers are
+                        willing to run ads on serious topics, provided the content is presented in a factual,
+                        educational,
+                        or news-oriented manner rather than being gratuitous.
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        The metadata must reflect this tone. If your title sounds like a frantic, sensational tabloid,
+                        the
+                        AI algorithm will flag it as unsafe clickbait. For example, instead of titling a video "SERIAL
+                        KILLER BRUTALLY MURDERS FIVE PEOPLE," which triggers multiple high-risk flags, you reframe the
+                        metadata to sound like a PBS documentary: "The Unsolved Case of the 1985 City Tragedy." You are
+                        discussing the exact same event, but you've replaced the emotionally charged, violent verbs with
+                        clinical, objective nouns. This framing bypasses the immediate demonetization trigger while
+                        still
+                        retaining intrigue for your audience.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        Top Words That Instantly Demonetize Videos in 2026
+                    </h2>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        As language evolves, so does YouTube's filtering technology. However, certain categories of
+                        words
+                        remain hard stops for monetization. Here are the most common offenders and their advertiser-safe
+                        journalistic alternatives that you should implement in your metadata strategy immediately:
+                    </p>
+                    <ul style="font-size: 16px; line-height: 1.8; color: #444; margin-left: 20px; margin-bottom: 15px;">
+                        <li style="margin-bottom: 15px;"><strong>Violence & Death:</strong> Words like <em>"Murder,"
+                                "Killed," "Dead,"</em> or <em>"Assassination"</em> are immediate red flags. <strong>Safe
+                                Alternatives:</strong> "Passed Away," "Fatal Event," "Tragedy," "Unsolved Case,"
+                            "Demise."
+                        </li>
+                        <li style="margin-bottom: 15px;"><strong>Conflict & Abuse:</strong> Terms such as <em>"Rape,"
+                                "Torture," "War,"</em> or <em>"Terrorist"</em> will instantly limit your ads.
+                            <strong>Safe
+                                Alternatives:</strong> "Global Conflict," "Assault," "Hostile Event," "Historical
+                            Dispute."
+                        </li>
+                        <li style="margin-bottom: 15px;"><strong>Mental Health Sensationalism:</strong> Words like
+                            <em>"Suicide," "Self-harm,"</em> or jokingly using <em>"Depressed"</em> algorithmically hurt
+                            your channel's standing. <strong>Safe Alternatives:</strong> Focus on the recovery or
+                            clinical
+                            aspect, such as "Mental Health Journey" or "Seeking Help."
+                        </li>
+                        <li style="margin-bottom: 15px;"><strong>Extreme Profanity / Targeted Harassment:</strong> Using
+                            slurs, words like <em>"Idiot," "Stupid," "Hate,"</em> or highly severe curse words directly
+                            in
+                            the title. <strong>Safe Alternatives:</strong> "Feud," "Disagreement," "Mistake," or
+                            "Controversy."</li>
+                    </ul>
+                </div>
+
+                <div class="faq-section" style="margin-top: 0; padding-top: 0; border-top: none;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        Frequently Asked Questions
+                    </h2>
+
+                    <div class="faq-item" style="margin-bottom: 25px;">
+                        <h3>If I censor the swear word with asterisks (e.g., f*ck), is my title safe?</h3>
+                        <p>Usually, yes. YouTube's text parsers have historically struggled with heavily obfuscated
+                            words or
+                            symbols replacing letters. Writing "F*ck" or "Sh!t" is significantly safer than spelling the
+                            word out completely. However, using words like "Frick" or "Crap" is a 100% guarantee of
+                            advertiser safety without risking the algorithm adapting to asterisk-censorship.</p>
+                    </div>
+
+                    <div class="faq-item" style="margin-bottom: 25px;">
+                        <h3>Can I get demonetized for words spoken in the video, even if the title is clean?</h3>
+                        <p>Absolutely. YouTube's auto-captioning system transcribes the audio of your video upon upload.
+                            If
+                            you swear excessively in the first 15 seconds, or verbally discuss highly graphic violent
+                            themes
+                            throughout the video, the audio scan will override your clean title and issue a yellow
+                            dollar
+                            sign. The metadata gets them to the door, but the content must also remain relatively clean.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>If I win a manual review dispute, do I get back the ad revenue I lost?</h3>
+                        <p>No, you do not. If your video is demonetized upon upload and you appeal it, you only earn the
+                            "limited" ad rates while the review is pending (which can take days). If a human reviewer
+                            decides your video is actually safe for all advertisers and turns the icon green, you only
+                            earn
+                            full ad rates from that point forward. Any potential revenue lost during the first 48
+                            hours—usually the most lucrative window—is gone forever. This is why getting your title
+                            right on
+                            the first try is vital.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sidebar-right">
+            <div class="sticky-ad-slot">
+                [ Sticky Sidebar Ad ]
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>TubeHeadlines.com © 2026. This checker identifies known algorithmic trigger words. "YouTube" is a
+                trademark of Google LLC.</p>
+            <p style="margin-top: 10px;">
+                <a href="/">Back to News</a> | <a href="/tools">More Free Creator Tools</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 13px; opacity: 0.8;">
+                <a href="/about.html">About Us</a> | <a href="/contact.html">Contact Us</a> | <a
+                    href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Dictionary of risky words and their safe alternatives
+        const riskDictionary = {
+            "kill": "Defeat / Overcome",
+            "killed": "Defeated / Passed away",
+            "killer": "Attacker / Culprit",
+            "murder": "Tragedy / Unsolved case",
+            "murders": "Tragedies",
+            "murdered": "Passed away",
+            "blood": "Gore (use sparingly) / Injury",
+            "bloody": "Brutal / Intense",
+            "die": "Pass away / Fade",
+            "died": "Passed away / Lost",
+            "dead": "Passed away / Gone",
+            "death": "Loss / Passing",
+            "suicide": "Mental health struggle",
+            "rape": "Assault / Attack",
+            "sexual": "Intimate / Mature",
+            "sex": "Intimacy / Romance",
+            "porn": "Adult content",
+            "war": "Conflict / Dispute",
+            "terrorist": "Hostile force",
+            "terrorism": "Global conflict",
+            "bomb": "Explosive / Device",
+            "gun": "Weapon / Firearm (context dependent)",
+            "shoot": "Fire / Attack",
+            "shooting": "Incident",
+            "massacre": "Tragedy",
+            "hate": "Dislike / Disagree",
+            "idiot": "Fool / Mistake",
+            "stupid": "Foolish / Unwise",
+            "bitch": "Feud / Argument",
+            "fuck": "F*ck / Frick / Mess up",
+            "shit": "Sh*t / Crap / Mess",
+            "abuse": "Mistreatment / Hardship",
+            "torture": "Endurance / Hardship",
+            "drugs": "Substances / Medication",
+            "cocaine": "Illegal substance",
+            "heroin": "Illegal substance",
+            "weed": "Cannabis (if educational)"
+        };
+
+        function checkTitle() {
+            const inputField = document.getElementById('titleInput');
+            const outputArea = document.getElementById('outputArea');
+            const titleText = inputField.value.trim().toLowerCase();
+
+            if (!titleText) {
+                outputArea.style.display = 'none';
+                return;
+            }
+
+            // Clean punctuation for matching words
+            const cleanText = titleText.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, " ");
+            const wordsArray = cleanText.split(/\s+/);
+
+            let foundRisks = [];
+
+            // Check each word against dictionary
+            wordsArray.forEach(word => {
+                if (riskDictionary[word]) {
+                    // Check if we already found this exact word to avoid duplicates
+                    if (!foundRisks.some(item => item.word === word)) {
+                        foundRisks.push({
+                            word: word,
+                            alternative: riskDictionary[word]
+                        });
+                    }
+                }
+            });
+
+            // Build UI
+            outputArea.style.display = 'block';
+            outputArea.innerHTML = ''; // Clear previous
+
+            if (foundRisks.length === 0) {
+                // Safe Case
+                outputArea.innerHTML = `
+                    <div class="badge safe">
+                        ✅ Safe for Ads
+                    </div>
+                    <p style="color: #444; font-size: 16px; line-height: 1.6;">
+                        We didn't detect any high-risk demonetization triggers in your metadata. Assuming the content of the video itself follows YouTube guidelines, this title appears safe for the algorithm!
+                    </p>
+                `;
+            } else {
+                // Risk Case
+                let riskHTML = `
+                    <div class="badge risk">
+                        ⚠️ Demonetization Risk
+                    </div>
+                    <p style="color: #444; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
+                        We found <strong>${foundRisks.length}</strong> potentially risky words in your title. To protect your revenue, consider using these journalistic alternatives instead:
+                    </p>
+                `;
+
+                foundRisks.forEach(risk => {
+                    riskHTML += `
+                        <div class="risk-item">
+                            Replace <span class="risk-word">"${risk.word}"</span> with <span class="safe-alt">"${risk.alternative}"</span>
+                        </div>
+                    `;
+                });
+
+                outputArea.innerHTML = riskHTML;
+            }
+        }
+    </script>
+</body>
+
+</html>

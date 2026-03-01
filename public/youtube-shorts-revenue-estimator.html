@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/cookie-consent.css">`n
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1894186094794269"
+        crossorigin="anonymous"></script>
+    <script src="/cookie-consent.js" defer></script>
+    <title>YouTube Shorts Revenue Estimator | TubeHeadlines</title>
+    <meta name="description"
+        content="Free YouTube Shorts Revenue Estimator. Calculate your potential earnings on YouTube Shorts based on niche, location, and daily average views.">
+    <link rel="canonical" href="https://tubeheadlines.com/youtube-shorts-revenue-estimator.html">
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tubeheadlines.com/youtube-shorts-revenue-estimator.html">
+    <meta property="og:title" content="YouTube Shorts Revenue Estimator | Free Earnings Calculator">
+    <meta property="og:description"
+        content="Estimate how much your YouTube Shorts earn. Calculate daily, monthly, and yearly revenue based on views, niche, and audience location.">
+    <meta property="og:image" content="https://tubeheadlines.com/assets/images/og-shorts-estimator.jpg">
+    <meta property="og:site_name" content="TubeHeadlines">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TubeHeadlines">
+    <meta name="twitter:title" content="YouTube Shorts Revenue Estimator | Free Earnings Calculator">
+    <meta name="twitter:description"
+        content="Estimate how much your YouTube Shorts earn. Calculate daily, monthly, and yearly revenue based on views, niche, and audience location.">
+    <meta name="twitter:image" content="https://tubeheadlines.com/assets/images/og-shorts-estimator.jpg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "YouTube Shorts Revenue Estimator",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Calculate estimated daily, monthly, and yearly revenue from YouTube Shorts based on RPM averages.",
+      "softwareVersion": "1.0",
+      "featureList": "Dynamic RPM calculation, Niche targeting, Geographical earnings estimate",
+      "screenshot": "https://tubeheadlines.com/shorts-revenue-generator-screenshot.jpg"
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            color: #282828;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            max-width: 800px;
+            width: 100%;
+            padding: 60px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: #282828;
+            font-size: 36px;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: #606060;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .youtube-logo {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        .tool-section {
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #282828;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 18px;
+            color: #282828;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        select {
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 20px;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:hover {
+            border-color: #FF0000;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #FF0000;
+            box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            border-color: #27ae60;
+        }
+
+        .stat-card h4 {
+            color: #606060;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .stat-card .amount {
+            color: #27ae60;
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .rpm-display {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 15px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .cta-btn {
+            display: block;
+            padding: 18px 28px;
+            background: #282828;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .cta-btn:hover {
+            background: #FF0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #909090;
+            font-size: 14px;
+            border-top: 1px solid #eeeeee;
+            padding-top: 30px;
+        }
+
+        .footer a {
+            color: #FF0000;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .page-layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .main-content {
+            width: 100%;
+        }
+
+        .sidebar-right {
+            position: sticky;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sticky-ad-slot {
+            width: 300px;
+            min-height: 600px;
+            background: #f8f9fa;
+            border: 1px dashed #cccccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            border-radius: 8px;
+        }
+
+        .ad-buffer-slot {
+            width: 100%;
+            min-height: 90px;
+            background: #f8f9fa;
+            border: 1px dashed #cccccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+
+        .traffic-loop-widget {
+            display: block;
+            margin-top: 25px;
+            padding: 18px 25px;
+            background: #f8f9fa;
+            border: 2px solid #eeeeee;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #282828;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+        }
+
+        .traffic-loop-widget:hover {
+            border-color: #4da6ff;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(77, 166, 255, 0.15);
+        }
+
+        .traffic-loop-widget span {
+            color: #4da6ff;
+            font-weight: 800;
+        }
+
+        @media (max-width: 992px) {
+            .page-layout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-right {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .faq-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+        }
+
+        .faq-item h3 {
+            font-size: 20px;
+            color: #282828;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .faq-item p {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container page-layout-grid">
+        <div class="main-content">
+            <header>
+                <h1>💸 YouTube Shorts Revenue Estimator</h1>
+                <p class="subtitle">Calculate your potential earnings from the <span class="youtube-logo">YouTube</span>
+                    Partner Program for vertical video.</p>
+            </header>
+
+            <div class="tool-section">
+                <div class="input-group">
+                    <label for="shortsViews">Average Daily Shorts Views:</label>
+                    <input type="text" id="shortsViews" placeholder="e.g. 100,000" value="100,000"
+                        oninput="formatViews(this)">
+                </div>
+
+                <div class="input-group">
+                    <label for="shortsNiche">Your Niche:</label>
+                    <select id="shortsNiche" onchange="calculateRevenue()">
+                        <option value="finance">Finance & Business</option>
+                        <option value="tech">Tech & Software</option>
+                        <option value="gaming">Gaming</option>
+                        <option value="entertainment" selected>Entertainment & Comedy</option>
+                        <option value="vlogs">Vlogs & Lifestyle</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="audienceLocation">Main Audience Location:</label>
+                    <select id="audienceLocation" onchange="calculateRevenue()">
+                        <option value="tier1">Tier 1 (US, UK, Canada, Australia)</option>
+                        <option value="tier2">Tier 2 (Europe, Developed Asia)</option>
+                        <option value="tier3">Tier 3 (Global / Mixed)</option>
+                    </select>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>Daily Revenue</h4>
+                        <div class="amount" id="dailyRev">$0.00</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Monthly Revenue</h4>
+                        <div class="amount" id="monthlyRev">$0.00</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Yearly Revenue</h4>
+                        <div class="amount" id="yearlyRev">$0.00</div>
+                    </div>
+                </div>
+
+                <div class="rpm-display" id="rpmDisplay">
+                    Estimated RPM: $0.05 per 1,000 views
+                </div>
+
+                <a href="/youtube-thumbnail-visualizer.html" class="traffic-loop-widget">
+                    Shorts potential calculated? <span>Visualize how your Thumbnail looks on mobile ➡️</span>
+                </a>
+            </div>
+
+            <div class="info-section seo-content"
+                style="display: block; width: 100%; margin-top: 60px; padding-top: 40px; border-top: 1px solid #eeeeee;">
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        What is a Good YouTube Shorts RPM in 2026?
+                    </h2>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        When YouTube first monetized Shorts, the creator economy was largely disappointed by the initial
+                        payouts. However, fast forward to 2026, and the landscape of short-form monetization has matured
+                        significantly. The YouTube Shorts <strong>RPM (Revenue Per Mille)</strong>—which signifies how
+                        much
+                        money a creator earns per 1,000 views—remains lower than traditional long-form content, but the
+                        volume of views generated on the Shorts feed makes it a highly viable income stream.
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        Currently, a "good" average YouTube Shorts RPM hovers aggressively between <strong>$0.04 and
+                            $0.07
+                            per 1,000 views</strong>. While this sounds like pennies, remember that an optimized Short
+                        can
+                        easily pull in millions of views within a 24-hour window globally. If you strike viral gold with
+                        a
+                        10-million view Short operating at a standard $0.05 RPM, that translates to a quick $500 payout
+                        from
+                        a single piece of 30-second content. By consistently uploading and utilizing a tool like our
+                        YouTube
+                        Shorts Revenue Estimator, creators can forecast their earnings and turn highly-bingeable
+                        vertical
+                        content into a predictable, scalable monthly paycheck.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        How Niche and Geography Affect Your Shorts Revenue
+                    </h2>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        Not all views are created equal in the eyes of Google AdSense. Two creators can each receive
+                        1,000,000 views on a Short but see drastically different payouts in their Studio Dashboard. The
+                        two
+                        biggest contributing factors to this discrepancy are <strong>your niche</strong> and the
+                        <strong>geographical location of your audience</strong>.
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        Advertisers are willing to pay a premium to place their brand in front of specific demographics.
+                        For
+                        example, the <strong>Finance and Business</strong> niche is phenomenally lucrative. Brokerages,
+                        crypto platforms, and credit card companies bid heavily for ad space because their user
+                        conversion
+                        value is incredibly high. A finance creator might see a Shorts RPM pushing $0.12 or higher.
+                        Conversely, broader niches like <strong>Gaming or Entertainment</strong> cast a wider net over
+                        younger audiences with less disposable income. Advertisers bid less, resulting in a lower
+                        baseline
+                        RPM (usually around $0.03 to $0.05). Additionally, audiences accessing your content from Tier-1
+                        advertising ecosystems—such as the <strong>United States, the UK, Canada, and
+                            Australia</strong>—command significantly higher ad rates compared to developing "Global"
+                        regions.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        3 Ways to Increase Your Shorts RPM
+                    </h2>
+                    <ul style="font-size: 16px; line-height: 1.8; color: #444; margin-left: 20px; margin-bottom: 15px;">
+                        <li style="margin-bottom: 15px;"><strong>Target High-Value Demographics:</strong> While it is
+                            impossible to control exactly who the algorithm serves your video to, you can gear your
+                            content
+                            towards older demographics (ages 25-44) by adjusting your topic complexity, tone, and the
+                            problems you solve. Older viewers have more purchasing power, which directly drives up your
+                            RPM.
+                        </li>
+                        <li style="margin-bottom: 15px;"><strong>Include Music Selectively (Or Avoid Mainstream Audio
+                                entirely):</strong> The current YouTube Shorts monetization model pools ad revenue and
+                            splits it between creators and music licensing publishers. If you utilize popular,
+                            copyrighted,
+                            licensed music from the Shorts audio library, a substantial percentage of your earned
+                            revenue is
+                            diverted to pay the music label. Using original audio, royalty-free background tracks, or
+                            voiceovers ensures you keep the entire creator slice of the ad-revenue pie.</li>
+                        <li style="margin-bottom: 15px;"><strong>Pivot to "How-To" Educational Content:</strong>
+                            Search-based instructional Shorts often attract advertisers looking to solve specific
+                            problems.
+                            Software companies and B2B SaaS businesses pay incredibly high ad-rates. Injecting software
+                            tutorials, gear reviews, or financial tips into your regular programming can naturally
+                            elevate
+                            your channel's overall advertising floor.</li>
+                    </ul>
+                </div>
+
+                <div class="faq-section" style="margin-top: 0; padding-top: 0; border-top: none;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        Frequently Asked Questions
+                    </h2>
+
+                    <div class="faq-item" style="margin-bottom: 25px;">
+                        <h3>How exactly is YouTube Shorts revenue calculated?</h3>
+                        <p>Unlike long-form content where ads run directly on your specific video, Shorts revenue
+                            operates
+                            on a "Pool" system. Every month, YouTube aggregates the total revenue from ads shown in the
+                            Shorts feed. They then distribute a portion of this massive pool to eligible creators based
+                            on
+                            their percentage share of total Shorts views across the platform in their respective
+                            country.
+                        </p>
+                    </div>
+
+                    <div class="faq-item" style="margin-bottom: 25px;">
+                        <h3>What are the monetization requirements for YouTube Shorts?</h3>
+                        <p>To join the YouTube Partner Program and start earning money from the Shorts feed, your
+                            channel
+                            needs to hit two primary milestones: You must acquire at least 1,000 total subscribers, and
+                            you
+                            must generate 10 million valid public Shorts views within the past 90 days. Alternately, the
+                            traditional 4,000 hours of long-form watch time also qualifies you.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Is 1,000,000 views on a Short considered a lot?</h3>
+                        <p>While 1 million views is a massive psychological milestone and excellent for channel growth,
+                            mathematically it represents a moderate financial payout in the Shorts ecosystem. At an
+                            average
+                            $0.05 RPM, 1 million views generates roughly $50. Shorts require extreme volume, which is
+                            why
+                            posting consistently is the true secret to vertical video income.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sidebar-right">
+            <div class="sticky-ad-slot">
+                [ Sticky Sidebar Ad ]
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>TubeHeadlines.com © 2026. This estimator provides financial projections based on average 2026 YouTube
+                Shorts RPM trends. "YouTube" is a trademark of Google LLC.</p>
+            <p style="margin-top: 10px;">
+                <a href="/">Back to News</a> | <a href="/tools">More Free Creator Tools</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 13px; opacity: 0.8;">
+                <a href="/about.html">About Us</a> | <a href="/contact.html">Contact Us</a> | <a
+                    href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function formatViews(input) {
+            // Get cursor position to prevent jumping
+            let start = input.selectionStart;
+            let oldLength = input.value.length;
+
+            // Remove non-digits
+            let valueStr = input.value.replace(/\D/g, '');
+
+            if (valueStr === '') {
+                input.value = '';
+            } else {
+                input.value = parseInt(valueStr, 10).toLocaleString('en-US');
+            }
+
+            // Calculate how much the length changed to adjust cursor position
+            let newLength = input.value.length;
+            let lengthDiff = newLength - oldLength;
+
+            if (start !== null) {
+                input.setSelectionRange(start + lengthDiff, start + lengthDiff);
+            }
+
+            calculateRevenue();
+        }
+
+        function calculateRevenue() {
+            const viewsInput = document.getElementById('shortsViews').value.replace(/,/g, '');
+            const views = parseInt(viewsInput, 10) || 0;
+
+            const niche = document.getElementById('shortsNiche').value;
+            const location = document.getElementById('audienceLocation').value;
+
+            // Base RPM Logic
+            let baseRpm = 0.05; // Default average
+
+            // Niche multipliers
+            if (niche === 'finance') baseRpm = 0.12;
+            else if (niche === 'tech') baseRpm = 0.08;
+            else if (niche === 'vlogs') baseRpm = 0.06;
+            else if (niche === 'entertainment') baseRpm = 0.05;
+            else if (niche === 'gaming') baseRpm = 0.04;
+
+            // Location multipliers
+            let locationMultiplier = 1.0;
+            if (location === 'tier2') locationMultiplier = 0.6;
+            else if (location === 'tier3') locationMultiplier = 0.3;
+
+            // Final RPM
+            const finalRpm = baseRpm * locationMultiplier;
+
+            // Math
+            const dailyRevenue = (views / 1000) * finalRpm;
+            const monthlyRevenue = dailyRevenue * 30;
+            const yearlyRevenue = dailyRevenue * 365;
+
+            // Format Currency
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+            });
+
+            // Update UI
+            document.getElementById('dailyRev').textContent = formatter.format(dailyRevenue);
+            document.getElementById('monthlyRev').textContent = formatter.format(monthlyRevenue);
+            document.getElementById('yearlyRev').textContent = formatter.format(yearlyRevenue);
+
+            document.getElementById('rpmDisplay').textContent = `Estimated RPM: ${formatter.format(finalRpm)} per 1,000 views`;
+        }
+
+        // Generate on initial load
+        document.addEventListener('DOMContentLoaded', calculateRevenue);
+    </script>
+</body>
+
+</html>

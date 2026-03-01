@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/cookie-consent.css">`n
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1894186094794269"
+        crossorigin="anonymous"></script>
+    <script src="/cookie-consent.js" defer></script>
+    <title>YouTube Sponsorship Calculator | Brand Deal Pricing Guide</title>
+    <meta name="description"
+        content="Free YouTube Brand Deal & Sponsorship Calculator. Calculate exactly how much to charge for YouTube sponsorships based on your views, CPV, and niche.">
+    <link rel="canonical" href="https://tubeheadlines.com/youtube-sponsorship-calculator.html">
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tubeheadlines.com/youtube-sponsorship-calculator.html">
+    <meta property="og:title" content="YouTube Sponsorship Rate Calculator | What To Charge Brands">
+    <meta property="og:description"
+        content="Calculate the perfect sponsorship rate for your YouTube channel. Based on industry-standard CPV metrics. Never undersell yourself to a brand again.">
+    <meta property="og:image" content="https://tubeheadlines.com/assets/images/og-sponsorship-calculator.jpg">
+    <meta property="og:site_name" content="TubeHeadlines">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TubeHeadlines">
+    <meta name="twitter:title" content="YouTube Sponsorship Rate Calculator | What To Charge Brands">
+    <meta name="twitter:description"
+        content="Calculate the perfect sponsorship rate for your YouTube channel. Based on industry-standard CPV metrics. Never undersell yourself to a brand again.">
+    <meta name="twitter:image" content="https://tubeheadlines.com/assets/images/og-sponsorship-calculator.jpg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "YouTube Brand Deal & Sponsorship Calculator",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Calculate sponsorship rates based on channel niche, average views, and integration type. Includes a free pitch email template generator.",
+      "softwareVersion": "1.0",
+      "featureList": "Dynamic CPV logic, View-based pricing, Pitch Email Generator",
+      "screenshot": "https://tubeheadlines.com/sponsorship-calculator-screenshot.jpg"
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            color: #282828;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            max-width: 800px;
+            width: 100%;
+            padding: 60px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: #282828;
+            font-size: 36px;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: #606060;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .youtube-logo {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        .tool-section {
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #282828;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 18px;
+            color: #282828;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        select {
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 20px;
+        }
+
+        input[type="text"]:focus,
+        select:hover {
+            border-color: #FF0000;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #FF0000;
+            box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.1);
+        }
+
+        .output-box {
+            background: rgba(39, 174, 96, 0.1);
+            border: 2px solid #27ae60;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+
+        .output-label {
+            color: #27ae60;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .output-value {
+            color: #282828;
+            font-size: 42px;
+            font-weight: 900;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 20px;
+            background: #282828;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .generate-btn:hover {
+            background: #111111;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background: #FF0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .cta-btn:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.2);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #909090;
+            font-size: 14px;
+            border-top: 1px solid #eeeeee;
+            padding-top: 30px;
+        }
+
+        .footer a {
+            color: #FF0000;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .page-layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .main-content {
+            width: 100%;
+        }
+
+        .sidebar-right {
+            position: sticky;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sticky-ad-slot {
+            width: 300px;
+            min-height: 600px;
+            background: #f8f9fa;
+            border: 1px dashed #cccccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            border-radius: 8px;
+        }
+
+        .ad-buffer-slot {
+            width: 100%;
+            min-height: 90px;
+            background: #f8f9fa;
+            border: 1px dashed #cccccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+
+        .traffic-loop-widget {
+            display: block;
+            margin-top: 25px;
+            padding: 18px 25px;
+            background: #f8f9fa;
+            border: 2px solid #eeeeee;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #282828;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+        }
+
+        .traffic-loop-widget:hover {
+            border-color: #4da6ff;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(77, 166, 255, 0.15);
+        }
+
+        .traffic-loop-widget span {
+            color: #4da6ff;
+            font-weight: 800;
+        }
+
+        @media (max-width: 992px) {
+            .page-layout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-right {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container page-layout-grid">
+        <div class="main-content">
+            <header>
+                <h1>💼 YouTube Brand Deal & Sponsorship Calculator</h1>
+                <p class="subtitle">Stop undercharging. Calculate the exact market rate for your <span
+                        class="youtube-logo">YouTube</span> sponsorships based on your niche and average views.</p>
+            </header>
+
+            <div class="tool-section">
+                <div class="input-group">
+                    <label for="avgViews">Average Views Per Video (Last 10 Uploads):</label>
+                    <input type="text" id="avgViews" placeholder="e.g. 50,000" value="50,000"
+                        oninput="formatViews(this)">
+                </div>
+
+                <div class="input-group">
+                    <label for="channelNiche">Your Channel Niche:</label>
+                    <select id="channelNiche" onchange="calculatePrice()">
+                        <option value="0.05">Finance / Business ($0.05 CPV)</option>
+                        <option value="0.035">Tech / Software ($0.035 CPV)</option>
+                        <option value="0.02">Lifestyle / Vlog / Beauty ($0.02 CPV)</option>
+                        <option value="0.015">Gaming ($0.015 CPV)</option>
+                        <option value="0.01" selected>Entertainment / Comedy ($0.01 CPV)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="integrationType">Type of Integration / Ad Read:</label>
+                    <select id="integrationType" onchange="calculatePrice()">
+                        <option value="1.2">60-Second Dedicated Segment (+20%)</option>
+                        <option value="1.0" selected>30-Second Brief Mention (Base Rate)</option>
+                        <option value="0.6">Link in Description ONLY (-40%)</option>
+                    </select>
+                </div>
+
+                <div class="output-box">
+                    <div class="output-label">Suggested Asking Price Range</div>
+                    <div class="output-value" id="priceRangeOutput">$450 - $575</div>
+                </div>
+
+                <button class="generate-btn" id="copyBtn" onclick="copyPitchEmail()">
+                    ✉️ Copy Pitch Email Template
+                </button>
+                <textarea id="hiddenEmailTemp" class="hidden-copy"></textarea>
+
+                <a href="/youtube-income-calculator.html" class="traffic-loop-widget">
+                    Sponsorship worth calculated? <span>Now estimate your AdSense Income potential ➡️</span>
+                </a>
+            </div>
+
+            <div class="info-section seo-content"
+                style="display: block; width: 100%; margin-top: 20px; padding-top: 40px; border-top: 1px solid #eeeeee;">
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        How Much Should You Charge for a YouTube Sponsorship in 2026?
+                    </h2>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        One of the most persistent, stressful questions for any growing creator is figuring out their
+                        exact
+                        market worth. If an agency emails you offering $500 for a 60-second ad read, are you being
+                        scammed,
+                        or is that a generous offer? In 2026, the industry standard for pricing YouTube sponsorships
+                        relies
+                        entirely on the <strong>CPV (Cost Per View)</strong> metric, rather than your total subscriber
+                        count.
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        Subscribers are a vanity metric; brands care about <em>active eyeballs</em>. To establish a
+                        baseline, agencies calculate the average view count of your last 10 to 15 long-form videos. They
+                        then multiply that average by a CPV rate specific to your niche. For example, if you average
+                        100,000
+                        views and your niche commands a $0.02 CPV, your baseline sponsorship rate is $2,000. Finance and
+                        Tech channels consistently command the highest CPV (often $0.035 to $0.05+, equivalent to a
+                        $35-$50
+                        CPM) because their audiences have massive purchasing power. Conversely, broad entertainment or
+                        gaming channels sit closer to $0.01 CPV (a $10 CPM) due to younger audiences with less
+                        disposable
+                        income. Our tool automatically calculates these industry-standard multipliers to give you a
+                        highly
+                        accurate, confident starting point for negotiations.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        Dedicated Video vs. 60-Second Integration
+                    </h2>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        When negotiating a brand deal, it is vital to understand what the sponsor actually expects you
+                        to
+                        deliver. The scope of work heavily dictates the final invoice. The most common type of
+                        sponsorship
+                        is the <strong>60-Second Integration</strong>. This is a dedicated segment, usually placed
+                        between
+                        the 1-minute and 3-minute mark of your video, where you pause the organic content to read the
+                        brand's talking points, show their product on-screen, and utilize a custom trackable link or
+                        promo
+                        code in the description. Because it interrupts the viewer, these command a premium price (often
+                        a
+                        20% markup over a brief mention).
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        Conversely, a <strong>Dedicated Video</strong> is a massive undertaking where the <em>entire
+                            concept</em> of the 10-minute video revolves around the sponsor's product. Perhaps they flew
+                        you
+                        out to their headquarters, or you are reviewing their software for the duration of the video.
+                        Because the brand receives 100% of the viewer's attention and retention, dedicated videos cost
+                        significantly more—usually 2.5x to 4x the price of a standard 60-second integration. Never
+                        accept
+                        integration pricing for a dedicated workload.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        How to Negotiate with Brands as a Small Creator
+                    </h2>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        Even if you only average 5,000 to 10,000 views per video, you can still secure lucrative brand
+                        deals
+                        if you know how to leverage your specific value. As a micro-influencer, you cannot compete on
+                        pure
+                        volume. <strong>You must compete on conversion.</strong>
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        When pitching or replying to a brand, do not focus on your view count. Instead, emphasize the
+                        profound trust and hyper-specificity of your audience. A software company would much rather
+                        sponsor
+                        a channel with 5,000 deeply engaged web developers than spend money on a massive prank channel
+                        with
+                        1,000,000 teenage viewers. Always pitch a <strong>Package Deal</strong>. Instead of offering one
+                        video integration for $300, offer a 3-video integration package for $800, plus guaranteed
+                        top-line
+                        description links and a dedicated community post. Brands love package deals because it lowers
+                        their
+                        customer acquisition cost and builds a stronger associative bond between their product and your
+                        face
+                        across multiple touchpoints. Use our free Pitch Email Generator button above to automatically
+                        structure a professional response based on your calculated rates.
+                    </p>
+                </div>
+
+                <div class="faq-section" style="margin-top: 0; padding-top: 0; border-top: none;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        Frequently Asked Questions
+                    </h2>
+
+                    <div class="faq-item" style="margin-bottom: 25px;">
+                        <h3>What do I do if a brand offers to pay me strictly based on affiliate sales?</h3>
+                        <p>Unless it is a product you already deeply use and love, gracefully decline. Performance-based
+                            affiliate deals push 100% of the marketing risk onto the creator. You are doing the labor of
+                            filming, editing, and distributing the ad read regardless of whether their landing page
+                            converts. Always politely insist on a guaranteed flat rate (calculated above) for the
+                            integration space, though you can offer an affiliate link as an added bonus.</p>
+                    </div>
+
+                    <div class="faq-item" style="margin-bottom: 25px;">
+                        <h3>Should I charge extra for Exclusivity?</h3>
+                        <p>Absolutely. If a VPN company sponsors your video and their contract includes a 30-day
+                            "Category
+                            Exclusivity" clause (meaning you cannot take money from any other cybersecurity software for
+                            a
+                            month), you must charge a premium. You are sacrificing potential revenue from their
+                            competitors.
+                            A standard exclusivity markup is an additional 15% to 30% on top of your final base rate.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>When should I ask the sponsor to pay me?</h3>
+                        <p>Industry standard for YouTube sponsorships is Net-30 from the day the video goes live.
+                            However,
+                            if you are working with a new brand or international agency for the first time, it is highly
+                            recommended to invoice for 50% of the total fee upfront upon signing the contract, and the
+                            remaining 50% on Net-30 terms after publication to protect your time and labor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-right">
+            <div class="sticky-ad-slot">
+                [ Sticky Sidebar Ad ]
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>TubeHeadlines.com © 2026. This calculator is a reference guide based on industry-standard CPV
+                metrics. "YouTube" is a trademark of Google LLC.</p>
+            <p style="margin-top: 10px;">
+                <a href="/">Back to News</a> | <a href="/tools">More Free Creator Tools</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 13px; opacity: 0.8;">
+                <a href="/about.html">About Us</a> | <a href="/contact.html">Contact Us</a> | <a
+                    href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function formatViews(input) {
+            // Get cursor position to prevent jumping
+            let start = input.selectionStart;
+            let oldLength = input.value.length;
+
+            // Remove non-digits
+            let valueStr = input.value.replace(/\D/g, '');
+
+            if (valueStr === '') {
+                input.value = '';
+            } else {
+                input.value = parseInt(valueStr, 10).toLocaleString('en-US');
+            }
+
+            // Calculate how much the length changed to adjust cursor position
+            let newLength = input.value.length;
+            let lengthDiff = newLength - oldLength;
+
+            if (start !== null) {
+                input.setSelectionRange(start + lengthDiff, start + lengthDiff);
+            }
+
+            calculatePrice();
+        }
+
+        // Shared variables for the copy function
+        let calculatedLowEnd = 0;
+        let calculatedHighEnd = 0;
+
+        function calculatePrice() {
+            const viewsInput = document.getElementById('avgViews').value.replace(/,/g, '');
+            const views = parseInt(viewsInput, 10) || 0;
+
+            const nicheCpv = parseFloat(document.getElementById('channelNiche').value);
+            const integrationMultiplier = parseFloat(document.getElementById('integrationType').value);
+
+            // Base Logic
+            const basePrice = views * nicheCpv;
+            const targetPrice = basePrice * integrationMultiplier;
+
+            // Calculate Range (10% below to 15% above target)
+            calculatedLowEnd = targetPrice * 0.90;
+            calculatedHighEnd = targetPrice * 1.15;
+
+            // Format Currency
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0 // Clean whole numbers look better for quotes
+            });
+
+            // Update UI
+            const rangeOutput = `${formatter.format(calculatedLowEnd)} - ${formatter.format(calculatedHighEnd)}`;
+            document.getElementById('priceRangeOutput').textContent = rangeOutput;
+        }
+
+        function copyPitchEmail() {
+            const rangeStr = document.getElementById('priceRangeOutput').textContent;
+
+            const emailTemplate = `Hi [Name],
+
+Thanks for reaching out! I've been a fan of [Brand Name] for a while and think this would be a fantastic fit for my audience. 
+
+Based on my channel's current viewership and demographics, my rate for a dedicated 60-second integration is generally in the range of ${rangeStr}. This includes a trackable link near the top of the description and a pinned comment to maximize your conversions.
+
+If this aligns with your current marketing budget, I'd love to review the campaign brief and discuss some creative ways to naturally integrate the product into my next video.
+
+Looking forward to hearing from you,
+[Your Name]`;
+
+            const hiddenTextArea = document.getElementById('hiddenEmailTemp');
+            hiddenTextArea.value = emailTemplate;
+            hiddenTextArea.select();
+            document.execCommand('copy');
+
+            window.getSelection().removeAllRanges();
+
+            const btn = document.getElementById('copyBtn');
+            const originalHTML = '✉️ Copy Pitch Email Template';
+
+            btn.innerHTML = '✅ Copied to Clipboard!';
+            btn.style.background = '#27ae60';
+            btn.style.boxShadow = '0 4px 15px rgba(39, 174, 96, 0.4)';
+
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.background = '#282828';
+                btn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+            }, 3000);
+        }
+
+        // Generate on initial load
+        document.addEventListener('DOMContentLoaded', calculatePrice);
+    </script>
+</body>
+
+</html>

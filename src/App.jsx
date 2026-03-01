@@ -19,6 +19,7 @@ import NotFound from './components/NotFound.jsx';
 import SubmitChannel from './components/SubmitChannel.jsx';
 import CategoryPage from './components/CategoryPage.jsx';
 import Home from './components/Home.jsx';
+import ToolsHub from './components/ToolsHub.jsx';
 import './App.css';
 import './components/ShareButton.css';
 import './components/LoadingError.css';
@@ -78,6 +79,7 @@ function App() {
           <Route path="/video/:id" element={<VideoPage />} />
           <Route path="/submit" element={<SubmitChannel />} />
           <Route path="/category/:position" element={<CategoryPage />} />
+          <Route path="/tools" element={<ToolsHub />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </RemoveTrailingSlash>
@@ -97,9 +99,7 @@ function App() {
         <span className="link-separator">|</span>
         <Link to="/submit">SUBMIT YOUR CHANNEL</Link>
         <span className="link-separator">|</span>
-        <a href="/viral-idea-generator.html" target="_blank" rel="noopener noreferrer">IDEA GENERATOR</a>
-        <span className="link-separator">|</span>
-        <a href="/youtube-income-calculator.html" target="_blank" rel="noopener noreferrer">INCOME CALCULATOR</a>
+        <Link to="/tools" style={{ fontWeight: 'bold', color: '#ff0000' }}>FREE TOOLS</Link>
         <span className="link-separator">|</span>
         <ShareButton />
       </div>

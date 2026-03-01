@@ -4,10 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/cookie-consent.css">`n
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1894186094794269"
+        crossorigin="anonymous"></script>
+    <script src="/cookie-consent.js" defer></script>
     <title>YouTube Income Estimator | TubeHeadlines</title>
     <meta name="description"
         content="Calculate your potential YouTube earnings based on views and RPM. Free YouTube income calculator with daily, monthly, and yearly projections.">
     <link rel="canonical" href="https://tubeheadlines.com/youtube-income-calculator.html">
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tubeheadlines.com/youtube-income-calculator.html">
+    <meta property="og:title" content="YouTube Income Calculator | Estimate Your Channel Earnings">
+    <meta property="og:description"
+        content="Calculate how much money your YouTube channel earns based on views, niche, and RPM. Free, accurate 2026 estimates with real industry data.">
+    <meta property="og:image" content="https://tubeheadlines.com/assets/images/og-income-calculator.jpg">
+    <meta property="og:site_name" content="TubeHeadlines">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TubeHeadlines">
+    <meta name="twitter:title" content="YouTube Income Calculator | Estimate Your Channel Earnings">
+    <meta name="twitter:description"
+        content="Calculate how much money your YouTube channel earns based on views, niche, and RPM. Free, accurate 2026 estimates with real industry data.">
+    <meta name="twitter:image" content="https://tubeheadlines.com/assets/images/og-income-calculator.jpg">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -330,9 +349,22 @@
         }
 
         .faq-item p {
-            font-size: 16px;
-            color: #7f8c8d;
-            line-height: 1.6;
+            box-shadow: 0 4px 15px rgba(77, 166, 255, 0.15);
+        }
+
+        .traffic-loop-widget span {
+            color: #4da6ff;
+            font-weight: 800;
+        }
+
+        @media (max-width: 992px) {
+            .page-layout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-right {
+                display: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -357,311 +389,392 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="money-icon">💰</div>
-        <h1>YouTube Income Estimator</h1>
-        <p class="subtitle">Calculate your potential earnings based on views and RPM</p>
+    <div class="container page-layout-grid">
+        <div class="main-content">
+            <h1>💰 YouTube Income Calculator</h1>
+            <p class="subtitle">Estimate how much money a channel is making based on daily views and niche RPMs.</p>
 
-        <div class="input-group">
-            <label for="niche">Select Your Niche</label>
-            <select id="niche">
-                <option value="gaming">🎮 Gaming ($1.50 - $5.00 RPM)</option>
-                <option value="tech">💻 Tech Reviews ($3.00 - $8.00 RPM)</option>
-                <option value="finance" selected>💰 Finance ($5.00 - $15.00 RPM)</option>
-                <option value="education">📚 Education ($2.00 - $6.00 RPM)</option>
-                <option value="lifestyle">✨ Lifestyle ($1.00 - $4.00 RPM)</option>
-                <option value="vlogging">📹 Vlogging ($0.50 - $3.00 RPM)</option>
-                <option value="entertainment">🎬 Entertainment ($1.00 - $4.00 RPM)</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <label for="views">Daily Video Views</label>
-            <input type="text" id="views" placeholder="e.g., 10,000" value="10,000">
-            <div class="error-message" id="viewsError">Please enter a valid number</div>
-        </div>
-
-        <div class="input-group">
-            <label>Estimated RPM (Revenue Per 1,000 Views)</label>
-            <div class="slider-container">
-                <div class="slider-label">
-                    <span style="color: #7f8c8d; font-size: 14px;" id="minRpm">$5.00</span>
-                    <span class="slider-value" id="rpmValue">$9.00</span>
-                    <span style="color: #7f8c8d; font-size: 14px;" id="maxRpm">$15.00</span>
-                </div>
-                <input type="range" id="rpm" min="0.5" max="10" step="0.1" value="2.5">
-            </div>
-        </div>
-
-        <div class="results-container">
-            <div class="results-title">📊 Your Estimated Earnings</div>
-            <table class="earnings-table">
-                <thead>
-                    <tr>
-                        <th>Period</th>
-                        <th>Earnings</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="period-label">Daily</td>
-                        <td class="earnings-value" id="dailyEarnings">$25.00</td>
-                    </tr>
-                    <tr>
-                        <td class="period-label">Monthly (30 days)</td>
-                        <td class="earnings-value" id="monthlyEarnings">$750.00</td>
-                    </tr>
-                    <tr>
-                        <td class="period-label">Yearly (365 days)</td>
-                        <td class="earnings-value" id="yearlyEarnings">$9,125.00</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="seo-content"
-            style="display: block; width: 100%; margin-top: 50px; padding-top: 40px; border-top: 1px solid #e9ecef;">
-            <div style="margin-bottom: 40px;">
-                <h2 style="font-size: 26px; color: #2c3e50; margin-bottom: 20px; font-weight: 700;">What is the YouTube
-                    Income Calculator?</h2>
-                <p style="font-size: 15px; line-height: 1.8; color: #34495e; margin-bottom: 15px;">
-                    Trying to predict exactly how much money a channel makes can feel like guesswork, especially with
-                    the constantly changing landscape of the creator economy. The <strong>YouTube income
-                        calculator</strong> was built to remove that uncertainty and provide creators, marketers, and
-                    curious viewers with a highly accurate estimation of potential ad revenue. Rather than relying on
-                    massive, unrealistic brackets (like the famous "$500 to $15,000" ranges you see on social blade
-                    alternatives), this tool relies on hyper-specific niche categorization. By choosing your specific
-                    content vertical—such as finance, gaming, or lifestyle—our algorithm applies the most up-to-date
-                    industry average RPMs (Revenue Per Mille) to give you a realistic daily, monthly, and yearly cash
-                    flow projection.
-                </p>
-                <p style="font-size: 15px; line-height: 1.8; color: #34495e; margin-bottom: 15px;">
-                    This real-time YouTube income calculator is incredibly valuable for strategic planning. If you are
-                    starting a new channel and are weighing the pros and cons of diving into tech reviews versus daily
-                    vlogging, this tool clearly illustrates the massive disparity in earning potential based strictly on
-                    advertiser demand. It allows creators to set tangible financial goals. By manipulating the "Daily
-                    Video Views" input, you can instantly see exactly how many daily viewers you need to reach in order
-                    to quit your day job, pay your rent, or scale your production team.
-                </p>
-            </div>
-
-            <div style="margin-bottom: 40px;">
-                <h2 style="font-size: 26px; color: #2c3e50; margin-bottom: 20px; font-weight: 700;">Understanding
-                    YouTube RPM and CPM in 2026</h2>
-                <p style="font-size: 15px; line-height: 1.8; color: #34495e; margin-bottom: 15px;">
-                    To fully utilize the YouTube income calculator, it is crucial to understand the difference between
-                    CPM and RPM. CPM (Cost Per Mille) is the metric that advertisers care about—it is the amount of
-                    money a brand pays to YouTube to serve 1,000 ad impressions on your video. RPM (Revenue Per Mille),
-                    however, is the metric that creators care about. It represents the actual amount of money that goes
-                    directly into your bank account after YouTube takes its standard 45% cut of the ad revenue,
-                    factoring in channel memberships and Super Chats.
-                </p>
-                <p style="font-size: 15px; line-height: 1.8; color: #34495e; margin-bottom: 15px;">
-                    In 2026, RPM rates are heavily dictated by viewer demographics and content niche. Advertisers in the
-                    software, personal finance, and real estate sectors are willing to pay massive premiums (sometimes
-                    upwards of $20+ CPM) because a single customer acquisition is highly lucrative. Conversely, gaming
-                    and entertainment channels, while capable of pulling in millions of views, generally attract a
-                    younger demographic with lower disposable income, resulting in significantly lower RPMs. The
-                    calculator accounts for these discrepancies natively, ensuring your estimates reflect the reality of
-                    the current ad market.
-                </p>
-            </div>
-
-            <div style="margin-bottom: 40px;">
-                <h2 style="font-size: 26px; color: #2c3e50; margin-bottom: 20px; font-weight: 700;">5 Proven Strategies
-                    to Increase Your YouTube Revenue</h2>
-                <ul style="font-size: 15px; line-height: 1.8; color: #34495e; margin-left: 20px; margin-bottom: 15px;">
-                    <li style="margin-bottom: 15px;"><strong>Target High-Value Geographies:</strong> Ad slots shown to
-                        viewers in the US, UK, Canada, and Australia pay out at significantly higher rates. Tailoring
-                        your content language and topics to appeal to these demographics naturally increases your RPM.
-                    </li>
-                    <li style="margin-bottom: 15px;"><strong>Create 8+ Minute Videos:</strong> Videos longer than 8
-                        minutes allow you to place mid-roll ads. Strategically placing these mid-rolls during natural
-                        cliffhangers can easily double your ad revenue without alienating viewers.</li>
-                    <li style="margin-bottom: 15px;"><strong>Implement Affiliate Marketing:</strong> Don't rely solely
-                        on AdSense! Mention software, camera gear, or books within your video and pin affiliate links in
-                        the top comment. This creates a secondary, highly lucrative revenue stream.</li>
-                    <li style="margin-bottom: 15px;"><strong>Secure Direct Sponsorships:</strong> Once you establish a
-                        solid base of 10,000+ views per video, you can bypass YouTube's 45% cut entirely by integrating
-                        60-second direct ad reads for brands related to your niche.</li>
-                    <li style="margin-bottom: 15px;"><strong>Optimize for Search (Evergreen Content):</strong> A viral
-                        hit makes money for a week, but a highly-searched "How-To" tutorial generates passive income
-                        every single day for years. Build a catalog of evergreen content to stabilize your baseline
-                        monthly earnings.</li>
-                </ul>
-            </div>
-
-            <div class="faq-section" style="margin-top: 0; padding-top: 0; border-top: none;">
-                <h2 style="font-size: 26px; color: #2c3e50; margin-bottom: 20px; font-weight: 700;">Frequently Asked
-                    Questions</h2>
-
-                <div class="faq-item" style="margin-bottom: 25px;">
-                    <h3 style="font-size: 18px; color: #2c3e50; margin-bottom: 10px; font-weight: 600;">How is YouTube
-                        RPM actually calculated?</h3>
-                    <p style="font-size: 15px; line-height: 1.8; color: #34495e;">RPM (Revenue Per Mille) represents the
-                        total amount of money you earn per every 1,000 video views, after YouTube's platform cut. It is
-                        heavily dependent on your specific niche; for example, Finance and Tech channels inherently
-                        command much higher RPMs than general Vlogging or Gaming channels due to advertiser demands.</p>
+            <div class="calculator-card">
+                <div class="input-group">
+                    <div class="slider-label">
+                        <label for="dailyViews">Daily Video Views</label>
+                        <span class="slider-value" id="viewsDisplay">20,000</span>
+                    </div>
+                    <input type="range" id="dailyViews" min="1000" max="1000000" value="20000" step="1000">
+                    <div class="error-message" id="viewsError"></div>
                 </div>
 
-                <div class="faq-item" style="margin-bottom: 25px;">
-                    <h3 style="font-size: 18px; color: #2c3e50; margin-bottom: 10px; font-weight: 600;">How accurate is
-                        this YouTube money calculator?</h3>
-                    <p style="font-size: 15px; line-height: 1.8; color: #34495e;">This specific YouTube income
-                        calculator utilizes the most current industry-standard RPM ranges to provide highly realistic
-                        projections. Keep in mind, however, that your exact real-world earnings may slightly fluctuate
-                        depending on variables like viewer geographic location, the prevalence of ad blockers, and your
-                        audience retention rates.</p>
+                <div class="input-group">
+                    <label for="niche">Select Channel Niche (Affects RPM)</label>
+                    <select id="niche">
+                        <option value="entertainment">🎭 Entertainment / Comedy (Avg RPM: $1.50)</option>
+                        <option value="gaming">🎮 Gaming (Avg RPM: $2.00)</option>
+                        <option value="vlogging">📹 Lifestyle / Vlogging (Avg RPM: $3.50)</option>
+                        <option value="tech">💻 Tech Reviews (Avg RPM: $6.00)</option>
+                        <option value="education">📚 Education (Avg RPM: $7.50)</option>
+                        <option value="finance" selected>📈 Personal Finance / Crypto (Avg RPM: $15.00)</option>
+                        <option value="custom">⚙️ Custom RPM</option>
+                    </select>
                 </div>
 
-                <div class="faq-item">
-                    <h3 style="font-size: 18px; color: #2c3e50; margin-bottom: 10px; font-weight: 600;">Does YouTube pay
-                        creators for every single view?</h3>
-                    <p style="font-size: 15px; line-height: 1.8; color: #34495e;">No, YouTube only distributes payments
-                        for "monetized playbacks"—meaning instances where a viewer actually sees or interacts with an
-                        ad. This calculator inherently factors in a standard monetization rate, allowing you to estimate
-                        overall earnings without needing to calculate complex raw view-to-ad ratios yourself.</p>
+                <div class="input-group" id="customRpmGroup" style="display: none;">
+                    <div class="slider-label">
+                        <label for="customRpm">Custom RPM ($ per 1,000 views)</label>
+                        <span class="slider-value" id="rpmDisplay">$4.00</span>
+                    </div>
+                    <input type="range" id="customRpm" min="0.10" max="50.00" value="4.00" step="0.10">
                 </div>
+            </div>
+
+            <div class="results-container">
+                <div class="results-title">Estimated AdSense Revenue</div>
+                <table class="earnings-table">
+                    <thead>
+                        <tr>
+                            <th>Time Period</th>
+                            <th>Low End Estimate</th>
+                            <th>High End Estimate</th>
+                        </tr>
+                    </thead>
+                    <tbody id="earningsBody">
+                        <tr>
+                            <td class="period-label">Daily</td>
+                            <td class="earnings-value" id="dailyEarnings">$25.00</td>
+                            <td class="earnings-value" id="dailyEarningsHigh">$75.00</td>
+                        </tr>
+                        <tr>
+                            <td class="period-label">Monthly (30 days)</td>
+                            <td class="earnings-value" id="monthlyEarnings">$750.00</td>
+                            <td class="earnings-value" id="monthlyEarningsHigh">$2,250.00</td>
+                        </tr>
+                        <tr>
+                            <td class="period-label">Yearly (365 days)</td>
+                            <td class="earnings-value" id="yearlyEarnings">$9,125.00</td>
+                            <td class="earnings-value" id="yearlyEarningsHigh">$27,375.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="/youtube-shorts-revenue-estimator.html" class="traffic-loop-widget">
+                    Long-form income estimated? <span>Check how much your YouTube Shorts could earn ➡️</span>
+                </a>
+            </div>
+
+            <div class="seo-content"
+                style="display: block; width: 100%; margin-top: 20px; padding-top: 40px; border-top: 1px solid #e9ecef;">
+                <div style="margin-bottom: 40px;">
+                    <h2 class="section-title" style="text-align: left; font-weight: 700;">How Does the YouTube Income
+                        Calculator Work?</h2>
+                    <p style="font-size: 15px; line-height: 1.8; color: #34495e; margin-bottom: 15px;">
+                        Trying to predict exactly how much money a channel makes can feel like guesswork, especially
+                        with
+                        the constantly changing landscape of the creator economy. The <strong>YouTube income
+                            calculator</strong> was built to remove that uncertainty and provide creators, marketers,
+                        and
+                        curious viewers with a highly accurate estimation of potential ad revenue. Rather than relying
+                        on
+                        massive, unrealistic brackets (like the famous "$500 to $15,000" ranges you see on social blade
+                        alternatives), this tool relies on hyper-specific niche categorization. By choosing your
+                        specific
+                        content vertical—such as finance, gaming, or lifestyle—our algorithm applies the most up-to-date
+                        industry average RPMs (Revenue Per Mille) to give you a realistic daily, monthly, and yearly
+                        cash
+                        flow projection.
+                    </p>
+                    <p style="font-size: 15px; line-height: 1.8; color: #34495e; margin-bottom: 15px;">
+                        This real-time YouTube income calculator is incredibly valuable for strategic planning. If you
+                        are
+                        starting a new channel and are weighing the pros and cons of diving into tech reviews versus
+                        daily
+                        vlogging, this tool clearly illustrates the massive disparity in earning potential based
+                        strictly on
+                        advertiser demand. It allows creators to set tangible financial goals. By manipulating the
+                        "Daily
+                        Video Views" input, you can instantly see exactly how many daily viewers you need to reach in
+                        order
+                        to quit your day job, pay your rent, or scale your production team.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h2 style="font-size: 26px; color: #2c3e50; margin-bottom: 20px; font-weight: 700;">Understanding
+                        YouTube RPM and CPM in 2026</h2>
+                    <p style="font-size: 15px; line-height: 1.8; color: #34495e; margin-bottom: 15px;">
+                        To fully utilize the YouTube income calculator, it is crucial to understand the difference
+                        between
+                        CPM and RPM. CPM (Cost Per Mille) is the metric that advertisers care about—it is the amount of
+                        money a brand pays to YouTube to serve 1,000 ad impressions on your video. RPM (Revenue Per
+                        Mille),
+                        however, is the metric that creators care about. It represents the actual amount of money that
+                        goes
+                        directly into your bank account after YouTube takes its standard 45% cut of the ad revenue,
+                        factoring in channel memberships and Super Chats.
+                    </p>
+                    <p style="font-size: 15px; line-height: 1.8; color: #34495e; margin-bottom: 15px;">
+                        In 2026, RPM rates are heavily dictated by viewer demographics and content niche. Advertisers in
+                        the
+                        software, personal finance, and real estate sectors are willing to pay massive premiums
+                        (sometimes
+                        upwards of $20+ CPM) because a single customer acquisition is highly lucrative. Conversely,
+                        gaming
+                        and entertainment channels, while capable of pulling in millions of views, generally attract a
+                        younger demographic with lower disposable income, resulting in significantly lower RPMs. The
+                        calculator accounts for these discrepancies natively, ensuring your estimates reflect the
+                        reality of
+                        the current ad market.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h2 style="font-size: 26px; color: #2c3e50; margin-bottom: 20px; font-weight: 700;">5 Proven
+                        Strategies
+                        to Increase Your YouTube Revenue</h2>
+                    <ul
+                        style="font-size: 15px; line-height: 1.8; color: #34495e; margin-left: 20px; margin-bottom: 15px;">
+                        <li style="margin-bottom: 15px;"><strong>Target High-Value Geographies:</strong> Ad slots shown
+                            to
+                            viewers in the US, UK, Canada, and Australia pay out at significantly higher rates.
+                            Tailoring
+                            your content language and topics to appeal to these demographics naturally increases your
+                            RPM.
+                        </li>
+                        <li style="margin-bottom: 15px;"><strong>Create 8+ Minute Videos:</strong> Videos longer than 8
+                            minutes allow you to place mid-roll ads. Strategically placing these mid-rolls during
+                            natural
+                            cliffhangers can easily double your ad revenue without alienating viewers.</li>
+                        <li style="margin-bottom: 15px;"><strong>Implement Affiliate Marketing:</strong> Don't rely
+                            solely
+                            on AdSense! Mention software, camera gear, or books within your video and pin affiliate
+                            links in
+                            the top comment. This creates a secondary, highly lucrative revenue stream.</li>
+                        <li style="margin-bottom: 15px;"><strong>Secure Direct Sponsorships:</strong> Once you establish
+                            a
+                            solid base of 10,000+ views per video, you can bypass YouTube's 45% cut entirely by
+                            integrating
+                            60-second direct ad reads for brands related to your niche.</li>
+                        <li style="margin-bottom: 15px;"><strong>Optimize for Search (Evergreen Content):</strong> A
+                            viral
+                            hit makes money for a week, but a highly-searched "How-To" tutorial generates passive income
+                            every single day for years. Build a catalog of evergreen content to stabilize your baseline
+                            monthly earnings.</li>
+                    </ul>
+                </div>
+
+                <div class="faq-section" style="margin-top: 0; padding-top: 0; border-top: none;">
+                    <h2 style="font-size: 26px; color: #2c3e50; margin-bottom: 20px; font-weight: 700;">Frequently Asked
+                        Questions</h2>
+
+                    <div class="faq-item" style="margin-bottom: 25px;">
+                        <h3 style="font-size: 18px; color: #2c3e50; margin-bottom: 10px; font-weight: 600;">How is
+                            YouTube
+                            RPM actually calculated?</h3>
+                        <p style="font-size: 15px; line-height: 1.8; color: #34495e;">RPM (Revenue Per Mille) represents
+                            the
+                            total amount of money you earn per every 1,000 video views, after YouTube's platform cut. It
+                            is
+                            heavily dependent on your specific niche; for example, Finance and Tech channels inherently
+                        <div style="margin-bottom: 40px;">
+                            <h2 class="section-title" style="text-align: left; font-weight: 700;">Frequently Asked
+                                Questions
+                            </h2>
+
+                            <div class="faq-item">
+                                <h3 style="font-size: 18px; color: #2c3e50; font-weight: 600;">How accurate is this
+                                    YouTube
+                                    money
+                                    calculator?</h3>
+                                <p>The estimator is highly accurate for providing realistic ranges. Because actual
+                                    earnings
+                                    depend
+                                    heavily on the viewer's demographic, watch time, and the specific advertisers
+                                    bidding on
+                                    a
+                                    given
+                                    day, no tool can give a perfect to-the-penny calculation. However, by using known
+                                    average
+                                    RPMs
+                                    across different niches, our tool gives you the exact ranges most creators in those
+                                    categories
+                                    are currently seeing.</p>
+                            </div>
+
+                            <div class="faq-item">
+                                <h3 style="font-size: 18px; color: #2c3e50; font-weight: 600;">What is RPM and why does
+                                    it
+                                    matter?
+                                </h3>
+                                <p>RPM stands for "Revenue Per Mille" (Revenue per 1,000 views). It represents how much
+                                    money
+                                    you
+                                    actually keep after YouTube takes its 45% cut of ad revenue. A higher RPM means
+                                    advertisers
+                                    are
+                                    willing to pay more to reach your specific audience. For example, a finance channel
+                                    discussing
+                                    credit cards will have a massively higher RPM than a general gaming channel.</p>
+                            </div>
+
+                            <div class="faq-item">
+                                <h3 style="font-size: 18px; color: #2c3e50; font-weight: 600;">How can I increase my
+                                    channel's
+                                    RPM?</h3>
+                                <p>To increase your RPM, focus on two things: Audience demographic and Watch Time.
+                                    Advertisers
+                                    pay
+                                    more for older audiences in high-GDP countries (like the US, UK, and Australia).
+                                    Additionally,
+                                    creating videos longer than 8 minutes allows you to place mid-roll ads, which can
+                                    easily
+                                    double
+                                    your RPM immediately.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sidebar-right">
+                <div class="sticky-ad-slot">
+                    [ Sticky Sidebar Ad ]
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>TubeHeadlines.com © 2026. This estimator is for educational and forecasting purposes. "YouTube"
+                    is a trademark of Google LLC.</p>
+                <p style="margin-top: 10px;">
+                    <a href="/">Back to News</a> | <a href="/tools">More Free Creator Tools</a>
+                </p>
+                <p style="margin-top: 10px; font-size: 13px; opacity: 0.8;">
+                    <a href="/about.html">About Us</a> | <a href="/contact.html">Contact Us</a> | <a
+                        href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a>
+                </p>
             </div>
         </div>
 
-        <div class="cta-section">
-            <p class="cta-text">
-                Want to increase your views and earnings?<br>
-                <strong>Get discovered on TubeHeadlines!</strong>
-            </p>
-            <a href="https://tubeheadlines.com/submit" class="cta-btn" target="_blank">
-                Submit Your Channel →
-            </a>
-        </div>
+        <script>
+            // Niche-specific RPM ranges (based on industry averages)
+            const nicheData = {
+                gaming: { min: 1.5, max: 5.0, default: 3.0 },
+                tech: { min: 3.0, max: 8.0, default: 5.0 },
+                finance: { min: 5.0, max: 15.0, default: 9.0 },
+                education: { min: 2.0, max: 6.0, default: 3.5 },
+                lifestyle: { min: 1.0, max: 4.0, default: 2.0 },
+                vlogging: { min: 0.5, max: 3.0, default: 1.5 },
+                entertainment: { min: 1.0, max: 4.0, default: 2.0 }
+            };
 
-        <div class="footer">
-            Powered by <a href="https://tubeheadlines.com/" target="_blank">TubeHeadlines.com</a>
-        </div>
-    </div>
+            const nicheSelect = document.getElementById('niche');
+            const viewsInput = document.getElementById('views');
+            const rpmSlider = document.getElementById('rpm');
+            const rpmValue = document.getElementById('rpmValue');
+            const minRpmLabel = document.getElementById('minRpm');
+            const maxRpmLabel = document.getElementById('maxRpm');
+            const dailyEarnings = document.getElementById('dailyEarnings');
+            const monthlyEarnings = document.getElementById('monthlyEarnings');
+            const yearlyEarnings = document.getElementById('yearlyEarnings');
+            const viewsError = document.getElementById('viewsError');
 
-    <script>
-        // Niche-specific RPM ranges (based on industry averages)
-        const nicheData = {
-            gaming: { min: 1.5, max: 5.0, default: 3.0 },
-            tech: { min: 3.0, max: 8.0, default: 5.0 },
-            finance: { min: 5.0, max: 15.0, default: 9.0 },
-            education: { min: 2.0, max: 6.0, default: 3.5 },
-            lifestyle: { min: 1.0, max: 4.0, default: 2.0 },
-            vlogging: { min: 0.5, max: 3.0, default: 1.5 },
-            entertainment: { min: 1.0, max: 4.0, default: 2.0 }
-        };
-
-        const nicheSelect = document.getElementById('niche');
-        const viewsInput = document.getElementById('views');
-        const rpmSlider = document.getElementById('rpm');
-        const rpmValue = document.getElementById('rpmValue');
-        const minRpmLabel = document.getElementById('minRpm');
-        const maxRpmLabel = document.getElementById('maxRpm');
-        const dailyEarnings = document.getElementById('dailyEarnings');
-        const monthlyEarnings = document.getElementById('monthlyEarnings');
-        const yearlyEarnings = document.getElementById('yearlyEarnings');
-        const viewsError = document.getElementById('viewsError');
-
-        // Format number with commas
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        // Format currency
-        function formatCurrency(num) {
-            return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-
-        // Parse views input (remove commas)
-        function parseViews(value) {
-            return parseFloat(value.replace(/,/g, '')) || 0;
-        }
-
-        // Update RPM slider range based on niche
-        function updateNicheRange() {
-            const niche = nicheSelect.value;
-            const data = nicheData[niche];
-
-            // Update slider attributes
-            rpmSlider.min = data.min;
-            rpmSlider.max = data.max;
-            rpmSlider.value = data.default;
-            rpmSlider.step = 0.1;
-
-            // Update labels
-            minRpmLabel.textContent = formatCurrency(data.min);
-            maxRpmLabel.textContent = formatCurrency(data.max);
-
-            // Update RPM display and calculate
-            updateRPM();
-        }
-
-        // Calculate earnings
-        function calculateEarnings() {
-            const views = parseViews(viewsInput.value);
-            const rpm = parseFloat(rpmSlider.value);
-
-            // Validate views
-            if (isNaN(views) || views < 0) {
-                viewsError.style.display = 'block';
-                return;
-            } else {
-                viewsError.style.display = 'none';
+            // Format number with commas
+            function formatNumber(num) {
+                return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
 
-            // Calculate
-            const daily = (views / 1000) * rpm;
-            const monthly = daily * 30;
-            const yearly = daily * 365;
-
-            // Update display
-            dailyEarnings.textContent = formatCurrency(daily);
-            monthlyEarnings.textContent = formatCurrency(monthly);
-            yearlyEarnings.textContent = formatCurrency(yearly);
-        }
-
-        // Update RPM display and slider gradient
-        function updateRPM() {
-            const rpm = parseFloat(rpmSlider.value);
-            const min = parseFloat(rpmSlider.min);
-            const max = parseFloat(rpmSlider.max);
-
-            rpmValue.textContent = formatCurrency(rpm);
-
-            // Update slider gradient
-            const percentage = ((rpm - min) / (max - min)) * 100;
-            rpmSlider.style.setProperty('--value', percentage + '%');
-
-            calculateEarnings();
-        }
-
-        // Auto-format views input with commas
-        viewsInput.addEventListener('input', function (e) {
-            let value = e.target.value.replace(/,/g, '');
-
-            // Only allow numbers
-            if (!/^\d*$/.test(value)) {
-                value = value.replace(/\D/g, '');
+            // Format currency
+            function formatCurrency(num) {
+                return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
 
-            // Format with commas
-            if (value) {
-                e.target.value = formatNumber(value);
+            // Parse views input (remove commas)
+            function parseViews(value) {
+                return parseFloat(value.replace(/,/g, '')) || 0;
             }
 
-            calculateEarnings();
-        });
+            // Update RPM slider range based on niche
+            function updateNicheRange() {
+                const niche = nicheSelect.value;
+                const data = nicheData[niche];
 
-        // Niche change
-        nicheSelect.addEventListener('change', updateNicheRange);
+                // Update slider attributes
+                rpmSlider.min = data.min;
+                rpmSlider.max = data.max;
+                rpmSlider.value = data.default;
+                rpmSlider.step = 0.1;
 
-        // RPM slider change
-        rpmSlider.addEventListener('input', updateRPM);
+                // Update labels
+                minRpmLabel.textContent = formatCurrency(data.min);
+                maxRpmLabel.textContent = formatCurrency(data.max);
 
-        // Initialize
-        updateNicheRange();
-    </script>
+                // Update RPM display and calculate
+                updateRPM();
+            }
+
+            // Calculate earnings
+            function calculateEarnings() {
+                const views = parseViews(viewsInput.value);
+                const rpm = parseFloat(rpmSlider.value);
+
+                // Validate views
+                if (isNaN(views) || views < 0) {
+                    viewsError.style.display = 'block';
+                    return;
+                } else {
+                    viewsError.style.display = 'none';
+                }
+
+                // Calculate
+                const daily = (views / 1000) * rpm;
+                const monthly = daily * 30;
+                const yearly = daily * 365;
+
+                // Update display
+                dailyEarnings.textContent = formatCurrency(daily);
+                monthlyEarnings.textContent = formatCurrency(monthly);
+                yearlyEarnings.textContent = formatCurrency(yearly);
+            }
+
+            // Update RPM display and slider gradient
+            function updateRPM() {
+                const rpm = parseFloat(rpmSlider.value);
+                const min = parseFloat(rpmSlider.min);
+                const max = parseFloat(rpmSlider.max);
+
+                rpmValue.textContent = formatCurrency(rpm);
+
+                // Update slider gradient
+                const percentage = ((rpm - min) / (max - min)) * 100;
+                rpmSlider.style.setProperty('--value', percentage + '%');
+
+                calculateEarnings();
+            }
+
+            // Auto-format views input with commas
+            viewsInput.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/,/g, '');
+
+                // Only allow numbers
+                if (!/^\d*$/.test(value)) {
+                    value = value.replace(/\D/g, '');
+                }
+
+                // Format with commas
+                if (value) {
+                    e.target.value = formatNumber(value);
+                }
+
+                calculateEarnings();
+            });
+
+            // Niche change
+            nicheSelect.addEventListener('change', updateNicheRange);
+
+            // RPM slider change
+            rpmSlider.addEventListener('input', updateRPM);
+
+            // Initialize
+            updateNicheRange();
+        </script>
 </body>
 
 </html>

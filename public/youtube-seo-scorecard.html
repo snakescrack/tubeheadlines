@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/cookie-consent.css">`n
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1894186094794269"
+        crossorigin="anonymous"></script>
+    <script src="/cookie-consent.js" defer></script>
+    <title>YouTube SEO Scorecard & Optimizer | Free VidIQ Alternative</title>
+    <meta name="description"
+        content="Free YouTube SEO Scorecard. Optimize your video titles and descriptions for the algorithm in real-time with our 0-100 scoring system.">
+    <link rel="canonical" href="https://tubeheadlines.com/youtube-seo-scorecard.html">
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tubeheadlines.com/youtube-seo-scorecard.html">
+    <meta property="og:title" content="YouTube SEO Scorecard | Score Your Video Metadata Free">
+    <meta property="og:description"
+        content="Get an instant 0-100 SEO score for your YouTube video. Check your title, description, and tags against the latest 2026 algorithm rules.">
+    <meta property="og:image" content="https://tubeheadlines.com/assets/images/og-seo-scorecard.jpg">
+    <meta property="og:site_name" content="TubeHeadlines">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TubeHeadlines">
+    <meta name="twitter:title" content="YouTube SEO Scorecard | Score Your Video Metadata Free">
+    <meta name="twitter:description"
+        content="Get an instant 0-100 SEO score for your YouTube video. Check your title, description, and tags against the latest 2026 algorithm rules.">
+    <meta name="twitter:image" content="https://tubeheadlines.com/assets/images/og-seo-scorecard.jpg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "YouTube SEO Scorecard & Optimizer",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Optimize YouTube titles and descriptions in real-time with a dynamic 0-100 SEO scoring algorithm.",
+      "softwareVersion": "1.0",
+      "featureList": "Live SEO Score Circle, Keyword Placement Checks, Real-time Actionable Checklist",
+      "screenshot": "https://tubeheadlines.com/seo-scorecard-screenshot.jpg"
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            color: #282828;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            max-width: 900px;
+            width: 100%;
+            padding: 50px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: #282828;
+            font-size: 36px;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: #606060;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .youtube-logo {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        .tool-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .tool-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .input-sidebar {
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            color: #282828;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #282828;
+            background: white;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #FF0000;
+            box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.1);
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .score-display-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #eeeeee;
+        }
+
+        /* Massive Circle CSS */
+        .score-circle-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin-bottom: 30px;
+        }
+
+        .score-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: conic-gradient(#e0e0e0 100%, #f0f0f0 0);
+            /* Default grey */
+            position: relative;
+            transition: background 0.5s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .score-circle::before {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .score-value {
+            position: relative;
+            font-size: 56px;
+            font-weight: 900;
+            color: #282828;
+            z-index: 10;
+        }
+
+        /* Checklist Styles */
+        .checklist {
+            width: 100%;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #444;
+            padding: 12px;
+            background: #fdfdfd;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .check-icon {
+            font-size: 18px;
+            margin-right: 12px;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .item-text {
+            font-weight: 500;
+        }
+
+        .item-desc {
+            display: block;
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        /* Dynamic Classes set by JS */
+        .check-pass .check-icon {
+            color: #27ae60;
+        }
+
+        .check-pass {
+            border-color: rgba(39, 174, 96, 0.3);
+            background: rgba(39, 174, 96, 0.05);
+        }
+
+        .check-fail .check-icon {
+            color: #e74c3c;
+        }
+
+        .check-fail {
+            border-color: rgba(231, 76, 60, 0.3);
+            background: rgba(231, 76, 60, 0.05);
+        }
+
+
+        .cta-btn {
+            display: inline-block;
+            padding: 16px 32px;
+            background: #FF0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #909090;
+            font-size: 14px;
+            border-top: 1px solid #eeeeee;
+            padding-top: 30px;
+        }
+
+        .page-layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .main-content {
+            width: 100%;
+        }
+
+        .sidebar-right {
+            position: sticky;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sticky-ad-slot {
+            width: 300px;
+            min-height: 600px;
+            background: #f8f9fa;
+            border: 1px dashed #cccccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            border-radius: 8px;
+        }
+
+        .ad-buffer-slot {
+            width: 100%;
+            min-height: 90px;
+            background: #f8f9fa;
+            border: 1px dashed #cccccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+
+        .traffic-loop-widget {
+            display: block;
+            margin-top: 25px;
+            padding: 18px 25px;
+            background: #f8f9fa;
+            border: 2px solid #eeeeee;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #282828;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+        }
+
+        .traffic-loop-widget:hover {
+            border-color: #4da6ff;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(77, 166, 255, 0.15);
+        }
+
+        .traffic-loop-widget span {
+            color: #4da6ff;
+            font-weight: 800;
+        }
+
+        @media (max-width: 992px) {
+            .page-layout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-right {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .tool-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer a {
+            color: #FF0000;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .faq-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+        }
+
+        .faq-item h3 {
+            font-size: 20px;
+            color: #282828;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .faq-item p {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container page-layout-grid">
+        <div class="main-content">
+            <header>
+                <h1>📊 YouTube SEO Scorecard & Optimizer</h1>
+                <p class="subtitle">A free, real-time <span class="youtube-logo">VidIQ</span> alternative. Optimize your
+                    title and description to beat the algorithm.</p>
+            </header>
+
+            <div class="tool-layout">
+                <!-- Left Side: Inputs -->
+                <div class="input-sidebar">
+                    <div class="input-group">
+                        <label for="targetKeyword">Target Keyword:</label>
+                        <input type="text" id="targetKeyword" placeholder="e.g. Minecraft speedrun tutorial"
+                            oninput="calculateScore()">
+                        <div class="char-count">The main search term you want to rank for.</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="videoTitle">Video Title:</label>
+                        <input type="text" id="videoTitle" placeholder="Type your YouTube title..."
+                            oninput="calculateScore()">
+                        <div class="char-count" id="titleCount">0 / 100 characters</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="videoDesc">Video Description:</label>
+                        <textarea id="videoDesc" placeholder="Type your first few paragraphs here..."
+                            oninput="calculateScore()"></textarea>
+                        <div class="char-count" id="descWordCount">0 words</div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Real-time Score Display -->
+                <div class="score-display-area">
+                    <div class="score-circle-wrapper">
+                        <div class="score-circle" id="scoreCircle">
+                            <span class="score-value" id="scoreValue">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="/advertiser-friendly-title-checker.html" class="cta-btn" target="_blank">
+                    Check if Your Title is Advertiser-Friendly →
+                </a>
+
+                <div class="checklist">
+                    <div class="checklist-item check-fail" id="checkTitlenLength">
+                        <div class="check-icon">❌</div>
+                        <div>
+                            <span class="item-text" id="textTitlenLength">Title Length Warning</span>
+                            <span class="item-desc">Keep title between 30-60 characters for best click-through
+                                rate.</span>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item check-fail" id="checkTitleKeyword">
+                        <div class="check-icon">❌</div>
+                        <div>
+                            <span class="item-text">Keyword in Title</span>
+                            <span class="item-desc">Include your Exact Target Keyword in your video title.</span>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item check-fail" id="checkDescKeyword">
+                        <div class="check-icon">❌</div>
+                        <div>
+                            <span class="item-text">Keyword High in Description</span>
+                            <span class="item-desc">Place your exact keyword within the first 150 characters (above
+                                the
+                                fold).</span>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item check-fail" id="checkDescLength">
+                        <div class="check-icon">❌</div>
+                        <div>
+                            <span class="item-text" id="textDescLength">Description Too Short</span>
+                            <span class="item-desc">Write an SEO-rich description of over 250 words.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="/advertiser-friendly-title-checker.html" class="traffic-loop-widget" style="margin-top: 20px;">
+                    SEO score looking good? <span>Check if your title is Advertiser-Friendly ➡️</span>
+                </a>
+            </div>
+
+            <!-- The SEO Sandwich -->
+            <div class="info-section seo-content"
+                style="display: block; width: 100%; margin-top: 60px; padding-top: 40px; border-top: 1px solid #eeeeee;">
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        Do YouTube Tags Still Matter in 2026?
+                    </h2>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        If you watch outdated YouTube growth tutorials, you will often hear creators obsess over the
+                        "Tags"
+                        section at the bottom of the upload page, employing massive comma-separated lists of keywords to
+                        trick the search engine. In 2026, <strong>YouTube Tags are effectively dead for SEO
+                            purposes.</strong> YouTube's own official documentation explicitly states that tags play a
+                        "minimal role in your video's discovery," primarily functioning to correct common misspellings
+                        of
+                        your brand or topic (e.g., tagging "Minecraft" and "Mine craft").
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        So, how does the algorithm actually index your video for search? It relies entirely on
+                        <strong>Metadata</strong> (Titles and Descriptions), <strong>Auto-Transcription</strong> (what
+                        you
+                        verbally say in the video), and <strong>User Signals</strong> (Click-Through Rate and Average
+                        View
+                        Duration). This is exactly why a tool like our Real-Time YouTube SEO Scorecard Optimizer focuses
+                        zero points on tags. Dedicating your mental energy toward crafting a 30 to 60-character
+                        high-impact
+                        title and writing a context-heavy description paragraph is mathematically proven to generate
+                        exponentially more search traffic than stuffing a hidden tag box.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        How to Write a YouTube Title for High CTR (Click-Through Rate)
+                    </h2>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        Click-Through Rate (CTR) refers to the percentage of people who click on your video after seeing
+                        its
+                        thumbnail and title on their homepage or in search results. A stellar SEO title does two things
+                        perfectly: It satisfies the machine, and it hooks the human emotion.
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        First, you satisfy the machine by placing your <strong>Target Keyword</strong> as close to the
+                        beginning of the title as grammatically possible. This immediately signals to YouTube's indexing
+                        bots what the video is about. Second, you hook the human viewer by invoking curiosity, urgency,
+                        or a
+                        specific value proposition, while ensuring the title remains between <strong>30 and 60
+                            characters</strong>. If a title exceeds 60 characters, it frequently gets truncated (cut off
+                        with an ellipsis "...") on mobile devices, which kills curiosity and severely dampens your CTR.
+                        A
+                        title like "How I Survived 100 Days in Hardcore Minecraft" is vastly superior to "Minecraft
+                        Hardcore
+                        Let's Play Part 1: Gathering Wood and Stone To Build." Keep it punchy, keyword-focused, and
+                        emotionally resonant.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        Why the First Two Lines of Your Description are Crucial
+                    </h2>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        The "Description" box offers up to 5,000 characters of space, but the algorithmic weight of that
+                        text is not distributed evenly. The first <strong>150 to 200 characters</strong>—often referred
+                        to
+                        as being "above the fold" because it's the portion visible in search results before the user
+                        clicks
+                        "Show More"—are treated as the most important contextual signal by YouTube's search engine.
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 15px;">
+                        A massive mistake new creators make is using this premium real estate to immediately ask for
+                        subscribers or link to their Twitch streams (e.g., "Hit Subscribe! Follow me on Instagram
+                        here...").
+                        You must treat the first two lines of your description like a mini blog post summary. You need
+                        to
+                        naturally weave your exact Target Keyword—and highly relevant semantic variations—into a
+                        compelling,
+                        readable paragraph. Let the algorithm index your context first, and push your social media links
+                        down below the fold where loyal viewers can expand the box to find them.
+                    </p>
+                </div>
+
+                <div class="faq-section" style="margin-top: 0; padding-top: 0; border-top: none;">
+                    <h2
+                        style="font-size: 28px; color: #282828; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px;">
+                        Frequently Asked Questions
+                    </h2>
+
+                    <div class="faq-item" style="margin-bottom: 25px;">
+                        <h3>Is this an exact replacement for VidIQ or TubeBuddy?</h3>
+                        <p>VidIQ and TubeBuddy are excellent premium extensions that offer profound analytics,
+                            competitor
+                            analysis, and A/B testing logic. However, for a creator simply looking to check their base
+                            SEO
+                            formatting against the algorithm's best practices before hitting upload, our free Scorecard
+                            &
+                            Optimizer provides the exact same fundamental checklist checks instantly, without requiring
+                            a
+                            monthly subscription.</p>
+                    </div>
+
+                    <div class="faq-item" style="margin-bottom: 25px;">
+                        <h3>If I score 100/100, is my video guaranteed to go viral?</h3>
+                        <p>No. An SEO score of 100 simply means you have perfectly formatted your metadata to be easily
+                            understood and indexed by the search engine. However, YouTube will only push your video to a
+                            wider audience if real humans click on it (Thumbnail CTR) and watch it for a long duration
+                            (AWD). Perfect SEO puts you on the virtual shelf; a great video makes people buy it.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Does updating my old video titles hurt their current analytics?</h3>
+                        <p>It can. When you drastically change the title or description of an older video, YouTube
+                            briefly
+                            re-evaluates its metadata. If the video is currently receiving a steady stream of "Suggested
+                            Video" traffic, altering the title may cause the algorithm to temporarily throttle
+                            impressions
+                            as it re-tests the new wrapper against different audiences. Only optimize old titles if the
+                            video is completely 'dead' and receiving zero passive views.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sidebar-right">
+            <div class="sticky-ad-slot">
+                [ Sticky Sidebar Ad ]
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>TubeHeadlines.com © 2026. This scorecard provides algorithmic SEO insights based on current 2026
+                YouTube
+                indexing trends. "YouTube" is a trademark of Google LLC.</p>
+            <p style="margin-top: 10px;">
+                <a href="/">Back to News</a> | <a href="/tools">More Free Creator Tools</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 13px; opacity: 0.8;">
+                <a href="/about.html">About Us</a> | <a href="/contact.html">Contact Us</a> | <a
+                    href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function updateCircleColor(score) {
+            const circle = document.getElementById('scoreCircle');
+            let color = '#e74c3c'; // Red
+
+            if (score >= 80) {
+                color = '#27ae60'; // Green
+            } else if (score >= 50) {
+                color = '#f39c12'; // Orange
+            }
+
+            // CSS conic gradient for fill effect
+            circle.style.background = `conic-gradient(${color} ${score}%, #f0f0f0 0)`;
+        }
+
+        function setChecklistState(id, passed, textId, customText) {
+            const el = document.getElementById(id);
+            const icon = el.querySelector('.check-icon');
+            const textEl = document.getElementById(textId);
+
+            if (passed) {
+                el.className = 'checklist-item check-pass';
+                icon.textContent = '✅';
+            } else {
+                el.className = 'checklist-item check-fail';
+                icon.textContent = '❌';
+            }
+
+            if (textEl && customText) {
+                textEl.textContent = customText;
+            }
+        }
+
+        function calculateScore() {
+            const keyword = document.getElementById('targetKeyword').value.trim().toLowerCase();
+            const title = document.getElementById('videoTitle').value;
+            const desc = document.getElementById('videoDesc').value;
+
+            let totalScore = 0;
+
+            // UI Tracking Variables
+            const titleLen = title.length;
+            const descWords = desc.trim().split(/\s+/).filter(word => word.length > 0).length;
+
+            // Update UI Character counts
+            document.getElementById('titleCount').textContent = `${titleLen} / 100 characters`;
+            document.getElementById('descWordCount').textContent = `${descWords} words`;
+
+            // Rule 1: Title Length (Between 30 and 60 chars) - 20 Points
+            let titleLengthPassed = false;
+            let titleLengthText = "Title Length Warning";
+            if (titleLen === 0) {
+                titleLengthText = "Write a Title";
+            } else if (titleLen < 30) {
+                titleLengthText = "Title too short (Aim for >30)";
+            } else if (titleLen > 60) {
+                titleLengthText = "Title too long (Aim for <60)";
+            } else {
+                titleLengthPassed = true;
+                totalScore += 20;
+                titleLengthText = "Perfect Title Length (30-60 chars)";
+            }
+            setChecklistState('checkTitlenLength', titleLengthPassed, 'textTitlenLength', titleLengthText);
+
+            // Need keyword for remaining checks
+            let hasKeywordInTitle = false;
+            let hasKeywordInDesc = false;
+
+            if (keyword.length > 0) {
+                const titleLower = title.toLowerCase();
+                const descLower = desc.toLowerCase();
+
+                // Rule 2: Exact Keyword in Title - 30 Points
+                if (titleLower.includes(keyword)) {
+                    hasKeywordInTitle = true;
+                    totalScore += 30;
+                }
+
+                // Rule 3: Keyword in first 150 chars of Desc - 30 Points
+                const first150Desc = descLower.substring(0, 150);
+                if (first150Desc.includes(keyword)) {
+                    hasKeywordInDesc = true;
+                    totalScore += 30;
+                }
+            }
+
+            setChecklistState('checkTitleKeyword', hasKeywordInTitle);
+            setChecklistState('checkDescKeyword', hasKeywordInDesc);
+
+            // Rule 4: Description Length (>250 words) - 20 Points
+            let descLengthPassed = false;
+            let descLengthText = "Description Too Short";
+            if (descWords > 250) {
+                descLengthPassed = true;
+                totalScore += 20;
+                descLengthText = "Excellent Description Length (>250 words)";
+            } else if (descWords > 0) {
+                descLengthText = `Description too short. Add ${251 - descWords} more words.`;
+            }
+            setChecklistState('checkDescLength', descLengthPassed, 'textDescLength', descLengthText);
+
+            // Update Circle UI
+            document.getElementById('scoreValue').textContent = totalScore;
+            updateCircleColor(totalScore);
+        }
+
+        // Initialize empty state
+        calculateScore();
+    </script>
+</body>
+
+</html>
