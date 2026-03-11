@@ -7,67 +7,67 @@ const toolsList = [
     {
         name: "Viral Idea Generator",
         description: "Generate high-converting YouTube video ideas based on tested psychological frameworks and current trends.",
-        path: "/viral-idea-generator.html"
+        path: "/viral-idea-generator"
     },
     {
         name: "Video Description Generator",
         description: "Write SEO-optimized YouTube descriptions with chapters, timestamps, and social links in seconds.",
-        path: "/description-generator.html"
+        path: "/description-generator"
     },
     {
         name: "YouTube Script Timer",
         description: "Calculate exactly how long your video will be based on your script length and reading speed.",
-        path: "/script-timer.html"
+        path: "/script-timer"
     },
     {
         name: "YouTube Chapter Formatter",
         description: "Instantly create beautifully formatted YouTube timestamps and chapters that the algorithm loves.",
-        path: "/youtube-chapter-formatter.html"
+        path: "/youtube-chapter-formatter"
     },
     {
         name: "Thumbnail Visualizer",
         description: "Preview how your thumbnail and title will look in the YouTube algorithm before you publish.",
-        path: "/youtube-thumbnail-visualizer.html"
+        path: "/youtube-thumbnail-visualizer"
     },
     {
         name: "YouTube Income Calculator",
         description: "Accurately estimate how much money a channel is making based on real-world CPM ranges.",
-        path: "/youtube-income-calculator.html"
+        path: "/youtube-income-calculator"
     },
     {
         name: "Shorts Revenue Estimator",
         description: "Calculate potential earnings from the highly competitive YouTube Shorts ecosystem.",
-        path: "/youtube-shorts-revenue-estimator.html"
+        path: "/youtube-shorts-revenue-estimator"
     },
     {
         name: "Sponsorship Calculator",
         description: "Find out exactly how much you should be charging brands for integrations and shoutouts.",
-        path: "/youtube-sponsorship-calculator.html"
+        path: "/youtube-sponsorship-calculator"
     },
     {
         name: "SEO Scorecard & Analyzer",
         description: "Grade your video's packaging and metadata against the most important ranking factors.",
-        path: "/youtube-seo-scorecard.html"
+        path: "/youtube-seo-scorecard"
     },
     {
         name: "Advertiser Friendly Checker",
         description: "Scan your title for words that might trigger a yellow 'limited ads' demonetization icon.",
-        path: "/advertiser-friendly-title-checker.html"
+        path: "/advertiser-friendly-title-checker"
     },
     {
         name: "Fair Use Disclaimer Generator",
         description: "Create a custom Section 107 legal disclaimer for your reaction and commentary videos.",
-        path: "/youtube-fair-use-disclaimer-generator.html"
+        path: "/youtube-fair-use-disclaimer-generator"
     },
     {
         name: "YouTube Teleprompter",
         description: "A free, browser-based native teleprompter to record your videos confidently without stuttering.",
-        path: "/youtube-teleprompter.html"
+        path: "/youtube-teleprompter"
     },
     {
         name: "Thumbnail Downloader",
         description: "Extract the highest resolution HD cover image from any YouTube video instantly.",
-        path: "/youtube-thumbnail-downloader.html"
+        path: "/youtube-thumbnail-downloader"
     }
 ];
 

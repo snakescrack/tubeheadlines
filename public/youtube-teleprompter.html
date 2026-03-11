@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,10 +11,9 @@
     <title>Browser-Based YouTube Teleprompter | Free Tool</title>
     <meta name="description"
         content="Free online teleprompter for YouTube. Paste your script, adjust scroll speed, mirror text for glass rigs, and record your videos with perfect eye contact.">
-    <link rel="canonical" href="https://tubeheadlines.com/youtube-teleprompter.html">
     <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tubeheadlines.com/youtube-teleprompter.html">
+    <meta property="og:url" content="https://tubeheadlines.com/youtube-teleprompter">
     <meta property="og:title" content="Free YouTube Teleprompter | Browser-Based Script Reader">
     <meta property="og:description"
         content="A free full-screen browser teleprompter for YouTube creators. Adjustable scroll speed, font size, and dark mode. No downloads or sign-up required.">
@@ -391,7 +390,7 @@
 
         .eye-line-marker::after,
         .eye-line-marker::before {
-            content: '▶';
+            content: '?';
             color: rgba(255, 0, 0, 0.6);
             position: absolute;
             font-size: 24px;
@@ -532,7 +531,7 @@
     <div class="container page-layout-grid" id="mainContainer">
         <div class="main-content">
             <header>
-                <h1>🎥 Browser-Based YouTube Teleprompter</h1>
+                <h1>?? Browser-Based YouTube Teleprompter</h1>
                 <p class="subtitle">Paste your script, set your speed, and maintain perfect eye contact with your <span
                         class="youtube-logo">YouTube</span> audience.</p>
             </header>
@@ -569,12 +568,12 @@ Hey everyone, welcome back to the channel. Today we are going to dive deep into 
                 </div>
 
                 <button class="start-btn" onclick="startPrompter()">
-                    ▶ START TELEPROMPTER
+                    ? START TELEPROMPTER
                 </button>
             </div>
 
             <a href="/youtube-chapter-formatter.html" class="traffic-loop-widget">
-                Recording complete? <span>Format your YouTube Chapters instantly ➡️</span>
+                Recording complete? <span>Format your YouTube Chapters instantly ??</span>
             </a>
 
             <!-- The SEO Sandwich -->
@@ -791,7 +790,7 @@ Hey everyone, welcome back to the channel. Today we are going to dive deep into 
         </div>
 
         <div class="footer">
-            <p>TubeHeadlines.com © 2026. This browser-based teleprompter is designed for record-ready performance.
+            <p>TubeHeadlines.com � 2026. This browser-based teleprompter is designed for record-ready performance.
                 "YouTube" is a trademark of Google LLC.</p>
             <p style="margin-top: 10px;">
                 <a href="/">Back to News</a> | <a href="/tools">More Free Creator Tools</a>
@@ -808,7 +807,7 @@ Hey everyone, welcome back to the channel. Today we are going to dive deep into 
         <div class="prompter-header">
             <button class="prompter-btn exit-btn" onclick="exitPrompter()">Reset / Exit</button>
             <div class="play-indicator" id="statusIndicator">PLAYING</div>
-            <button class="prompter-btn" id="playPauseBtn">❚❚ PAUSE</button>
+            <button class="prompter-btn" id="playPauseBtn">?? PAUSE</button>
         </div>
 
         <div class="scroll-container" id="scrollArea">
@@ -894,7 +893,7 @@ Hey everyone, welcome back to the channel. Today we are going to dive deep into 
             statusIndicator.textContent = "PLAYING";
             statusIndicator.style.color = "#FF0000";
             statusIndicator.style.animation = "pulse 2s infinite";
-            playPauseBtn.textContent = "❚❚ PAUSE";
+            playPauseBtn.textContent = "?? PAUSE";
 
             lastTimestamp = performance.now();
             animationFrameId = requestAnimationFrame(scrollLoop);
@@ -905,7 +904,7 @@ Hey everyone, welcome back to the channel. Today we are going to dive deep into 
             statusIndicator.textContent = "PAUSED";
             statusIndicator.style.color = "#888";
             statusIndicator.style.animation = "none";
-            playPauseBtn.textContent = "▶ PLAY";
+            playPauseBtn.textContent = "? PLAY";
 
             cancelAnimationFrame(animationFrameId);
         }

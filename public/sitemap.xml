@@ -27,19 +27,19 @@
 
   <!-- Static Pages -->
   <url>
-    <loc>https://tubeheadlines.com/about.html</loc>
+    <loc>https://tubeheadlines.com/about</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/contact.html</loc>
+    <loc>https://tubeheadlines.com/contact</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/terms.html</loc>
+    <loc>https://tubeheadlines.com/terms</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
@@ -55,79 +55,79 @@
 
   <!-- YouTube Creator Tool Pages -->
   <url>
-    <loc>https://tubeheadlines.com/description-generator.html</loc>
+    <loc>https://tubeheadlines.com/description-generator</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/script-timer.html</loc>
+    <loc>https://tubeheadlines.com/script-timer</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/viral-idea-generator.html</loc>
+    <loc>https://tubeheadlines.com/viral-idea-generator</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/youtube-chapter-formatter.html</loc>
+    <loc>https://tubeheadlines.com/youtube-chapter-formatter</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/youtube-fair-use-disclaimer-generator.html</loc>
+    <loc>https://tubeheadlines.com/youtube-fair-use-disclaimer-generator</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/youtube-income-calculator.html</loc>
+    <loc>https://tubeheadlines.com/youtube-income-calculator</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/youtube-seo-scorecard.html</loc>
+    <loc>https://tubeheadlines.com/youtube-seo-scorecard</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/youtube-shorts-revenue-estimator.html</loc>
+    <loc>https://tubeheadlines.com/youtube-shorts-revenue-estimator</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/youtube-sponsorship-calculator.html</loc>
+    <loc>https://tubeheadlines.com/youtube-sponsorship-calculator</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/youtube-teleprompter.html</loc>
+    <loc>https://tubeheadlines.com/youtube-teleprompter</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/youtube-thumbnail-downloader.html</loc>
+    <loc>https://tubeheadlines.com/youtube-thumbnail-downloader</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/youtube-thumbnail-visualizer.html</loc>
+    <loc>https://tubeheadlines.com/youtube-thumbnail-visualizer</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tubeheadlines.com/advertiser-friendly-title-checker.html</loc>
+    <loc>https://tubeheadlines.com/advertiser-friendly-title-checker</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

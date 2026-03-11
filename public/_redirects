@@ -1,0 +1,25 @@
+# URL Alignment - Direct Signal Rewrites
+# These ensure Netlify serves the HTML files at the clean URL without a visible redirect (200)
+
+/about                                  /about.html                             200
+/contact                                /contact.html                           200
+/terms                                  /terms.html                             200
+/privacy                                /privacy.html                           200
+/faq                                    /faq.html                               200
+
+/viral-idea-generator                   /viral-idea-generator.html              200
+/description-generator                 /description-generator.html            200
+/script-timer                           /script-timer.html                      200
+/youtube-chapter-formatter             /youtube-chapter-formatter.html        200
+/youtube-thumbnail-visualizer          /youtube-thumbnail-visualizer.html     200
+/youtube-income-calculator             /youtube-income-calculator.html        200
+/youtube-shorts-revenue-estimator      /youtube-shorts-revenue-estimator.html 200
+/youtube-sponsorship-calculator         /youtube-sponsorship-calculator.html    200
+/youtube-seo-scorecard                 /youtube-seo-scorecard.html            200
+/advertiser-friendly-title-checker     /advertiser-friendly-title-checker.html 200
+/youtube-fair-use-disclaimer-generator /youtube-fair-use-disclaimer-generator.html 200
+/youtube-teleprompter                   /youtube-teleprompter.html              200
+/youtube-thumbnail-downloader           /youtube-thumbnail-downloader.html      200
+
+# Catch-all for React Router
+/*                                      /index.html                             200
