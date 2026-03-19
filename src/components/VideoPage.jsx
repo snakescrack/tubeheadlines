@@ -188,6 +188,22 @@ const VideoPage = () => {
           </div>
         )}
 
+        <div className="tools-cta-banner" style={{
+          backgroundColor: '#fffcfc',
+          borderLeft: '4px solid #ff0000',
+          padding: '1.5rem',
+          borderRadius: '4px 8px 8px 4px',
+          marginBottom: '2rem',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+        }}>
+          <h3 style={{ marginTop: 0, color: '#333', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            Want to make videos like this? 🚀
+          </h3>
+          <p style={{ margin: 0, color: '#555', lineHeight: '1.6', fontSize: '1.05rem' }}>
+            Use our <a href="https://tubeheadlines.com/viral-idea-generator" style={{ color: '#ff0000', fontWeight: 'bold', textDecoration: 'none' }}>Free YouTube Viral Idea Generator</a> or check your titles with our <a href="https://tubeheadlines.com/advertiser-friendly-title-checker" style={{ color: '#ff0000', fontWeight: 'bold', textDecoration: 'none' }}>Advertiser-Friendly Title Checker</a>.
+          </p>
+        </div>
+
         <div style={{
           textAlign: 'center',
           marginTop: '3rem',
