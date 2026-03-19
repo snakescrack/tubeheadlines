@@ -73,25 +73,32 @@ const VideoPage = () => {
       
       try {
         setLoadingRecommendations(true);
-        // Fetch recent active videos, slightly larger pool to ensure we get 4 after filtering the current one out
-        const videosRef = collection(db, 'videos');
-        const q = query(
-          videosRef,
-          where('status', '==', 'active'),
-          orderBy('publishedAt', 'desc'),
-          limit(10)
-        );
+        const { getAllVideos } = await import('../utils/dbOperations');
+        const allVideos = await getAllVideos();
         
-        const querySnapshot = await getDocs(q);
-        const recs = [];
-        querySnapshot.forEach((docSnap) => {
-          if (docSnap.id !== id) {
-            recs.push({ id: docSnap.id, ...docSnap.data() });
+        const now = new Date();
+        const visibleVideos = allVideos.filter(v => {
+          if (v.id === id) return false;
+          if (!v.scheduledAt) return true;
+          
+          let scheduledDate;
+          if (v.scheduledAt.toDate && typeof v.scheduledAt.toDate === 'function') {
+            scheduledDate = v.scheduledAt.toDate();
+          } else if (v.scheduledAt.seconds) {
+            scheduledDate = new Date(v.scheduledAt.seconds * 1000);
+          } else {
+            scheduledDate = new Date(v.scheduledAt);
           }
+          return scheduledDate <= now;
+        });
+
+        visibleVideos.sort((a, b) => {
+          const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return timeB - timeA;
         });
         
-        // Take the top 4
-        setRecommendedVideos(recs.slice(0, 4));
+        setRecommendedVideos(visibleVideos.slice(0, 4));
       } catch (err) {
         console.error('Error fetching recommendations:', err);
       } finally {
