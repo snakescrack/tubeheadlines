@@ -91,14 +91,25 @@ const VideoPage = () => {
           }
           return scheduledDate <= now;
         });
-
+        
+        // Sort by createdAt to get recent videos first
         visibleVideos.sort((a, b) => {
           const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
           const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
           return timeB - timeA;
         });
+
+        // 1. Take a larger pool of recent videos (top 15) to maintain recency
+        const recentPool = visibleVideos.slice(0, 15);
+
+        // 2. Shuffle that subset randomly
+        for (let i = recentPool.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [recentPool[i], recentPool[j]] = [recentPool[j], recentPool[i]];
+        }
         
-        setRecommendedVideos(visibleVideos.slice(0, 4));
+        // 3. Take the first 4 for the grid
+        setRecommendedVideos(recentPool.slice(0, 4));
       } catch (err) {
         console.error('Error fetching recommendations:', err);
       } finally {
@@ -138,6 +149,23 @@ const VideoPage = () => {
 
   return (
     <>
+      <style>{`
+        .up-next-grid {
+          display: grid;
+          grid-template-columns: repeat(1, minmax(0, 1fr));
+          gap: 1rem;
+        }
+        @media (min-width: 768px) {
+          .up-next-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+        @media (min-width: 1024px) {
+          .up-next-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+          }
+        }
+      `}</style>
       <SEO
         title={pageTitle}
         description={pageDescription}
@@ -257,11 +285,7 @@ const VideoPage = () => {
           {loadingRecommendations ? (
             <p style={{ color: '#666' }}>Loading recommendations...</p>
           ) : recommendedVideos.length > 0 ? (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-              gap: '1.5rem'
-            }}>
+            <div className="up-next-grid">
               {recommendedVideos.map((rec) => (
                 <Link to={`/video/${rec.id}`} key={rec.id} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div style={{
