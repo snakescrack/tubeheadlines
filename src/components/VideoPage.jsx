@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
+import { useParams, Link } from 'react-router-dom';
+import { doc, getDoc, collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import SEO from './SEO';
 import NotFound from './NotFound';
@@ -23,6 +23,8 @@ const VideoPage = () => {
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [recommendedVideos, setRecommendedVideos] = useState([]);
+  const [loadingRecommendations, setLoadingRecommendations] = useState(true);
 
   useEffect(() => {
     const fetchVideo = async () => {
@@ -64,6 +66,41 @@ const VideoPage = () => {
 
     fetchVideo();
   }, [id]);
+
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      if (!video) return;
+      
+      try {
+        setLoadingRecommendations(true);
+        // Fetch recent active videos, slightly larger pool to ensure we get 4 after filtering the current one out
+        const videosRef = collection(db, 'videos');
+        const q = query(
+          videosRef,
+          where('status', '==', 'active'),
+          orderBy('publishedAt', 'desc'),
+          limit(10)
+        );
+        
+        const querySnapshot = await getDocs(q);
+        const recs = [];
+        querySnapshot.forEach((docSnap) => {
+          if (docSnap.id !== id) {
+            recs.push({ id: docSnap.id, ...docSnap.data() });
+          }
+        });
+        
+        // Take the top 4
+        setRecommendedVideos(recs.slice(0, 4));
+      } catch (err) {
+        console.error('Error fetching recommendations:', err);
+      } finally {
+        setLoadingRecommendations(false);
+      }
+    };
+
+    fetchRecommendations();
+  }, [video, id]);
 
   if (loading) {
     return (
@@ -202,6 +239,55 @@ const VideoPage = () => {
           <p style={{ margin: 0, color: '#555', lineHeight: '1.6', fontSize: '1.05rem' }}>
             Use our <a href="https://tubeheadlines.com/viral-idea-generator" style={{ color: '#ff0000', fontWeight: 'bold', textDecoration: 'none' }}>Free YouTube Viral Idea Generator</a> or check your titles with our <a href="https://tubeheadlines.com/advertiser-friendly-title-checker" style={{ color: '#ff0000', fontWeight: 'bold', textDecoration: 'none' }}>Advertiser-Friendly Title Checker</a>.
           </p>
+        </div>
+
+        {/* Recommended Videos Section */}
+        <div style={{ marginTop: '3rem' }}>
+          <h2 style={{ fontSize: '1.5rem', color: '#333', marginBottom: '1.5rem', borderBottom: '2px solid #eee', paddingBottom: '0.5rem' }}>
+            Up Next: Recommended For You
+          </h2>
+          
+          {loadingRecommendations ? (
+            <p style={{ color: '#666' }}>Loading recommendations...</p>
+          ) : recommendedVideos.length > 0 ? (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+              gap: '1.5rem'
+            }}>
+              {recommendedVideos.map((rec) => (
+                <Link to={`/video/${rec.id}`} key={rec.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <div style={{
+                    backgroundColor: '#fff',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    transition: 'transform 0.2s ease',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}>
+                    <div style={{ position: 'relative', paddingBottom: '56.25%', background: '#000' }}>
+                      <img 
+                        src={`https://img.youtube.com/vi/${getYouTubeId(rec.youtubeURL)}/mqdefault.jpg`} 
+                        alt={rec.customHeadline}
+                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                        loading="lazy"
+                      />
+                    </div>
+                    <div style={{ padding: '1rem', flexGrow: 1 }}>
+                      <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', color: '#111', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        {rec.customHeadline}
+                      </h4>
+                      {rec.channelName && (
+                        <span style={{ fontSize: '0.85rem', color: '#666' }}>{rec.channelName}</span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : null}
         </div>
 
         <div style={{
