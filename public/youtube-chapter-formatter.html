@@ -641,7 +641,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
                             oninput="validateAndGenerate()">
                         <input type="text" class="title-input title-val" placeholder="Topic 1" value="Topic 1"
                             oninput="validateAndGenerate()">
-                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">�</button>
+                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter"> - </button>
                     </div>
 
                     <!-- Row 3 -->
@@ -650,7 +650,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
                             oninput="validateAndGenerate()">
                         <input type="text" class="title-input title-val" placeholder="Topic 2" value="Topic 2"
                             oninput="validateAndGenerate()">
-                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">�</button>
+                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter"> - </button>
                     </div>
 
                     <button class="add-btn" onclick="addChapterRow()">+ Add Chapter</button>
@@ -835,7 +835,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
         </div>
 
         <div class="footer">
-            <p>TubeHeadlines.com � 2026. This formatter ensures strict compliance with YouTube description rules.
+            <p>TubeHeadlines.com - 2026. This formatter ensures strict compliance with YouTube description rules.
                 "YouTube" is a trademark of Google LLC.</p>
             <p style="margin-top: 10px;">
                 <a href="/">Back to News</a> | <a href="/tools">More Free Creator Tools</a>
@@ -860,7 +860,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
             newRow.innerHTML = `
                 <input type="text" class="time-input time-val" placeholder="MM:SS" oninput="validateAndGenerate()">
                 <input type="text" class="title-input title-val" placeholder="Chapter Title" oninput="validateAndGenerate()">
-                <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">�</button>
+                <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter"> - </button>
             `;
 
             list.insertBefore(newRow, addBtn);
@@ -1130,7 +1130,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
                     newRow.innerHTML = `
                         <input type="text" class="time-input time-val" value="${formattedTime}" oninput="validateAndGenerate()">
                         <input type="text" class="title-input title-val" value="${ch.title}" oninput="validateAndGenerate()">
-                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">�</button>
+                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter"> - </button>
                     `;
                 }
                 list.insertBefore(newRow, addBtn);
