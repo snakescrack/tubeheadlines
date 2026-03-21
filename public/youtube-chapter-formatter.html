@@ -596,13 +596,13 @@
     <div class="container page-layout-grid">
         <div class="main-content">
             <header>
-                <h1>?? Chapter & Timestamp Formatter</h1>
+                <h1>Chapter & Timestamp Formatter</h1>
                 <p class="subtitle">Dynamically build your timestamps. We'll automatically enforce the 3 strict <span
                         class="youtube-logo">YouTube</span> rules so your chapters actually work on the timeline.</p>
             </header>
 
             <div class="magic-section">
-                <div class="magic-title">? Magic Script-to-Chapter Generator</div>
+                <div class="magic-title">Magic Script-to-Chapter Generator</div>
                 <p class="magic-desc">Paste your video script below! Keep your section titles on their own line. We'll
                     automatically calculate your reading time and build your timestamps for you.</p>
                 <textarea id="magicScript" placeholder="Introduction
@@ -621,7 +621,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
                         <option value="150" selected>Average (150 words/min)</option>
                         <option value="170">Fast (170 words/min)</option>
                     </select>
-                    <button class="magic-btn" onclick="magicGenerate()">? Auto-Generate Timestamps</button>
+                    <button class="magic-btn" onclick="magicGenerate()">Auto-Generate Timestamps</button>
                 </div>
             </div>
 
@@ -641,7 +641,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
                             oninput="validateAndGenerate()">
                         <input type="text" class="title-input title-val" placeholder="Topic 1" value="Topic 1"
                             oninput="validateAndGenerate()">
-                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">×</button>
+                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">ï¿½</button>
                     </div>
 
                     <!-- Row 3 -->
@@ -650,7 +650,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
                             oninput="validateAndGenerate()">
                         <input type="text" class="title-input title-val" placeholder="Topic 2" value="Topic 2"
                             oninput="validateAndGenerate()">
-                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">×</button>
+                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">ï¿½</button>
                     </div>
 
                     <button class="add-btn" onclick="addChapterRow()">+ Add Chapter</button>
@@ -677,7 +677,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
                         <textarea id="finalOutput" readonly>00:00 Intro</textarea>
 
                         <button class="copy-btn" id="copyBtn" onclick="copyToClipboard()" disabled>
-                            ?? Copy Chapters
+                    Copy Chapters
                         </button>
                     </div>
 
@@ -685,7 +685,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
             </div>
 
             <a href="/youtube-seo-scorecard.html" class="traffic-loop-widget">
-                Chapters formatted? <span>Maximize your reach with the SEO Scorecard ??</span>
+                Chapters formatted? <span>Maximize your reach with the SEO Scorecard</span>
             </a>
 
             <!-- The SEO Sandwich -->
@@ -835,7 +835,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
         </div>
 
         <div class="footer">
-            <p>TubeHeadlines.com © 2026. This formatter ensures strict compliance with YouTube description rules.
+            <p>TubeHeadlines.com ï¿½ 2026. This formatter ensures strict compliance with YouTube description rules.
                 "YouTube" is a trademark of Google LLC.</p>
             <p style="margin-top: 10px;">
                 <a href="/">Back to News</a> | <a href="/tools">More Free Creator Tools</a>
@@ -860,7 +860,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
             newRow.innerHTML = `
                 <input type="text" class="time-input time-val" placeholder="MM:SS" oninput="validateAndGenerate()">
                 <input type="text" class="title-input title-val" placeholder="Chapter Title" oninput="validateAndGenerate()">
-                <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">×</button>
+                <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">ï¿½</button>
             `;
 
             list.insertBefore(newRow, addBtn);
@@ -986,7 +986,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
 
                 // Remove copied state if they hit an error typing
                 copyBtn.classList.remove('copied');
-                copyBtn.innerHTML = '?? Copy Chapters';
+                copyBtn.innerHTML = 'Copy Chapters';
             }
         }
 
@@ -998,11 +998,11 @@ If you want to fix it, do exactly what I did here..."></textarea>
 
             try {
                 await navigator.clipboard.writeText(outputText);
-                btn.innerHTML = '? Copied!';
+                btn.innerHTML = 'Copied!';
                 btn.classList.add('copied');
 
                 setTimeout(() => {
-                    btn.innerHTML = '?? Copy Chapters';
+                    btn.innerHTML = 'Copy Chapters';
                     btn.classList.remove('copied');
                 }, 3000);
             } catch (err) {
@@ -1130,7 +1130,7 @@ If you want to fix it, do exactly what I did here..."></textarea>
                     newRow.innerHTML = `
                         <input type="text" class="time-input time-val" value="${formattedTime}" oninput="validateAndGenerate()">
                         <input type="text" class="title-input title-val" value="${ch.title}" oninput="validateAndGenerate()">
-                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">×</button>
+                        <button class="remove-btn" onclick="removeRow(this)" title="Remove Chapter">ï¿½</button>
                     `;
                 }
                 list.insertBefore(newRow, addBtn);
