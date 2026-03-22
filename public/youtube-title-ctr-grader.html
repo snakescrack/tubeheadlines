@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/cookie-consent.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1894186094794269" crossorigin="anonymous"></script>
+    <script src="/cookie-consent.js" defer></script>
+    <title>YouTube Title CTR & Emotion Grader | Score Your Video Idea</title>
+    <meta name="description" content="Calculate the emotional impact and Click-Through Rate (CTR) potential of your YouTube video title. Generate perfectly optimized hooks before you publish.">
+    
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tubeheadlines.com/youtube-title-ctr-grader">
+    <meta property="og:title" content="YouTube Title CTR & Emotion Grader">
+    <meta property="og:description" content="Analyze your YouTube title's psychological triggers, length, and curiosity gap to maximize your Click-Through Rate.">
+    <meta property="og:image" content="https://tubeheadlines.com/assets/images/og-viral-idea-generator.jpg">
+    <meta property="og:site_name" content="TubeHeadlines">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TubeHeadlines">
+    <meta name="twitter:title" content="YouTube Title CTR & Emotion Grader">
+    <meta name="twitter:description" content="Analyze your YouTube title's psychological triggers, length, and curiosity gap to maximize your Click-Through Rate.">
+    <meta name="twitter:image" content="https://tubeheadlines.com/assets/images/og-viral-idea-generator.jpg">
+
+    <link rel="canonical" href="https://tubeheadlines.com/youtube-title-ctr-grader">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "YouTube Title CTR & Emotion Grader",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Analyze your YouTube title's length, power words, and curiosity gaps to predict and optimize CTR.",
+      "softwareVersion": "1.0",
+      "featureList": "Live Title Scoring, Length Warning Detection, Power Word Analysis, Spam Detection"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a good YouTube title length?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The optimal YouTube title length is between 40 and 55 characters. Titles longer than 60 characters are usually truncated on mobile devices."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are power words important for CTR?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Power words like 'Secret', 'Exposing', or 'Genius' tap into primal human emotions (fear, curiosity, greed), dramatically increasing the likelihood of a viewer interrupting their scroll to click."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does ALL CAPS help or hurt a YouTube video?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While capitalizing a single power word helps draw the eye, writing the entire title in uppercase looks incredibly spammy, breaks algorithmic trust, and often lowers your CTR among mature audiences."
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            color: #282828;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            max-width: 1200px;
+            width: 100%;
+            padding: 60px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: #282828;
+            font-size: 36px;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: #606060;
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tool-section {
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #282828;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 24px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 24px;
+            color: #282828;
+            background: white;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+        
+        input[type="text"]::placeholder {
+            color: #bbbbbb;
+            font-weight: 400;
+        }
+
+        .results-dashboard {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            display: none; /* hidden until typing */
+        }
+
+        .score-circle-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin-bottom: 25px;
+        }
+
+        svg.circular-chart {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            max-height: 250px;
+        }
+
+        .circle-bg {
+            fill: none;
+            stroke: #eee;
+            stroke-width: 3.8;
+        }
+
+        .circle {
+            fill: none;
+            stroke-width: 2.8;
+            stroke-linecap: round;
+            transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;
+        }
+
+        .circle.green { stroke: #4caf50; }
+        .circle.orange { stroke: #ff9800; }
+        .circle.red { stroke: #f44336; }
+
+        .percentage {
+            fill: #282828;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 800;
+            font-size: 0.5em;
+            text-anchor: middle;
+        }
+
+        .verdict-text {
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 15px;
+            max-width: 600px;
+            line-height: 1.4;
+        }
+
+        .verdict-green-text { color: #2e7d32; }
+        .verdict-orange-text { color: #e65100; }
+        .verdict-red-text { color: #c62828; }
+
+        .warnings-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .warning-chip {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            border-left: 4px solid #ffeeba;
+            text-align: left;
+        }
+        
+        .warning-chip.spam {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #f5c6cb;
+        }
+
+        .conversion-hook {
+            margin-top: 60px;
+            padding: 40px;
+            background: #282828;
+            border-radius: 12px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .conversion-hook p {
+            color: white;
+            font-size: 16px;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .conversion-hook strong {
+            color: #3b82f6;
+            font-size: 22px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 18px 36px;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .cta-btn:hover {
+            background: white;
+            color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246,0.3);
+        }
+
+        .info-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .info-section h2 {
+            font-size: 28px;
+            color: #282828;
+            margin-bottom: 25px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .info-section p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .info-section ol {
+            margin-left: 20px;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .info-section li {
+            margin-bottom: 10px;
+        }
+
+        .info-section h3 {
+            font-size: 20px;
+            color: #282828;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #909090;
+            font-size: 14px;
+            border-top: 1px solid #eeeeee;
+            padding-top: 30px;
+        }
+
+        .footer a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .page-layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .sidebar-right {
+            position: sticky;
+            top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .ad-buffer-slot {
+            width: 100%;
+            background: #f8f9fa;
+            border: 1px dashed #cccccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 992px) {
+            .page-layout-grid { grid-template-columns: 1fr; }
+            .sidebar-right { display: none; }
+            .conversion-hook { flex-direction: column; text-align: center; }
+            .cta-btn { width: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container page-layout-grid">
+        <div class="main-content">
+            <header>
+                <h1>YouTube Title CTR & Emotion Grader</h1>
+                <p class="subtitle">A killer title requires perfect emotional leverage. Paste your video title below to see if your hook is mathematically optimized for maximum Click-Through Rate.</p>
+            </header>
+
+            <div class="tool-section">
+                <div class="input-group">
+                    <label>Live Title Analyzer</label>
+                    <input type="text" id="titleInput" placeholder="Enter your YouTube video title...">
+                </div>
+
+                <div class="results-dashboard" id="resultsDashboard">
+                    <div class="score-circle-container">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <path class="circle" id="scoreCircle"
+                                stroke-dasharray="0, 100"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <text x="18" y="22.5" class="percentage" id="scoreText">0</text>
+                        </svg>
+                    </div>
+
+                    <div class="warnings-box" id="warningsBox"></div>
+
+                    <div class="verdict-text" id="verdictText"></div>
+                </div>
+
+                <div class="conversion-hook">
+                    <div>
+                        <strong>Got an 80+ CTR Score?</strong>
+                        <p>A killer title is useless if YouTube doesn't test it with an audience. Don't let a great concept die in the algorithm. Submit your optimized video to TubeHeadlines to guarantee your first wave of impressions and kickstart your CTR.</p>
+                    </div>
+                    <a href="https://tubeheadlines.com/submit" class="cta-btn">Submit to TubeHeadlines</a>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2>How to Use the YouTube Title CTR Grader</h2>
+                <p>Generating a high Click-Through Rate (CTR) relies almost entirely on the psychological triggers you embed in the first 40 characters of your hook. Here is how to use this tool:</p>
+                <ol>
+                    <li>Input your current working title into the analyzer.</li>
+                    <li>Observe the live Score Circle updating in real-time as you tweak your wording.</li>
+                    <li>Adjust your hook based on the active warnings (e.g., removing ALL CAPS or shortening the overall length so it doesn't truncate).</li>
+                    <li>Iterate by swapping words out for high-impact <strong>Power Words</strong> until you hit a score of 80/100 or higher.</li>
+                    <li>Publish your fully optimized video to YouTube.</li>
+                </ol>
+
+                <h2>Why YouTube Title Length Matters for Mobile Viewers in 2026</h2>
+                <p>Mobile viewership currently dominates the YouTube desktop experience by a massive margin. The YouTube mobile app UI gives titles a very strict amount of real estate before it forcefully cuts them off with an ellipsis (...).</p>
+                <p>If your title sits between <strong>40 and 55 characters</strong>, you achieve the perfect "Goldilocks Zone." It is long enough to establish context and establish a curiosity gap, yet short enough and punchy enough that the viewer can read the entire sentence in a fraction of a second while scrolling. If your title exceeds 60 characters, the most important part of your hook might be physically invisible to half your audience until they actively click—destroying your conversion rate.</p>
+
+                <h2>The Psychology of Power Words and Curiosity Gaps</h2>
+                <p>A "Curiosity Gap" is the literal space between what a viewer currently knows and what they want to know. When a browser sees a phrase in brackets `[like this]` or a question mark, their brain instinctively demands resolution to that unsolved puzzle.</p>
+                <p>Pairing a curiosity gap with strong emotional Power Words (such as <em>Secret, Banned, Hack, Exposing, Truth</em>) creates an almost irresistible psychological loop. Instead of writing extremely sterile, objective titles (e.g., "Reviewing the New iPhone"), a master of CTR optimization bridges the gap by writing something heavily polarized: "I Tried The Worst iPhone Hack (Banned)". The sheer unlikeliness of the combination demands a click.</p>
+
+                <h2>Does Clickbait Still Work on YouTube?</h2>
+                <p>There is a massive and incredibly dangerous misunderstanding regarding the word "Clickbait." True clickbait—where you completely lie or misrepresent the contents of a video in the title—will absolutely destroy your channel's retention metrics. If a viewer clicks expecting a "Secret Hack" and you give them a boring tutorial, they will leave in 5 seconds. YouTube's algorithm tracks this dissatisfaction and will stop serving your video entirely.</p>
+                <p>However, <strong>satisfying the hook</strong> is not clickbait; it is just great marketing. Creating exceptionally sensationalized, exaggerated, or drama-filled titles is an incredible strategy, <em>provided the video actually delivers exactly what the title promises</em>. Sensational packaging creates the initial CTR, and high-quality payoff creates the retention. You need both to go viral.</p>
+
+                <h2>Frequently Asked Questions</h2>
+                
+                <h3>What is considered a "Good" CTR score?</h3>
+                <p>A score between 80 and 100 indicates your title contains the perfect cocktail of optimal length, emotional framing, and active curiosity gaps. Hitting this metric means your video's packaging is ready to compete on the homepage.</p>
+                
+                <h3>Will ALL CAPS increase my views?</h3>
+                <p>Usually, no. While occasionally capitalizing one single word for emphasis (e.g., "I survived the SCARIEST haunted house") can successfully direct the viewer's eye, writing every single word in uppercase visually mimics common internet spam. Consequently, audiences have developed "banner blindness" to it, and the algorithm often suppresses these titles.</p>
+                
+                <h3>Do numbers inside a title actually help?</h3>
+                <p>Yes. Human brains are naturally drawn to digits amidst a sea of regular text. Adding numbers (such as dates, lists, or specific money values like "$10,000") breaks up the visual monotony of a sentence and gives the viewer's eye a concrete anchor point to focus on.</p>
+            </div>
+
+            <div class="footer">
+                <p>&copy; 2026 TubeHeadlines. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+            </div>
+        </div>
+
+        <div class="sidebar-right">
+            <div class="ad-buffer-slot" style="min-height: 250px;"></div>
+            <div class="ad-buffer-slot" style="min-height: 600px;"></div>
+        </div>
+    </div>
+
+    <script>
+        const titleInput = document.getElementById('titleInput');
+        const scoreCircle = document.getElementById('scoreCircle');
+        const scoreText = document.getElementById('scoreText');
+        const verdictText = document.getElementById('verdictText');
+        const warningsBox = document.getElementById('warningsBox');
+        const resultsDashboard = document.getElementById('resultsDashboard');
+
+        const POWER_WORDS = [
+            'secret', 'exposing', 'truth', 'i tried', 'never', 'survived', 
+            'banned', 'hack', 'illegal', 'stop', 'why', 'worst', 'best', 
+            'insane', 'genius'
+        ];
+
+        titleInput.addEventListener('input', function() {
+            const rawTitle = this.value;
+            const titleLength = !!rawTitle ? rawTitle.trim().length : 0;
+            
+            if (titleLength === 0) {
+                resultsDashboard.style.display = 'none';
+                return;
+            } else {
+                resultsDashboard.style.display = 'flex';
+            }
+
+            let score = 50; // Base score
+            let warnings = [];
+
+            // 1. Length Logic
+            if (titleLength >= 40 && titleLength <= 55) {
+                score += 20;
+            } else if (titleLength >= 20 && titleLength <= 39) {
+                score += 10;
+            } else if (titleLength > 60) {
+                score -= 15;
+                warnings.push({ type: 'length', text: '&#9888;&#65039; Warning: Title exceeds 60 characters and will likely truncate (...) on mobile devices.' });
+            }
+
+            // 2. Power/Emotion Words matches
+            const lowerTitle = rawTitle.toLowerCase();
+            let powerWordMatches = 0;
+            
+            for (let word of POWER_WORDS) {
+                // simple boundary check to catch whole words (accounting for punctuation)
+                const regex = new RegExp(`\\b${word}\\b`, 'i');
+                if (regex.test(lowerTitle)) {
+                    powerWordMatches++;
+                }
+            }
+            if (powerWordMatches === 1) score += 15;
+            if (powerWordMatches >= 2) score += 20;
+
+            // 3. Numbers/Lists
+            if (/\d/.test(rawTitle)) {
+                score += 10;
+            }
+
+            // 4. Curiosity Gap
+            if (/[?\[\]()]/.test(rawTitle)) {
+                score += 10;
+            }
+
+            // 5. ALL CAPS Penalty
+            // Remove non-alphabetic chars to test ALL CAPS purely on letters
+            const alphaOnly = rawTitle.replace(/[^a-zA-Z]/g, '');
+            if (alphaOnly.length > 3 && alphaOnly === alphaOnly.toUpperCase()) {
+                score -= 20;
+                warnings.push({ type: 'spam', text: '&#128683; Penalty: Entire title is in UPPERCASE. This looks like spam and breaks trust.' });
+            }
+
+            // Constrain
+            if (score > 100) score = 100;
+            if (score < 0) score = 0;
+
+            // Render Warnings
+            warningsBox.innerHTML = '';
+            warnings.forEach(w => {
+                const wDiv = document.createElement('div');
+                wDiv.className = `warning-chip ${w.type === 'spam' ? 'spam' : ''}`;
+                wDiv.innerHTML = w.text;
+                warningsBox.appendChild(wDiv);
+            });
+
+            // Update Circle Stroke
+            scoreText.textContent = score;
+            const strokeDash = `${score}, 100`;
+            scoreCircle.setAttribute('stroke-dasharray', strokeDash);
+            
+            scoreCircle.classList.remove('green', 'orange', 'red');
+            verdictText.classList.remove('verdict-green-text', 'verdict-orange-text', 'verdict-red-text');
+
+            // Set dynamic verdict
+            if (score >= 80) {
+                scoreCircle.classList.add('green');
+                verdictText.classList.add('verdict-green-text');
+                verdictText.innerText = "Highly Clickable! Excellent emotional trigger and perfect length.";
+            } else if (score >= 50 && score < 80) {
+                scoreCircle.classList.add('orange');
+                verdictText.classList.add('verdict-orange-text');
+                verdictText.innerText = "Average. Needs more curiosity or a stronger power word.";
+            } else {
+                scoreCircle.classList.add('red');
+                verdictText.classList.add('verdict-red-text');
+                verdictText.innerText = "Weak. Too long, boring, or lacks a hook. Rewrite.";
+            }
+        });
+    </script>
+</body>
+</html>

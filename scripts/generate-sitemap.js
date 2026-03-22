@@ -115,6 +115,9 @@ const generateSitemap = async () => {
   <url><loc>${SITE_URL}/category/center</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>${SITE_URL}/category/right</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>${SITE_URL}/youtube-resources</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>${SITE_URL}/youtube-script-pacing-analyzer</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/youtube-title-ctr-grader</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/viral-outlier-concept-calculator</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>${SITE_URL}/viral-idea-generator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>${SITE_URL}/youtube-income-calculator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>${SITE_URL}/script-timer</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>

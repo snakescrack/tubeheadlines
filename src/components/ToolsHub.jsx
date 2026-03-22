@@ -5,6 +5,21 @@ import { Link } from 'react-router-dom';
 
 const toolsList = [
     {
+        name: "YouTube Script Pacing & Retention Analyzer",
+        description: "Analyze your script run time, detect 20-word retention blockers, and grade your hook instantly.",
+        path: "/youtube-script-pacing-analyzer"
+    },
+    {
+        name: "YouTube Title CTR Grader",
+        description: "Calculate the emotional impact and Click-Through Rate (CTR) potential of your YouTube video title.",
+        path: "/youtube-title-ctr-grader"
+    },
+    {
+        name: "Viral Outlier Concept Calculator",
+        description: "Calculate competitor outlier scores and view velocity to validate your next viral video idea instantly.",
+        path: "/viral-outlier-concept-calculator"
+    },
+    {
         name: "Viral Idea Generator",
         description: "Generate high-converting YouTube video ideas based on tested psychological frameworks and current trends.",
         path: "/viral-idea-generator"
