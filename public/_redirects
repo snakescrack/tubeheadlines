@@ -20,6 +20,9 @@
 /youtube-fair-use-disclaimer-generator /youtube-fair-use-disclaimer-generator.html 200
 /youtube-teleprompter                   /youtube-teleprompter.html              200
 /youtube-thumbnail-downloader           /youtube-thumbnail-downloader.html      200
+/youtube-title-ctr-grader               /youtube-title-ctr-grader.html          200
+/viral-outlier-concept-calculator       /viral-outlier-concept-calculator.html  200
+/youtube-script-pacing-analyzer         /youtube-script-pacing-analyzer.html    200
 
 # Catch-all for React Router
 /*                                      /index.html                             200
