@@ -15,44 +15,33 @@ export const loadAllVideos = async () => {
   // Check cache first
   const now = Date.now();
   if (videosCache && lastFetchTime && (now - lastFetchTime < CACHE_TTL)) {
-    console.log('Using cached videos');
     return videosCache;
   }
   
   try {
-    console.log('Fetching top 30 videos from Firestore...');
-    
-    // Optimized query - only get the top 30 most recent videos
+    // IMPORTANT: We still use a small limit for "initial load" to avoid 5xx errors.
+    // Deep pages are handled by specific paginated functions.
     const { query, orderBy, limit } = await import('firebase/firestore');
     const videosRef = collection(db, 'videos');
-    const q = query(videosRef, orderBy('createdAt', 'desc'), limit(30));
+    const q = query(videosRef, orderBy('createdAt', 'desc'), limit(50)); 
     const querySnapshot = await getDocs(q);
     
-    // Convert to array of video objects
     const videos = querySnapshot.docs.map(doc => {
       const data = doc.data();
       return {
         id: doc.id,
         ...data,
-        // Ensure createdAt is a JavaScript Date regardless of its stored format
         createdAt: parseDate(data.createdAt),
-        // Ensure scheduledAt is a JavaScript Date if it exists
         scheduledAt: data.scheduledAt ? parseDate(data.scheduledAt) : null,
-        // Ensure category exists
         category: data.category || getDefaultCategory(data.position_type)
       };
     });
     
-    console.log(`Loaded ${videos.length} videos from Firestore (Limited to 30)`);
-    
-    // Update cache
     videosCache = videos;
     lastFetchTime = now;
-    
     return videos;
   } catch (error) {
     console.error('Error loading videos:', error);
-    // Return empty array in case of error to avoid breaking the UI
     return [];
   }
 };
@@ -149,38 +138,20 @@ export const getVideosForPosition = async (positionType, page = 1, pageSize = 10
  * Get all videos for homepage, organized by position
  */
 export const getAllVideosForHomepage = async (pages = { top: 1, left: 1, right: 1 }, pageSize = 10) => {
-  const allVideos = await loadAllVideos();
-
-  // Filter only visible videos
-  const visibleVideos = allVideos.filter(isVideoVisible);
-
-  // 1. Get the featured video - the newest one from the 'top' position
-  const featuredVideo = visibleVideos
-    .filter(v => v.position_type && v.position_type.toLowerCase() === 'featured')
-    .sort((a, b) => b.createdAt - a.createdAt)[0] || null;
-
+  const columnPositions = ['left', 'center', 'right'];
+  const { getPositionVideos, getTotalVideos, getFeaturedVideo } = await import('./dbOperations');
+  
   const result = {
-    featured: featuredVideo,
+    featured: await getFeaturedVideo(),
   };
 
-  // 2. Get videos for the columns
-  const columnPositions = ['left', 'center', 'right'];
   for (const position of columnPositions) {
-    // Get videos for this position
-    const positionVideos = visibleVideos
-      .filter(video => video.position_type === position)
-      .sort((a, b) => b.createdAt - a.createdAt); // Sort by date descending
-
-    // Calculate pagination for this position
     const currentPage = pages[position] || 1;
-    const totalVideos = positionVideos.length;
-    const totalPages = Math.ceil(totalVideos / pageSize);
-    const startIndex = (currentPage - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-
-    // Get the videos for the current page
-    const paginatedVideos = positionVideos.slice(startIndex, endIndex);
-
+    
+    // Fetch ONLY the specific page for this position
+    const paginatedVideos = await getPositionVideos(position, currentPage);
+    const totalVideosCount = await getTotalVideos(position);
+    
     // Group by category
     const videosByCategory = {};
     for (const video of paginatedVideos) {
@@ -194,8 +165,8 @@ export const getAllVideosForHomepage = async (pages = { top: 1, left: 1, right: 
     result[position] = {
       videos: paginatedVideos,
       videosByCategory,
-      totalVideos,
-      totalPages,
+      totalVideos: totalVideosCount,
+      totalPages: Math.ceil(totalVideosCount / pageSize),
       currentPage: currentPage,
     };
   }

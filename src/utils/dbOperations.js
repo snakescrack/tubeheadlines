@@ -125,56 +125,34 @@ let allVideosCache = null;
 let lastFetchTime = 0;
 const CACHE_TTL = 60000; // 1 minute cache
 
-// Get all videos at once and cache them
+// Get all videos (REMOVED: this was causing 5xx errors by pulling 1000+ videos)
+// Instead, use paginated queries below.
 export const getAllVideos = async () => {
-  const now = Date.now();
-  
-  // Return cached data if it's fresh
-  if (allVideosCache && (now - lastFetchTime) < CACHE_TTL) {
-    console.log('Using cached videos data');
-    return allVideosCache;
-  }
-  
+  console.warn('getAllVideos called - please use paginated functions instead for performance');
   try {
-    console.log('Fetching TOP 30 videos from database');
     const videosRef = collection(db, 'videos');
-    
-    // Use limit(30) and orderBy to get only recent videos
     const q = query(videosRef, orderBy('createdAt', 'desc'), limit(30));
     const querySnapshot = await getDocs(q);
-    console.log(`Found ${querySnapshot.size} videos in limited query`);
-    
-    // Process the limited set
-    allVideosCache = querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-    
-    lastFetchTime = now;
-    return allVideosCache;
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
-    console.error('Error fetching videos:', error);
+    console.error('Error in getAllVideos fallback:', error);
     return [];
   }
 };
 
-// Get total number of videos for a position
+// Get total number of videos for a position (OPTIMIZED: Use getCountFromServer)
 export const getTotalVideos = async (position_type) => {
   try {
-    console.log('Getting total videos for position:', position_type);
+    const { getCountFromServer } = await import('firebase/firestore');
     const videosRef = collection(db, 'videos');
-    const q = query(videosRef, where('position_type', '==', position_type));
-    const snapshot = await getDocs(q);
-    
-    // Filter out scheduled videos
-    const visibleVideos = snapshot.docs
-      .map(doc => doc.data())
-      .filter(isVideoVisible);
-    
-    console.log('Total videos for', position_type, ':', visibleVideos.length);
-    return visibleVideos.length;
+    const q = query(
+      videosRef, 
+      where('position_type', '==', position_type)
+    );
+    const snapshot = await getCountFromServer(q);
+    return snapshot.data().count;
   } catch (error) {
-    console.error('Error fetching all videos:', error);
+    console.error('Error fetching count:', error);
     return 0;
   }
 }
@@ -182,48 +160,36 @@ export const getTotalVideos = async (position_type) => {
 // Fetch videos for a specific position with pagination
 export const getPositionVideos = async (position_type, page = 1) => {
   try {
-    console.log('Getting videos for position:', position_type, 'page:', page);
+    const pageSize = VIDEOS_PER_PAGE;
+    console.log(`Fetching server-side page ${page} for ${position_type}`);
     
-    // Get all videos
-    const allVideos = await getAllVideos();
+    const videosRef = collection(db, 'videos');
     
-    // Filter by position and visibility
-    const visibleVideos = allVideos
-      .filter(video => video.position_type === position_type)
-      .filter(isVideoVisible)
-      // Sort on the client side
-      .sort((a, b) => {
-        // Handle different date formats safely
-        const getTime = (date) => {
-          if (!date) return 0;
-          if (date.toDate && typeof date.toDate === 'function') {
-            return date.toDate().getTime();
-          }
-          if (date.seconds) {
-            return new Date(date.seconds * 1000).getTime();
-          }
-          return new Date(date).getTime();
-        };
-        
-        return getTime(b.createdAt) - getTime(a.createdAt);
-      });
+    // Implementation: Fetch (page * pageSize) documents to simulate offset
+    // This is much safer than fetching 1000+, as page 1-5 only pulls 10-50 docs.
+    const q = query(
+      videosRef,
+      where('position_type', '==', position_type),
+      orderBy('createdAt', 'desc'),
+      limit(page * pageSize)
+    );
     
-    // Add default category if missing
-    const processedVideos = visibleVideos.map(video => ({
-      ...video,
-      category: video.category || getDefaultCategory(position_type)
+    const querySnapshot = await getDocs(q);
+    const allFetched = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      category: doc.data().category || getDefaultCategory(position_type)
     }));
-
-    console.log(`Found ${processedVideos.length} visible videos for position ${position_type}`);
     
-    // Paginate
-    const start = (page - 1) * VIDEOS_PER_PAGE;
-    const paginatedVideos = processedVideos.slice(start, start + VIDEOS_PER_PAGE);
+    // Filter scheduled videos manually since where() filters only allow one field with range
+    const visibleVideos = allFetched.filter(isVideoVisible);
     
-    console.log(`Returning ${paginatedVideos.length} videos for page ${page}`);
-    return paginatedVideos;
+    // Take the specific slice for this page
+    const start = (page - 1) * pageSize;
+    return visibleVideos.slice(start, start + pageSize);
+    
   } catch (error) {
-    console.error(`Error getting videos for ${position_type}:`, error);
+    console.error(`Error in getPositionVideos for ${position_type}:`, error);
     return [];
   }
 };
