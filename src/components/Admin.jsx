@@ -12,7 +12,8 @@ export default function Admin() {
     thumbnailURL: '',
     isScheduled: false,
     scheduledAt: '',
-    editorsTake: ''
+    editorsTake: '',
+    videoDescription: '' // Story context for AI
   });
   const [message, setMessage] = useState('');
   const [selectedPosition, setSelectedPosition] = useState('featured');
@@ -237,21 +238,43 @@ export default function Admin() {
   };
 
   const handleGenerateAI = async () => {
-    if (!formData.customHeadline) {
-      setMessage('Error: Please enter a Custom Headline first.');
+    if (!formData.youtubeURL || !formData.customHeadline) {
+      setMessage('Error: Please enter a YouTube URL and Custom Headline first.');
       return;
     }
 
     const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+    const ytApiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+
     if (!apiKey) {
-      setMessage('Error: OpenAI API key is missing. Please set VITE_OPENAI_API_KEY in your .env file.');
+      setMessage('Error: OpenAI API key is missing.');
       return;
     }
 
     setIsGeneratingAI(true);
-    setMessage('Generating Editor\'s Take...');
+    setMessage('Consulting the Tabloid Editor...');
 
     try {
+      let currentDescription = formData.videoDescription;
+
+      // 1. Fetch description if missing
+      if (!currentDescription) {
+        const videoIdRegex = /(?:youtube\.com\/(?:[^/]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
+        const match = formData.youtubeURL.match(videoIdRegex);
+        const videoId = match ? match[1] : null;
+
+        if (videoId && ytApiKey) {
+          console.log('Fetching description for AI context...');
+          const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet&key=${ytApiKey}`);
+          const data = await response.json();
+          if (data.items?.[0]) {
+            currentDescription = data.items[0].snippet.description;
+            setFormData(prev => ({ ...prev, videoDescription: currentDescription }));
+          }
+        }
+      }
+
+      // 2. Call OpenAI with new British Tabloid Persona
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -263,34 +286,35 @@ export default function Admin() {
           messages: [
             {
               role: 'system',
-              content: 'You are a professional SEO content editor for a YouTube curation platform called TubeHeadlines. Write a 3-sentence, highly engaging editorial paragraph about the following video title. Do not summarize it directly; tease the value, create curiosity, and include relevant keywords naturally. Tone: Authoritative but exciting.'
+              content: `Act as a cynical, punchy British tabloid editor. Write a 3-sentence SEO hook for this video. 
+              
+              CRITICAL RULES:
+              1. NO 'Bot-words': Do not use 'Unlock', 'Delve', 'Discover', 'Masterclass', or 'Get ready to'.
+              2. Start with the Subject: The very first sentence must name the person, place, or thing in the video.
+              3. The 'So What?': The second sentence must include a specific number, price, or quote from the provided description.
+              4. Vary Sentence Length: One long sentence, one short punchy one.
+              5. Tone: Be direct, slightly skeptical, and informative. No 'AI cheerleading'.`
             },
             {
               role: 'user',
-              content: formData.customHeadline
+              content: `TITLE: ${formData.customHeadline}\n\nDESCRIPTION: ${currentDescription || 'No description available.'}`
             }
-          ]
+          ],
+          temperature: 0.7
         })
       });
 
       const data = await response.json();
-
-      if (data.error) {
-        throw new Error(data.error.message);
-      }
-
-      if (data.choices && data.choices[0]) {
+      if (data.choices?.[0]) {
         setFormData(prev => ({
           ...prev,
-          editorsTake: data.choices[0].message.content.trim()
+          editorsTake: data.choices[0].message.content.trim().replace(/^"|"$/g, '') // Remove quotes if AI adds them
         }));
-        setMessage('AI generation successful!');
-      } else {
-        throw new Error('Unexpected response format from OpenAI');
+        setMessage('Tabloid hook generated!');
       }
     } catch (error) {
       console.error('AI Generation Error:', error);
-      setMessage(`Error generating AI text: ${error.message}`);
+      setMessage(`Error: ${error.message}`);
     } finally {
       setIsGeneratingAI(false);
     }
