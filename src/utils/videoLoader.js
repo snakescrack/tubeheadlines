@@ -20,11 +20,13 @@ export const loadAllVideos = async () => {
   }
   
   try {
-    console.log('Fetching all videos from Firestore...');
+    console.log('Fetching top 30 videos from Firestore...');
     
-    // Simple query - just get all videos without any filtering or ordering
+    // Optimized query - only get the top 30 most recent videos
+    const { query, orderBy, limit } = await import('firebase/firestore');
     const videosRef = collection(db, 'videos');
-    const querySnapshot = await getDocs(videosRef);
+    const q = query(videosRef, orderBy('createdAt', 'desc'), limit(30));
+    const querySnapshot = await getDocs(q);
     
     // Convert to array of video objects
     const videos = querySnapshot.docs.map(doc => {
@@ -41,7 +43,7 @@ export const loadAllVideos = async () => {
       };
     });
     
-    console.log(`Loaded ${videos.length} videos from Firestore`);
+    console.log(`Loaded ${videos.length} videos from Firestore (Limited to 30)`);
     
     // Update cache
     videosCache = videos;

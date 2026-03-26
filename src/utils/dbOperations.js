@@ -136,14 +136,15 @@ export const getAllVideos = async () => {
   }
   
   try {
-    console.log('Fetching ALL videos from database');
+    console.log('Fetching TOP 30 videos from database');
     const videosRef = collection(db, 'videos');
     
-    // Get all videos with no filtering or sorting
-    const querySnapshot = await getDocs(videosRef);
-    console.log(`Found ${querySnapshot.size} total videos in database`);
+    // Use limit(30) and orderBy to get only recent videos
+    const q = query(videosRef, orderBy('createdAt', 'desc'), limit(30));
+    const querySnapshot = await getDocs(q);
+    console.log(`Found ${querySnapshot.size} videos in limited query`);
     
-    // Process all videos
+    // Process the limited set
     allVideosCache = querySnapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
@@ -152,7 +153,7 @@ export const getAllVideos = async () => {
     lastFetchTime = now;
     return allVideosCache;
   } catch (error) {
-    console.error('Error fetching all videos:', error);
+    console.error('Error fetching videos:', error);
     return [];
   }
 };

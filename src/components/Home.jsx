@@ -62,8 +62,6 @@ const Home = () => {
       console.error('Error loading videos:', err);
     } finally {
       setLoading(false);
-      // Tell Prerender it's safe to take the snapshot
-      setTimeout(() => { window.prerenderReady = true; }, 500);
     }
   };
 
@@ -71,6 +69,17 @@ const Home = () => {
     loadVideos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pages.left, pages.center, pages.right]);
+
+  // Task 4: Fix Hydration - Signal 'Ready' only when homepage content is rendered
+  useEffect(() => {
+    if (!loading && (videos.featured || Object.keys(videos.columns.left).length > 0 || error)) {
+      console.log('Homepage content detected. Signaling Prerender Ready.');
+      const timer = setTimeout(() => {
+        window.prerenderReady = true;
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [loading, videos, error]);
 
   const handlePageChange = (position, newPage) => {
     if (newPage < 1 || newPage > videos.pagination[position].totalPages) {

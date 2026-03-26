@@ -59,8 +59,6 @@ const VideoPage = () => {
         setError('Error loading video');
       } finally {
         setLoading(false);
-        // Tell Prerender it's safe to take the snapshot
-        setTimeout(() => { window.prerenderReady = true; }, 500);
       }
     };
 
@@ -119,6 +117,23 @@ const VideoPage = () => {
 
     fetchRecommendations();
   }, [video, id]);
+
+  // Task 4: Fix Hydration - Signal 'Ready' only when specific content is rendered
+  useEffect(() => {
+    if (!loading && (video || error)) {
+      // If we have video data, wait for the Editor's Take or Description to be in the DOM
+      // This ensures Googlebot sees the unique content
+      const contentLoaded = video?.editorsTake || video?.description || error;
+      if (contentLoaded) {
+        console.log('SEO Content detected in DOM. Signaling Prerender Ready.');
+        // Small delay to ensure React finishes painting the DOM
+        const timer = setTimeout(() => {
+          window.prerenderReady = true;
+        }, 100);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [loading, video, error]);
 
   if (loading) {
     return (
