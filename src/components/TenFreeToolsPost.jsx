@@ -5,7 +5,7 @@ import SEO from './SEO';
 export default function TenFreeToolsPost() {
     const articleData = {
         headline: '10 Free Tools Every Small YouTuber Needs in 2026',
-        datePublished: '2026-02-02T08:00:00+00:00',
+        datePublished: '2026-03-15T08:00:00+00:00',
         author: 'TubeHeadlines Team',
         image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1000&auto=format&fit=crop'
     };

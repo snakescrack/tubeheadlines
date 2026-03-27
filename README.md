@@ -57,4 +57,4 @@ If either application stops working, you can restore it from the backup using th
 4. Changes made in the admin interface are immediately reflected on the main website
 
 ## Backup Creation Date
-These backups were created on: May 6, 2025
+These backups were created on: March 27, 2026

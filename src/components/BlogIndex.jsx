@@ -7,19 +7,19 @@ export default function BlogIndex() {
         {
             title: "10 Free Tools Every Small YouTuber Needs in 2026",
             excerpt: "Stop paying for expensive software. Here are the 10 best free tools for YouTube creators, from script writing to thumbnail design.",
-            date: "February 2, 2026",
+            date: "March 15, 2026",
             path: "/blog/10-free-tools-for-youtubers"
         },
         {
-            title: "How to Go Viral on YouTube in 2024 (The Mathematical Approach)",
-            excerpt: "Stop guessing and start growing. Learn the formula behind viral videos, based on millions of views.",
-            date: "February 1, 2026",
+            title: "How to Go Viral on YouTube in 2026 (The Mathematical Approach)",
+            excerpt: "Stop guessing and start growing. Learn the formula behind viral videos, based on millions of views in early 2026.",
+            date: "March 10, 2026",
             path: "/blog/viral-youtube-strategy"
         },
         {
             title: "Why I Built TubeHeadlines: A Better Way to Discover Great YouTube Videos",
             excerpt: "I built TubeHeadlines to fix YouTube discovery. Learn why manual curation and a focus on quality over algorithms makes for a better viewing experience.",
-            date: "December 1, 2023",
+            date: "February 20, 2026",
             path: "/blog/why-i-built-tubeheadlines"
         }
     ];

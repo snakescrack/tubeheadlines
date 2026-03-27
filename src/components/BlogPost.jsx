@@ -5,7 +5,7 @@ import SEO from './SEO';
 export default function BlogPost() {
   const articleData = {
     headline: 'Why I Built TubeHeadlines: A Better Way to Discover Great YouTube Videos',
-    datePublished: '2023-12-01T08:00:00+00:00',
+    datePublished: '2026-02-20T08:00:00+00:00',
     author: 'TubeHeadlines Creator',
     image: 'https://tubeheadlines.com/blog-header.png'
   };

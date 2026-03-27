@@ -24,7 +24,8 @@ function App() {
     replaceCurrent: false,
     title: '',
     editorsTake: '',
-    showThumbnail: true
+    showThumbnail: true,
+    videoDescription: '' // Story context for AI
   });
 
   const [videos, setVideos] = useState([]);
@@ -93,34 +94,87 @@ function App() {
   };
 
   const handleGenerateAI = async () => {
-    if (!formData.title) {
-      setAiMessage('Error: Enter a Custom Headline first.');
+    if (!formData.youtubeURL || !formData.title) {
+      setAiMessage('Error: Enter a YouTube URL and Custom Headline first.');
       return;
     }
+
+    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+    const ytApiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+
+    if (!apiKey) {
+      setAiMessage('Error: OpenAI API key is missing.');
+      return;
+    }
+
     setIsGenerating(true);
-    setAiMessage("Generating Editor's Take...");
+    setAiMessage('Consulting the Tabloid Editor...');
+
     try {
-      const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-      if (!apiKey) throw new Error('OpenAI API key missing (VITE_OPENAI_API_KEY).');
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+      let currentDescription = formData.videoDescription;
+
+      // 1. Fetch description if missing
+      if (!currentDescription) {
+        const videoIdMatch = formData.youtubeURL.match(/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/|watch\?v=|&v=)|(?:\?v=))([^#&?]*).*/);
+        const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+        if (videoId && ytApiKey) {
+          console.log('Fetching description for AI context...');
+          const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${ytApiKey}`);
+          const youtubeData = await response.json();
+          if (youtubeData.items?.[0]) {
+            currentDescription = youtubeData.items[0].snippet.description;
+            setFormData(prev => ({ ...prev, videoDescription: currentDescription }));
+          }
+        }
+      }
+
+      // 2. Call OpenAI with British Tabloid Persona
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
         body: JSON.stringify({
-          model: 'gpt-4o',
+          model: 'gpt-4o-mini',
           messages: [
-            { role: 'system', content: 'You are a professional SEO content editor for a YouTube curation platform called TubeHeadlines. Write a 3-sentence, highly engaging editorial paragraph about the provided video title. Tease the value and create curiosity. CRITICAL INSTRUCTION: About 30% of the time, naturally add a 4th sentence at the end that includes an HTML anchor tag linking to one of our free tools. Use exactly this HTML: <a href="/viral-idea-generator">Free Viral Idea Generator</a> or <a href="/youtube-income-calculator">YouTube Income Calculator</a>. Make the transition smooth, e.g., "If you want to create a hook like this, try our..."' },
-            { role: 'user', content: formData.title }
+            {
+              role: 'system',
+              content: `Act as a cynical, punchy British tabloid editor. Write a 3-sentence SEO hook for this video. 
+              
+              CRITICAL RULES:
+              1. NO 'Bot-words': Do not use 'Unlock', 'Delve', 'Discover', 'Masterclass', or 'Get ready to'.
+              2. Start with the Subject: The very first sentence must name the person, place, or thing in the video.
+              3. The 'So What?': The second sentence must include a specific number, price, or quote from the provided description.
+              4. Vary Sentence Length: One long sentence, one short punchy one.
+              5. Tone: Be direct, slightly skeptical, and informative. No 'AI cheerleading'.`
+            },
+            {
+              role: 'user',
+              content: `TITLE: ${formData.title}\n\nDESCRIPTION: ${currentDescription || 'No description available.'}`
+            }
           ],
           temperature: 0.7
         })
       });
-      if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || 'API call failed'); }
-      const data = await res.json();
-      const text = data.choices[0].message.content.trim();
-      setFormData(prev => ({ ...prev, editorsTake: text }));
-      setAiMessage("Editor's Take generated!");
-    } catch (err) {
-      setAiMessage(`Error: ${err.message}`);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || 'AI generation failed');
+      }
+
+      const data = await response.json();
+      if (data.choices?.[0]) {
+        setFormData(prev => ({
+          ...prev,
+          editorsTake: data.choices[0].message.content.trim().replace(/^"|"$/g, '')
+        }));
+        setAiMessage('Tabloid hook generated!');
+      }
+    } catch (error) {
+      console.error('AI Generation Error:', error);
+      setAiMessage(`Error: ${error.message}`);
     } finally {
       setIsGenerating(false);
     }
