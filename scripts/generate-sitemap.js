@@ -2,7 +2,7 @@
 import 'dotenv/config';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync, mkdirSync, existsSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -139,6 +139,43 @@ const generateSitemap = async () => {
     const sitemapPath = path.join(DIST_DIR, sitemapFilename);
     const lastMod = new Date(chunk[0].createdAt).toISOString().split('T')[0]; // Use newest video as lastmod for the file
 
+    // -------------------------------------------------------------
+    // PRERENDERING SECTION: Load base index.html
+    // -------------------------------------------------------------
+    const indexHtmlPath = path.join(DIST_DIR, 'index.html');
+    let baseHtml = '';
+    if (existsSync(indexHtmlPath)) {
+      baseHtml = readFileSync(indexHtmlPath, 'utf8');
+      
+      // We will also prerender the standard routes here, only once
+      if (index === 0) {
+        console.log('Prerendering static React routes...');
+        const staticRoutes = [
+          '/', '/blog', '/blog/10-free-tools-for-youtubers',
+          '/blog/viral-youtube-strategy', '/blog/why-i-built-tubeheadlines',
+          '/submit', '/category/left', '/category/center', '/category/right', '/tools'
+        ];
+        staticRoutes.forEach(route => {
+          try {
+            const canonicalUrl = `${SITE_URL}${route}`;
+            const modifiedHtml = baseHtml.replace('</head>', `  <link rel="canonical" href="${canonicalUrl}" />\n</head>`);
+            let destPath;
+            if (route === '/') {
+               // Do not overwrite the main dist/index.html which is the catch-all, but we CAN overwrite it with the root canonical!
+               destPath = indexHtmlPath;
+            } else {
+               const routeDir = path.join(DIST_DIR, ...route.split('/').filter(Boolean));
+               mkdirSync(routeDir, { recursive: true });
+               destPath = path.join(routeDir, 'index.html');
+            }
+            writeFileSync(destPath, modifiedHtml);
+          } catch (e) {
+            console.error(`Failed to prerender static route ${route}:`, e);
+          }
+        });
+      }
+    }
+
     let chunkContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">`;
@@ -169,6 +206,27 @@ const generateSitemap = async () => {
       <video:live>no</video:live>
     </video:video>
   </url>`;
+
+        // PRERENDER EACH VIDEO URL
+        if (baseHtml) {
+          try {
+            const videoCanonicalUrl = `${SITE_URL}/video/${video.id}`;
+            let videoHtml = baseHtml;
+            // Inject SEO meta dynamically for the video
+            videoHtml = videoHtml.replace(/<title>.*?<\/title>/g, `<title>${title} | TubeHeadlines</title>`);
+            videoHtml = videoHtml.replace(/content="TubeHeadlines \| Discover Trending YouTube Videos & News"/g, `content="${title.replace(/"/g, '&quot;')} | TubeHeadlines"`);
+            videoHtml = videoHtml.replace(/content="TubeHeadlines delivers trending YouTube video headlines in real-time. Discover breaking news, politics, entertainment and more."/g, `content="${description.replace(/"/g, '&quot;')}"`);
+            // replace og:image and twitter:image
+            videoHtml = videoHtml.replace(/content="https:\/\/www\.tubeheadlines\.com\/th-social-share\.jpg"/g, `content="${thumbnailUrl}"`);
+            videoHtml = videoHtml.replace('</head>', `  <link rel="canonical" href="${videoCanonicalUrl}" />\n</head>`);
+
+            const videoDir = path.join(DIST_DIR, 'video', video.id);
+            mkdirSync(videoDir, { recursive: true });
+            writeFileSync(path.join(videoDir, 'index.html'), videoHtml);
+          } catch(e) {
+            console.error(`Failed to prerender video ${video.id}:`, e);
+          }
+        }
       }
     });
 

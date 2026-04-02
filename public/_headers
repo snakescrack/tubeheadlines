@@ -6,7 +6,7 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   X-XSS-Protection: 1; mode=block
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: http:; media-src 'self' https://www.youtube.com; frame-src https://www.youtube.com; connect-src 'self' https://www.google-analytics.com https://*.firebaseio.com https://*.googleapis.com; font-src 'self' data:; object-src 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://www.google-analytics.com https://www.googletagmanager.com https://pagead2.googlesyndication.com https://adservice.google.com https://tpc.googlesyndication.com https://www.googleadservices.com https://gstatic.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: http:; media-src 'self' https://www.youtube.com; frame-src https://www.youtube.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.firebaseio.com https://*.googleapis.com https://pagead2.googlesyndication.com https://www.googletagmanager.com https://stats.g.doubleclick.net; font-src 'self' data: https://fonts.gstatic.com; object-src 'none'
 
 /api/*
   # Allow CORS for API endpoints if needed
