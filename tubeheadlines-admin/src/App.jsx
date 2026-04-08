@@ -157,6 +157,8 @@ Write a complete "Editor’s Take" for the video page.
 Rules (follow exactly):
 - Total length: 550–750 words
 - Plain paragraphs only. No headings, no bold, no asterisks, no lists, no formatting.
+- CRITICAL: Use clear double line breaks between paragraphs so the text isn't bunched up.
+- CRITICAL: Do NOT wrap the entire output in quotation marks or any other symbols.
 - Always look at the Channel Name and Description to correctly identify if the creator is a man or a woman. If it is a name like "Dina Lu", use she/her. IF YOU ARE NOT 100% CERTAIN, ALWAYS USE GENDER-NEUTRAL LANGUAGE (they/them or "the creator") INSTEAD OF GUESSING. Once identified, use the correct pronouns throughout the whole article.
 - Use very simple, everyday language. No fancy or complicated words.
 - Never use these AI-sounding words or phrases at all: shed light, meticulously, narrative unfolds, revealing journey, compelling, delves, underscores, wake-up call, pivotal, intricate, tapestry, complex web, deep dive, nuances, amidst, etc.

@@ -247,7 +247,7 @@ const VideoPage = () => {
               <span style={{ fontSize: '1.2rem' }}>📝</span> Editor's Take
             </h3>
             <p
-              style={{ lineHeight: '1.6', color: '#333', fontSize: '1.05rem', margin: 0 }}
+              style={{ lineHeight: '1.6', color: '#333', fontSize: '1.05rem', margin: 0, whiteSpace: 'pre-wrap' }}
               dangerouslySetInnerHTML={{ __html: video.editorsTake }}
             />
           </div>
