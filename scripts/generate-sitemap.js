@@ -101,7 +101,7 @@ const generateSitemap = async () => {
   const staticSitemapPath = path.join(DIST_DIR, 'sitemap-main.xml');
   let staticSitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>${SITE_URL}/</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>${SITE_URL}</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
   <url><loc>${SITE_URL}/about</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>${SITE_URL}/contact</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>${SITE_URL}/privacy</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -157,7 +157,7 @@ const generateSitemap = async () => {
         ];
         staticRoutes.forEach(route => {
           try {
-            const canonicalUrl = `${SITE_URL}${route}`;
+            const canonicalUrl = `${SITE_URL}${route === '/' ? '' : route.replace(/\/$/, '')}`;
             const modifiedHtml = baseHtml.replace('</head>', `  <link rel="canonical" href="${canonicalUrl}" />\n</head>`);
             let destPath;
             if (route === '/') {
@@ -210,15 +210,49 @@ const generateSitemap = async () => {
         // PRERENDER EACH VIDEO URL
         if (baseHtml) {
           try {
+            // 1. IMPROVED SEO INJECTION (Robust Regex)
             const videoCanonicalUrl = `${SITE_URL}/video/${video.id}`;
             let videoHtml = baseHtml;
-            // Inject SEO meta dynamically for the video
-            videoHtml = videoHtml.replace(/<title>.*?<\/title>/g, `<title>${title} | TubeHeadlines</title>`);
-            videoHtml = videoHtml.replace(/content="TubeHeadlines \| Discover Trending YouTube Videos & News"/g, `content="${title.replace(/"/g, '&quot;')} | TubeHeadlines"`);
-            videoHtml = videoHtml.replace(/content="TubeHeadlines delivers trending YouTube video headlines in real-time. Discover breaking news, politics, entertainment and more."/g, `content="${description.replace(/"/g, '&quot;')}"`);
-            // replace og:image and twitter:image
-            videoHtml = videoHtml.replace(/content="https:\/\/www\.tubeheadlines\.com\/th-social-share\.jpg"/g, `content="${thumbnailUrl}"`);
+            
+            // Replace Title
+            videoHtml = videoHtml.replace(/<title>.*?<\/title>/i, `<title>${title} | TubeHeadlines</title>`);
+            
+            // Replace Meta Description (Handles multiple meta tags like description, og:description, etc.)
+            const robotsDescription = description.length > 155 ? description.substring(0, 155) + '...' : description;
+            
+            // Primary Meta tags
+            videoHtml = videoHtml.replace(/<meta name="title" content=".*?"/i, `<meta name="title" content="${title} | TubeHeadlines"`);
+            videoHtml = videoHtml.replace(/<meta name="description" content=".*?"/i, `<meta name="description" content="${escapeXml(robotsDescription)}"`);
+            
+            // Open Graph tags
+            videoHtml = videoHtml.replace(/<meta property="og:title" content=".*?"/i, `<meta property="og:title" content="${title} | TubeHeadlines"`);
+            videoHtml = videoHtml.replace(/<meta property="og:description" content=".*?"/i, `<meta property="og:description" content="${escapeXml(description)}"`);
+            videoHtml = videoHtml.replace(/<meta property="og:url" content=".*?"/i, `<meta property="og:url" content="${videoCanonicalUrl}"`);
+            
+            // Twitter tags
+            videoHtml = videoHtml.replace(/<meta property="twitter:title" content=".*?"/i, `<meta property="twitter:title" content="${title} | TubeHeadlines"`);
+            videoHtml = videoHtml.replace(/<meta property="twitter:description" content=".*?"/i, `<meta property="twitter:description" content="${escapeXml(description)}"`);
+            videoHtml = videoHtml.replace(/<meta property="twitter:url" content=".*?"/i, `<meta property="twitter:url" content="${videoCanonicalUrl}"`);
+
+            // Social Images
+            videoHtml = videoHtml.replace(/content="https:\/\/www\.tubeheadlines\.com\/th-social-share\.jpg"/gi, `content="${thumbnailUrl}"`);
+            
+            // 2. CANONICAL INJECTION
             videoHtml = videoHtml.replace('</head>', `  <link rel="canonical" href="${videoCanonicalUrl}" />\n</head>`);
+
+            // 3. CONTENT INJECTION (Critical for Thin Content fixes)
+            // Replace the generic homepage content in #root with video-specific text
+            const staticContent = `
+    <main style="text-align: center; padding: 2rem; font-family: sans-serif; color: #333; max-width: 800px; margin: 0 auto;">
+      <h1>${title}</h1>
+      <p style="font-size: 1.2rem; line-height: 1.6;">${description}</p>
+      <div style="margin: 2rem 0; background: #000; padding-bottom: 56.25%; position: relative; height: 0;">
+        <iframe src="https://www.youtube.com/embed/${videoId}" style="position: absolute; top:0; left:0; width:100%; height:100%;" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p><a href="/">← Back to TubeHeadlines</a></p>
+    </main>`;
+            
+            videoHtml = videoHtml.replace(/<div id="root">[\s\S]*?<\/div>/i, `<div id="root">${staticContent}\n  </div>`);
 
             const videoDir = path.join(DIST_DIR, 'video', video.id);
             mkdirSync(videoDir, { recursive: true });

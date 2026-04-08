@@ -25,6 +25,7 @@ const VideoPage = () => {
   const [error, setError] = useState(null);
   const [recommendedVideos, setRecommendedVideos] = useState([]);
   const [loadingRecommendations, setLoadingRecommendations] = useState(true);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
     const fetchVideo = async () => {
@@ -118,20 +119,15 @@ const VideoPage = () => {
     fetchRecommendations();
   }, [video, id]);
 
-  // Task 4: Fix Hydration - Signal 'Ready' only when specific content is rendered
+  // Task 4: Fix Hydration - Signal 'Ready' as soon as data is available
   useEffect(() => {
     if (!loading && (video || error)) {
-      // If we have video data, wait for the Editor's Take or Description to be in the DOM
-      // This ensures Googlebot sees the unique content
-      const contentLoaded = video?.editorsTake || video?.description || error;
-      if (contentLoaded) {
-        console.log('SEO Content detected in DOM. Signaling Prerender Ready.');
-        // Small delay to ensure React finishes painting the DOM
-        const timer = setTimeout(() => {
-          window.prerenderReady = true;
-        }, 100);
-        return () => clearTimeout(timer);
-      }
+      console.log('Video data or error detected. Signaling Prerender Ready.');
+      // Small delay to ensure React finishes painting the DOM
+      const timer = setTimeout(() => {
+        window.prerenderReady = true;
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [loading, video, error]);
 
@@ -264,14 +260,39 @@ const VideoPage = () => {
             borderRadius: '8px',
             marginBottom: '2rem'
           }}>
-            <h3 style={{ marginTop: 0, color: '#555' }}>Description</h3>
-            <p style={{
-              lineHeight: '1.6',
-              color: '#666',
-              whiteSpace: 'pre-wrap'
-            }}>
-              {video.description}
-            </p>
+            <button 
+              onClick={() => setShowFullDescription(!showFullDescription)}
+              style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                color: '#0066cc',
+                fontSize: '1.05rem',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '0 0 5px 0',
+                width: '100%',
+                textAlign: 'left'
+              }}
+            >
+              {showFullDescription ? '▼ Hide Original YouTube Description' : '▶ View Original YouTube Description'}
+            </button>
+            
+            {showFullDescription && (
+              <p style={{
+                lineHeight: '1.6',
+                color: '#666',
+                whiteSpace: 'pre-wrap',
+                margin: 0,
+                marginTop: '1rem',
+                paddingTop: '1rem',
+                borderTop: '1px solid #ddd'
+              }}>
+                {video.description}
+              </p>
+            )}
           </div>
         )}
 

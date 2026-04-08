@@ -35,6 +35,7 @@ function App() {
   const [successMessage, setSuccessMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isGeneratingDeep, setIsGeneratingDeep] = useState(false);
   const [aiMessage, setAiMessage] = useState('');
 
   const POSITION_TYPES = {
@@ -90,6 +91,113 @@ function App() {
       setVideos(loadedVideos);
     } catch (error) {
       console.error('Error loading videos:', error);
+    }
+  };
+
+  const handleGenerateDeepAI = async () => {
+    if (!formData.youtubeURL || !formData.title) {
+      setAiMessage('Error: Enter a YouTube URL and Custom Headline first.');
+      return;
+    }
+
+    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+    const ytApiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
+
+    if (!apiKey) {
+      setAiMessage('Error: OpenAI API key is missing.');
+      return;
+    }
+
+    setIsGeneratingDeep(true);
+    setAiMessage('Crafting a Deep SEO Article (this may take ~20s)...');
+
+    try {
+      let currentDescription = formData.videoDescription;
+
+      // 1. Fetch description if missing
+      if (!currentDescription) {
+        const videoIdMatch = formData.youtubeURL.match(/^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/|watch\?v=|&v=)|(?:\?v=))([^#&?]*).*/);
+        const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+        if (videoId && ytApiKey) {
+          const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${ytApiKey}`);
+          const youtubeData = await response.json();
+          if (youtubeData.items?.[0]) {
+            currentDescription = youtubeData.items[0].snippet.description;
+            setFormData(prev => ({ ...prev, videoDescription: currentDescription }));
+          }
+        }
+      }
+
+      // 2. Call OpenAI with the Deep SEO Prompt
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o', // Use high-powered model for long generation
+          messages: [
+            {
+              role: 'system',
+              content: `You are a professional British journalist writing clear, straightforward Editor’s Take articles for TubeHeadlines.com. Write in plain, everyday British English — like a friendly article in a popular news blog. Use simple words and short sentences where possible. Mix in some longer ones for flow. Sound like a real person, not a robot.`
+            },
+            {
+              role: 'user',
+              content: `YouTube URL:
+${formData.youtubeURL}
+
+Custom headline:
+${formData.title}
+Context/Description: ${currentDescription || 'No description available.'}
+
+Write a complete "Editor’s Take" for the video page.
+
+Rules (follow exactly):
+- Total length: 550–750 words
+- Plain paragraphs only. No headings, no bold, no asterisks, no lists, no formatting.
+- Always look at the Channel Name and Description to correctly identify if the creator is a man or a woman. If it is a name like "Dina Lu", use she/her. IF YOU ARE NOT 100% CERTAIN, ALWAYS USE GENDER-NEUTRAL LANGUAGE (they/them or "the creator") INSTEAD OF GUESSING. Once identified, use the correct pronouns throughout the whole article.
+- Use very simple, everyday language. No fancy or complicated words.
+- Never use these AI-sounding words or phrases at all: shed light, meticulously, narrative unfolds, revealing journey, compelling, delves, underscores, wake-up call, pivotal, intricate, tapestry, complex web, deep dive, nuances, amidst, etc.
+- Start with a strong, simple hook of 3–4 sentences.
+- Naturally include these points in smooth flowing paragraphs (do not list them):
+  • Background on the main person or topic
+  • What happened in the video (timeline and main points)
+  • How it affects people or the bigger picture
+  • Why this video matters right now
+  • The most interesting moments from the video
+- End with 1–2 simple sentences suggesting one or two related videos on TubeHeadlines.com
+- Write 100% original content in your own words — never copy the YouTube description or use robotic language
+
+Output ONLY the full text ready to paste into the Editor’s Take field. Nothing else.`
+            }
+          ],
+          temperature: 0.7,
+          max_tokens: 2000 // Ensure enough space for 750 words
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || 'AI generation failed');
+      }
+
+      const data = await response.json();
+      if (data.choices?.[0]) {
+        const generatedText = data.choices[0].message.content.trim();
+        const wordCount = generatedText.split(/\s+/).length;
+        setFormData(prev => ({
+          ...prev,
+          editorsTake: generatedText
+        }));
+        setAiMessage(`Deep SEO Article generated! (${wordCount} words)`);
+      }
+    } catch (error) {
+      console.error('AI Generation Error:', error);
+      setAiMessage(`Error: ${error.message}`);
+    } finally {
+      setIsGeneratingDeep(false);
     }
   };
 
@@ -682,14 +790,24 @@ function App() {
             <div className="form-group" style={{ position: 'relative' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                 <label htmlFor="editorsTake" style={{ margin: 0 }}>Editor's Take (SEO Paragraph):</label>
-                <button
-                  type="button"
-                  onClick={handleGenerateAI}
-                  disabled={isGenerating || !formData.title}
-                  style={{ backgroundColor: '#0066cc', color: 'white', border: 'none', padding: '5px 15px', borderRadius: '4px', cursor: isGenerating ? 'not-allowed' : 'pointer', fontSize: '0.9rem' }}
-                >
-                  ✨ {isGenerating ? 'Generating...' : 'Auto-Generate SEO Hook'}
-                </button>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button
+                    type="button"
+                    onClick={handleGenerateAI}
+                    disabled={isGenerating || isGeneratingDeep || !formData.title}
+                    style={{ backgroundColor: '#6c757d', color: 'white', border: 'none', padding: '5px 12px', borderRadius: '4px', cursor: isGenerating ? 'not-allowed' : 'pointer', fontSize: '0.85rem' }}
+                  >
+                    ⚡ {isGenerating ? 'Wait...' : 'Quick Hook'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleGenerateDeepAI}
+                    disabled={isGenerating || isGeneratingDeep || !formData.title}
+                    style={{ backgroundColor: '#0066cc', color: 'white', border: 'none', padding: '5px 15px', borderRadius: '4px', cursor: isGeneratingDeep ? 'not-allowed' : 'pointer', fontSize: '0.9rem', fontWeight: 'bold' }}
+                  >
+                    ✨ {isGeneratingDeep ? 'Writing Deep Article...' : 'Write Full SEO Article'}
+                  </button>
+                </div>
               </div>
               {aiMessage && <p style={{ color: aiMessage.startsWith('Error') ? 'red' : 'green', margin: '5px 0', fontSize: '0.85rem' }}>{aiMessage}</p>}
               <textarea

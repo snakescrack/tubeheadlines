@@ -37,8 +37,8 @@ const SEO = ({
   const cleanPath = effectivePath.startsWith('/') ? effectivePath : `/${effectivePath}`;
 
   // Remove trailing slash unless it is the root path '/'
-  const canonicalPath = cleanPath === '/' ? '/' : cleanPath.replace(/\/$/, '');
-  const fullUrl = `${siteUrl}${canonicalPath === '/' ? '' : canonicalPath}`;
+  const canonicalPath = cleanPath === '/' ? '' : cleanPath.replace(/\/$/, '');
+  const fullUrl = `${siteUrl}${canonicalPath}`;
 
   // Use the existing logo image for social sharing
   // For the homepage, always use the default social share image.
