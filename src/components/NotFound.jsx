@@ -12,6 +12,7 @@ export default function NotFound() {
       <SEO
         title="Page Not Found - TubeHeadlines"
         description="The page you're looking for cannot be found. Return to TubeHeadlines for the latest videos and news."
+        noindex={true}
       />
       <div className="not-found-container">
         <h1>404 - Page Not Found</h1>

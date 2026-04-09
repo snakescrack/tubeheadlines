@@ -36,6 +36,9 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingDeep, setIsGeneratingDeep] = useState(false);
+  const [isGeneratingShorts, setIsGeneratingShorts] = useState(false);
+  const [shortsTranscript, setShortsTranscript] = useState('');
+  const [shortsResults, setShortsResults] = useState('');
   const [aiMessage, setAiMessage] = useState('');
 
   const POSITION_TYPES = {
@@ -66,6 +69,82 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('isAdminLoggedIn');
     setIsLoggedIn(false);
+  };
+
+  const handleGenerateShorts = async () => {
+    if (!shortsTranscript) {
+      setAiMessage('Error: Please paste a transcript first.');
+      return;
+    }
+
+    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+    if (!apiKey) {
+      setAiMessage('Error: OpenAI API key is missing.');
+      return;
+    }
+
+    setIsGeneratingShorts(true);
+    setAiMessage('Repurposing transcript into 7 viral shorts...');
+
+    try {
+      const truncatedTranscript = shortsTranscript.substring(0, 16000);
+
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            {
+              role: 'system',
+              content: `You are a robotic YouTube Shorts repurposer. You have one MISSION: All clips must be 30-50 seconds long. NEVER output a clip shorter than 15 seconds.`
+            },
+            {
+              role: 'user',
+              content: `The user has pasted this transcript. 
+Transcript: ${truncatedTranscript}
+
+MISSION: Generate exactly 7 viral-ready Shorts blueprints.
+
+STRICT LENGTH RULES:
+- TARGET LENGTH: 30 to 50 seconds per clip.
+- ABSOLUTE MINIMUM: 15 seconds. If a selection is less than 15 seconds, you MUST add more lines of text until it reaches the 30-second target.
+- VERIFICATION: You must check the timestamps. If [Start] is 01:00, [End] must be at least 01:30.
+
+Format for each of the 7 Shorts:
+
+Short X
+Viral Title: [Punchy]
+SEO Title: [Search Optimized]
+Hook: [Exact first 2 sentences]
+Timestamp: [MM:SS – MM:SS]
+Length: [XX seconds (MUST BE 30-50 SECONDS)]
+Tags: #tag1, #tag2, #tag3, #tag4, #tag5
+Why it works: [Strategy]
+
+Total Shorts generated: 7`
+            }
+          ],
+          temperature: 0.2
+        })
+      });
+
+      if (!response.ok) throw new Error('AI generation failed');
+
+      const data = await response.json();
+      if (data.choices?.[0]) {
+        setShortsResults(data.choices[0].message.content.trim());
+        setAiMessage('7 Viral Shorts + SEO Data generated!');
+      }
+    } catch (error) {
+      console.error('Shorts AI Error:', error);
+      setAiMessage(`Error: ${error.message}`);
+    } finally {
+      setIsGeneratingShorts(false);
+    }
   };
 
   const loadVideos = async (forceRefresh = false) => {
@@ -161,7 +240,7 @@ Rules (follow exactly):
 - CRITICAL: Do NOT wrap the entire output in quotation marks or any other symbols.
 - Always look at the Channel Name and Description to correctly identify if the creator is a man or a woman. If it is a name like "Dina Lu", use she/her. IF YOU ARE NOT 100% CERTAIN, ALWAYS USE GENDER-NEUTRAL LANGUAGE (they/them or "the creator") INSTEAD OF GUESSING. Once identified, use the correct pronouns throughout the whole article.
 - Use very simple, everyday language. No fancy or complicated words.
-- Never use these AI-sounding words or phrases at all: shed light, meticulously, narrative unfolds, revealing journey, compelling, delves, underscores, wake-up call, pivotal, intricate, tapestry, complex web, deep dive, nuances, amidst, etc.
+- Never use these AI-sounding words or phrases at all: shed light, meticulously, narrative unfolds, revealing journey, compelling, delves, underscores, wake-up call, pivotal, intricate, tapestry, complex web, deep dive, dive, dive into, nuances, amidst, etc.
 - Start with a strong, simple hook of 3–4 sentences.
 - Naturally include these points in smooth flowing paragraphs (do not list them):
   • Background on the main person or topic
@@ -1042,6 +1121,114 @@ Output ONLY the full text ready to paste into the Editor’s Take field. Nothing
               ))}
           </div>
         </div>
+      </div>
+      {/* YouTube Shorts Creator Section */}
+      <div className="shorts-repurposer-section" style={{ 
+        marginTop: '3rem', 
+        padding: '2rem', 
+        backgroundColor: '#fdfdfd', 
+        border: '3px solid #ff0000', 
+        borderRadius: '12px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+      }}>
+        <h2 style={{ color: '#ff0000', display: 'flex', alignItems: 'center', gap: '10px', marginTop: 0 }}>
+          <span style={{ fontSize: '1.5rem' }}>🎬</span> YouTube Shorts Creator (7 Viral Clips)
+        </h2>
+        
+        <p style={{ color: '#666', fontSize: '1rem', marginBottom: '1.5rem' }}>
+          Paste a YouTube transcript below to automatically find the 7 most viral-worthy moments. 
+          Uses <strong>GPT-4o-mini</strong> for maximum cost savings.
+        </p>
+
+        <textarea
+          placeholder="Paste your YouTube transcript here..."
+          value={shortsTranscript}
+          onChange={(e) => setShortsTranscript(e.target.value)}
+          style={{
+            width: '100%',
+            height: '180px',
+            padding: '1rem',
+            borderRadius: '8px',
+            border: '1px solid #ddd',
+            fontFamily: 'inherit',
+            fontSize: '1rem',
+            marginBottom: '1.5rem',
+            resize: 'vertical'
+          }}
+        />
+
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '1rem' }}>
+          <button
+            onClick={handleGenerateShorts}
+            disabled={isGeneratingShorts || !shortsTranscript}
+            className="shorts-btn"
+            style={{
+              flex: 1,
+              backgroundColor: '#ff0000',
+              color: 'white',
+              border: 'none',
+              padding: '16px 24px',
+              borderRadius: '8px',
+              fontSize: '1.1rem',
+              fontWeight: 'bold',
+              cursor: (isGeneratingShorts || !shortsTranscript) ? 'not-allowed' : 'pointer',
+              opacity: (isGeneratingShorts || !shortsTranscript) ? 0.7 : 1,
+              transition: 'all 0.2s',
+              boxShadow: '0 4px 6px rgba(255,0,0,0.2)'
+            }}
+          >
+            {isGeneratingShorts ? '✨ Hunting for Viral Clips...' : '🚀 Generate 7 Viral Shorts'}
+          </button>
+        </div>
+
+        {shortsResults && (
+          <div className="shorts-results" style={{ marginTop: '2rem' }}>
+            <h3 style={{ color: '#333', borderBottom: '2px solid #eee', paddingBottom: '0.5rem' }}>Your Viral Blueprint (Editable):</h3>
+            <textarea
+              value={shortsResults}
+              onChange={(e) => setShortsResults(e.target.value)}
+              style={{
+                width: '100%',
+                height: '450px',
+                padding: '1.5rem',
+                backgroundColor: '#fff',
+                border: '1px solid #ddd',
+                borderRadius: '8px',
+                fontFamily: 'monospace',
+                fontSize: '0.95rem',
+                lineHeight: '1.6',
+                color: '#333',
+                marginBottom: '1rem',
+                resize: 'vertical',
+                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.05)'
+              }}
+              placeholder="Your generated shorts and SEO data will appear here..."
+            />
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(shortsResults);
+                  setAiMessage('🎉 Copied all 7 Blueprints to Clipboard!');
+                  setTimeout(() => setAiMessage(''), 3000);
+                }}
+                style={{
+                  backgroundColor: '#0066cc',
+                  color: 'white',
+                  border: 'none',
+                  padding: '12px 24px',
+                  borderRadius: '6px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+              >
+                📋 Copy All SEO Blueprints
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -53,7 +53,26 @@ const VideoPage = () => {
             window.location.pathname
           );
         } else {
-          setError('Video not found');
+          // CASE-INSENSITIVE FALLBACK: 
+          // If direct fetch fails, try to find a case-insensitive match in the collection
+          console.log(`Direct fetch failed for ID: ${id}. Attempting case-insensitive fallback...`);
+          const { getAllVideos } = await import('../utils/dbOperations');
+          const allVideos = await getAllVideos();
+          
+          const matchingVideo = allVideos.find(v => v.id.toLowerCase() === id.toLowerCase());
+          
+          if (matchingVideo) {
+            console.log(`Found case-insensitive match: ${matchingVideo.id}`);
+            // Ensure dates are parsed correctly
+            matchingVideo.publishedAt = parseDate(matchingVideo.publishedAt);
+            matchingVideo.createdAt = parseDate(matchingVideo.createdAt);
+            setVideo(matchingVideo);
+            
+            // Optionally, we could trigger a navigate to the correct URL here, 
+            // but for indexing, it's safer to just serve the content and use the Canonical tag to fix the crawler's index.
+          } else {
+            setError('Video not found');
+          }
         }
       } catch (err) {
         console.error('Error fetching video:', err);

@@ -122,6 +122,15 @@ const generateSitemap = async () => {
   <url><loc>${SITE_URL}/youtube-income-calculator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>${SITE_URL}/script-timer</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>${SITE_URL}/description-generator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/youtube-chapter-formatter</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/youtube-thumbnail-visualizer</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/youtube-shorts-revenue-estimator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/youtube-sponsorship-calculator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/youtube-seo-scorecard</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/advertiser-friendly-title-checker</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/youtube-fair-use-disclaimer-generator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/youtube-teleprompter</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/youtube-thumbnail-downloader</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 </urlset>`;
   writeFileSync(staticSitemapPath, staticSitemapContent.trim());
   console.log(`Generated: sitemap-main.xml`);
