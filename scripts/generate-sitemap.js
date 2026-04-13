@@ -227,20 +227,24 @@ const generateSitemap = async () => {
             videoHtml = videoHtml.replace(/<title>.*?<\/title>/i, `<title>${title} | TubeHeadlines</title>`);
             
             // Replace Meta Description (Handles multiple meta tags like description, og:description, etc.)
-            const robotsDescription = description.length > 155 ? description.substring(0, 155) + '...' : description;
+            // Use Editor's Take (unique content) instead of YouTube description (duplicate content)
+            const editorsTake = video.editorsTake ? escapeXml(video.editorsTake) : '';
+            const metaDescription = editorsTake 
+              ? (editorsTake.length > 155 ? editorsTake.substring(0, 155) + '...' : editorsTake)
+              : (description.length > 155 ? description.substring(0, 155) + '...' : description);
             
             // Primary Meta tags
             videoHtml = videoHtml.replace(/<meta name="title" content=".*?"/i, `<meta name="title" content="${title} | TubeHeadlines"`);
-            videoHtml = videoHtml.replace(/<meta name="description" content=".*?"/i, `<meta name="description" content="${escapeXml(robotsDescription)}"`);
+            videoHtml = videoHtml.replace(/<meta name="description" content=".*?"/i, `<meta name="description" content="${escapeXml(metaDescription)}"`);
             
             // Open Graph tags
             videoHtml = videoHtml.replace(/<meta property="og:title" content=".*?"/i, `<meta property="og:title" content="${title} | TubeHeadlines"`);
-            videoHtml = videoHtml.replace(/<meta property="og:description" content=".*?"/i, `<meta property="og:description" content="${escapeXml(description)}"`);
+            videoHtml = videoHtml.replace(/<meta property="og:description" content=".*?"/i, `<meta property="og:description" content="${escapeXml(metaDescription)}"`);
             videoHtml = videoHtml.replace(/<meta property="og:url" content=".*?"/i, `<meta property="og:url" content="${videoCanonicalUrl}"`);
             
             // Twitter tags
             videoHtml = videoHtml.replace(/<meta property="twitter:title" content=".*?"/i, `<meta property="twitter:title" content="${title} | TubeHeadlines"`);
-            videoHtml = videoHtml.replace(/<meta property="twitter:description" content=".*?"/i, `<meta property="twitter:description" content="${escapeXml(description)}"`);
+            videoHtml = videoHtml.replace(/<meta property="twitter:description" content=".*?"/i, `<meta property="twitter:description" content="${escapeXml(metaDescription)}"`);
             videoHtml = videoHtml.replace(/<meta property="twitter:url" content=".*?"/i, `<meta property="twitter:url" content="${videoCanonicalUrl}"`);
 
             // Social Images
@@ -249,23 +253,45 @@ const generateSitemap = async () => {
             // 2. CANONICAL INJECTION
             videoHtml = videoHtml.replace('</head>', `  <link rel="canonical" href="${videoCanonicalUrl}" />\n</head>`);
 
-            // 3. CONTENT INJECTION (Critical for Thin Content fixes)
-            // Replace the generic homepage content in #root with video-specific text
+            // 3. CONTENT INJECTION — Only show Editor's Take (unique content)
+            // Old videos without Editor's Take get just title + video embed — thin but NOT duplicate
+            const contentSection = editorsTake
+              ? `<div style="background: #e8f4fd; border-left: 4px solid #0066cc; padding: 1.5rem; border-radius: 4px 8px 8px 4px; margin: 1.5rem 0; text-align: left;">
+        <h2 style="margin-top: 0; color: #0066cc;">📝 Editor's Take</h2>
+        <p style="line-height: 1.6; color: #333; font-size: 1.05rem; margin: 0;">${editorsTake}</p>
+      </div>`
+              : '';
+            
             const staticContent = `
     <main style="text-align: center; padding: 2rem; font-family: sans-serif; color: #333; max-width: 800px; margin: 0 auto;">
       <h1>${title}</h1>
-      <p style="font-size: 1.2rem; line-height: 1.6;">${description}</p>
       <div style="margin: 2rem 0; background: #000; padding-bottom: 56.25%; position: relative; height: 0;">
         <iframe src="https://www.youtube.com/embed/${videoId}" style="position: absolute; top:0; left:0; width:100%; height:100%;" frameborder="0" allowfullscreen></iframe>
       </div>
+      ${contentSection}
       <p><a href="/">← Back to TubeHeadlines</a></p>
     </main>`;
             
             videoHtml = videoHtml.replace(/<div id="root">[\s\S]*?<\/div>/i, `<div id="root">${staticContent}\n  </div>`);
 
+            // 4. CRITICAL SEO FIX: Strip all JavaScript from prerendered pages
+            // React hydration was destroying the static content above by overwriting #root with a 404.
+            // By removing the script tags, the prerendered HTML is served as-is to Google's crawler.
+            // Real users navigating within the SPA still get the full React experience.
+            videoHtml = videoHtml.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+
             const videoDir = path.join(DIST_DIR, 'video', video.id);
             mkdirSync(videoDir, { recursive: true });
             writeFileSync(path.join(videoDir, 'index.html'), videoHtml);
+
+            // CASE-INSENSITIVE FIX: Create a lowercase duplicate if the ID has uppercase chars
+            const lowerId = video.id.toLowerCase();
+            if (lowerId !== video.id) {
+              const lowerDir = path.join(DIST_DIR, 'video', lowerId);
+              mkdirSync(lowerDir, { recursive: true });
+              writeFileSync(path.join(lowerDir, 'index.html'), videoHtml);
+              console.log(`  -> Created lowercase alias: /video/${lowerId}`);
+            }
           } catch(e) {
             console.error(`Failed to prerender video ${video.id}:`, e);
           }
@@ -302,6 +328,18 @@ const generateSitemap = async () => {
 
   writeFileSync(sitemapIndexPath, indexContent.trim());
   console.log(`Generated: sitemap.xml (Index) -> Points to main + ${generatedVideoSitemaps.length} video sitemaps`);
+
+  // 4. Generate Video ID Map (for case-insensitive SPA lookups)
+  const idMap = {};
+  videos.forEach(v => {
+    const lowerId = v.id.toLowerCase();
+    if (lowerId !== v.id) {
+      idMap[lowerId] = v.id;
+    }
+  });
+  const idMapPath = path.join(DIST_DIR, 'video-id-map.json');
+  writeFileSync(idMapPath, JSON.stringify(idMap));
+  console.log(`Generated: video-id-map.json (${Object.keys(idMap).length} case mappings)`);
 };
 
 generateSitemap().catch(error => {

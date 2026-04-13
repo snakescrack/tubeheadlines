@@ -54,23 +54,35 @@ const VideoPage = () => {
           );
         } else {
           // CASE-INSENSITIVE FALLBACK: 
-          // If direct fetch fails, try to find a case-insensitive match in the collection
-          console.log(`Direct fetch failed for ID: ${id}. Attempting case-insensitive fallback...`);
-          const { getAllVideos } = await import('../utils/dbOperations');
-          const allVideos = await getAllVideos();
-          
-          const matchingVideo = allVideos.find(v => v.id.toLowerCase() === id.toLowerCase());
-          
-          if (matchingVideo) {
-            console.log(`Found case-insensitive match: ${matchingVideo.id}`);
-            // Ensure dates are parsed correctly
-            matchingVideo.publishedAt = parseDate(matchingVideo.publishedAt);
-            matchingVideo.createdAt = parseDate(matchingVideo.createdAt);
-            setVideo(matchingVideo);
-            
-            // Optionally, we could trigger a navigate to the correct URL here, 
-            // but for indexing, it's safer to just serve the content and use the Canonical tag to fix the crawler's index.
-          } else {
+          // Use the build-time ID map to resolve lowercase IDs to their real Firestore IDs
+          console.log(`Direct fetch failed for ID: ${id}. Checking video-id-map...`);
+          try {
+            const mapRes = await fetch('/video-id-map.json');
+            if (mapRes.ok) {
+              const idMap = await mapRes.json();
+              const realId = idMap[id.toLowerCase()];
+              
+              if (realId) {
+                console.log(`Found case mapping: ${id} -> ${realId}`);
+                const correctDocRef = doc(db, 'videos', realId);
+                const correctDoc = await getDoc(correctDocRef);
+                
+                if (correctDoc.exists()) {
+                  const videoData = { id: correctDoc.id, ...correctDoc.data() };
+                  videoData.publishedAt = parseDate(videoData.publishedAt);
+                  videoData.createdAt = parseDate(videoData.createdAt);
+                  setVideo(videoData);
+                } else {
+                  setError('Video not found');
+                }
+              } else {
+                setError('Video not found');
+              }
+            } else {
+              setError('Video not found');
+            }
+          } catch (mapErr) {
+            console.error('Error loading video-id-map:', mapErr);
             setError('Video not found');
           }
         }
