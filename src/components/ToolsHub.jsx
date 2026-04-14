@@ -5,6 +5,16 @@ import { Link } from 'react-router-dom';
 
 const toolsList = [
     {
+        name: "Thumbnail A/B Test Simulator",
+        description: "Don't wait 14 days for a test. Upload two thumbnails to instantly calculate color contrast and predict the higher CTR winner.",
+        path: "/youtube-thumbnail-ab-simulator"
+    },
+    {
+        name: "Retention Hook Analyzer",
+        description: "Stop losing viewers in the first 30 seconds. Grade your script hook for pacing, curiosity gaps, and retention drops.",
+        path: "/youtube-retention-hook-analyzer"
+    },
+    {
         name: "YouTube Script Pacing & Retention Analyzer",
         description: "Analyze your script run time, detect 20-word retention blockers, and grade your hook instantly.",
         path: "/youtube-script-pacing-analyzer"

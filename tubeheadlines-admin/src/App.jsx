@@ -100,35 +100,38 @@ function App() {
           messages: [
             {
               role: 'system',
-              content: `You are a robotic YouTube Shorts repurposer. You have one MISSION: All clips must be 30-50 seconds long. NEVER output a clip shorter than 15 seconds.`
+              content: `You are a World-Class YouTube Shorts Strategist. Your mission is to extract the 7 most viral segments from a transcript.
+
+              CRITICAL LENGTH ENFORCEMENT:
+              - ABSOLUTE MINIMUM: 20 seconds per clip.
+              - TARGET RANGE: 20s to 60s.
+              - THE MATH: You MUST calculate the difference between [End] and [Start]. If (End - Start) < 20, you have FAILED your mission.
+              - HOW TO FIX: If a viral moment stops after 10 seconds, you MUST look at the next lines in the transcript and keep adding them verbatim until your [End] timestamp is at least 20 seconds away from your [Start] timestamp.
+              
+              CRITICAL RULE: VERBATIM ONLY.
+              You must NEVER summarize or paraphrase. Pull the exact words from the transcript.`
             },
             {
               role: 'user',
-              content: `The user has pasted this transcript. 
-Transcript: ${truncatedTranscript}
+              content: `Transcript: ${truncatedTranscript}
 
-MISSION: Generate exactly 7 viral-ready Shorts blueprints.
+MISSION: Generate 7 viral-ready Shorts blueprints. Every single clip MUST be between 20 and 60 seconds.
 
-STRICT LENGTH RULES:
-- TARGET LENGTH: 30 to 50 seconds per clip.
-- ABSOLUTE MINIMUM: 15 seconds. If a selection is less than 15 seconds, you MUST add more lines of text until it reaches the 30-second target.
-- VERIFICATION: You must check the timestamps. If [Start] is 01:00, [End] must be at least 01:30.
-
-Format for each of the 7 Shorts:
+STRICT FORMAT FOR EACH SHORT:
 
 Short X
-Viral Title: [Punchy]
-SEO Title: [Search Optimized]
-Hook: [Exact first 2 sentences]
+Viral Title: [BOLD & PUNCHY]
+SEO Title: [Keyword Optimized]
+Viral Hook (VERBATIM): [Exact first 2-3 sentences. NO REWRITING.]
 Timestamp: [MM:SS – MM:SS]
-Length: [XX seconds (MUST BE 30-50 SECONDS)]
-Tags: #tag1, #tag2, #tag3, #tag4, #tag5
-Why it works: [Strategy]
+Length Verification: [XX seconds (CALCULATED: End minus Start. MUST BE 20+ SECONDS)]
+Tags: #YouTubeShorts, #Viral, [3 more tags]
+Strategist's Note: [Why this exact 20s+ verbatim moment works]
 
-Total Shorts generated: 7`
+Total Shorts: 7`
             }
           ],
-          temperature: 0.2
+          temperature: 0.1
         })
       });
 
@@ -137,7 +140,7 @@ Total Shorts generated: 7`
       const data = await response.json();
       if (data.choices?.[0]) {
         setShortsResults(data.choices[0].message.content.trim());
-        setAiMessage('7 Viral Shorts + SEO Data generated!');
+        setAiMessage('🎯 Verified 20s+ Verbatim Blueprints generated!');
       }
     } catch (error) {
       console.error('Shorts AI Error:', error);

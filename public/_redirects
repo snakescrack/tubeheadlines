@@ -23,6 +23,8 @@
 /youtube-title-ctr-grader               /youtube-title-ctr-grader.html          200
 /viral-outlier-concept-calculator       /viral-outlier-concept-calculator.html  200
 /youtube-script-pacing-analyzer         /youtube-script-pacing-analyzer.html    200
+/youtube-retention-hook-analyzer        /youtube-retention-hook-analyzer.html   200
+/youtube-thumbnail-ab-simulator         /youtube-thumbnail-ab-simulator.html    200
 
 # [CORE] Dynamic Video Routing Fallback
 # This ensures that even if a physical file isn't found (due to casing), the SPA loads to handle the video.
