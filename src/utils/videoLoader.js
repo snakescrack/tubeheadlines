@@ -108,30 +108,28 @@ export const isVideoVisible = (video) => {
  * Get videos for a specific position
  */
 export const getVideosForPosition = async (positionType, page = 1, pageSize = 10) => {
-  const allVideos = await loadAllVideos();
-  
-  // Filter by position and visibility
-  const filteredVideos = allVideos
-    .filter(video => video.position_type === positionType)
-    .filter(video => video.id) // Ensure video has a valid ID
-    .filter(isVideoVisible)
-    .sort((a, b) => b.createdAt - a.createdAt); // Sort by date descending
-  
-  // Calculate pagination
-  const totalVideos = filteredVideos.length;
-  const totalPages = Math.ceil(totalVideos / pageSize);
-  const startIndex = (page - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  
-  // Get the videos for the current page
-  const paginatedVideos = filteredVideos.slice(startIndex, endIndex);
-  
-  return {
-    videos: paginatedVideos,
-    totalVideos,
-    totalPages,
-    currentPage: page
-  };
+  try {
+    const { getPositionVideos, getTotalVideos } = await import('./dbOperations');
+    
+    // Fetch the specific page for this position
+    const videos = await getPositionVideos(positionType, page, pageSize);
+    const totalVideos = await getTotalVideos(positionType);
+    
+    return {
+      videos: videos,
+      totalVideos,
+      totalPages: Math.ceil(totalVideos / pageSize),
+      currentPage: page
+    };
+  } catch (error) {
+    console.error('Error in getVideosForPosition:', error);
+    return {
+      videos: [],
+      totalVideos: 0,
+      totalPages: 1,
+      currentPage: 1
+    };
+  }
 };
 
 /**

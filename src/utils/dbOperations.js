@@ -158,10 +158,9 @@ export const getTotalVideos = async (position_type) => {
 }
 
 // Fetch videos for a specific position with pagination
-export const getPositionVideos = async (position_type, page = 1) => {
+export const getPositionVideos = async (position_type, page = 1, pageSize = VIDEOS_PER_PAGE) => {
   try {
-    const pageSize = VIDEOS_PER_PAGE;
-    console.log(`Fetching server-side page ${page} for ${position_type}`);
+    console.log(`Fetching server-side page ${page} for ${position_type} with pageSize ${pageSize}`);
     
     const videosRef = collection(db, 'videos');
     
