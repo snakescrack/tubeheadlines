@@ -12,16 +12,34 @@ export const CATEGORIES = {
 
 // Helper function to check if a video should be visible
 const isVideoVisible = (video) => {
-  // If there's no scheduledAt field, the video is immediately visible.
-  if (!video.scheduledAt) {
-    return true;
+  if (!video.scheduledAt) return true;
+  
+  try {
+    let scheduledAt;
+    const s = video.scheduledAt;
+    
+    // Handle Firestore Timestamp
+    if (s.toDate && typeof s.toDate === 'function') {
+      scheduledAt = s.toDate();
+    } 
+    // Handle object with seconds/nanoseconds
+    else if (s.seconds !== undefined) {
+      scheduledAt = new Date(s.seconds * 1000);
+    }
+    // Handle string or numeric timestamp
+    else {
+      scheduledAt = new Date(s);
+    }
+    
+    // Fallback if Date is invalid
+    if (isNaN(scheduledAt.getTime())) return true;
+    
+    const now = new Date();
+    return scheduledAt <= now;
+  } catch (error) {
+    console.error('Error in isVideoVisible date parsing:', error);
+    return true; // Default to visible on error to avoid crashing the whole grid
   }
-
-  const now = new Date();
-  // Firestore Timestamps must be converted to JS Dates with the .toDate() method.
-  const scheduledAt = video.scheduledAt.toDate();
-
-  return scheduledAt <= now;
 };
 
 // Extract video ID from YouTube URL
