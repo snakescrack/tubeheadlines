@@ -143,8 +143,28 @@ const generateSitemap = async () => {
   const baseHtml = readFileSync(indexHtmlPath, 'utf8');
 
   // 3. Prerender Static Routes (Homepage, About, Privacy, etc.)
+  const recentVideos = videos.slice(0, 20);
+  const homeVideoList = `
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; text-align: left;">
+      ${recentVideos.map(v => `
+        <div style="border: 1px solid #eee; border-radius: 8px; overflow: hidden; background: white;">
+          <img src="${v.thumbnailURL || getOptimizedThumbnailUrl(getYouTubeId(v.youtubeURL))}" style="width: 100%; aspect-ratio: 16/9; object-fit: cover;">
+          <div style="padding: 1rem;">
+            <h3 style="margin: 0 0 0.5rem; font-size: 1rem; line-height: 1.4;">
+              <a href="/video/${v.id}" style="color: #1a1a1a; text-decoration: none;">${escapeXml(v.customHeadline || v.title)}</a>
+            </h3>
+            <p style="margin: 0; font-size: 0.85rem; color: #666;">${v.category || 'Trending'}</p>
+          </div>
+        </div>`).join('')}
+    </div>`;
+
   const staticRoutes = [
-    { path: '/', title: 'TubeHeadlines | Discover Trending YouTube Videos & News', desc: 'TubeHeadlines delivers trending YouTube video headlines in real-time. Discover breaking news, politics, entertainment and more.' },
+    { 
+      path: '/', 
+      title: 'TubeHeadlines | Discover Trending YouTube Videos & News', 
+      desc: 'TubeHeadlines delivers trending YouTube video headlines in real-time. Discover breaking news, politics, entertainment and more.',
+      content: homeVideoList
+    },
     { path: '/about', title: 'About TubeHeadlines', desc: 'Discover how TubeHeadlines curates the best YouTube news and viral videos.' },
     { path: '/privacy', title: 'Privacy Policy', desc: 'Your privacy matters to us at TubeHeadlines.' },
     { path: '/terms', title: 'Terms of Service', desc: 'Rules and guidelines for using the TubeHeadlines platform.' },
@@ -168,6 +188,11 @@ const generateSitemap = async () => {
       // Fix canonical
       routeHtml = routeHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, `<link rel="canonical" href="${fullUrl}">`);
       
+      // Inject content if available
+      if (route.content) {
+        routeHtml = routeHtml.replace(/<div id="root">[\s\S]*?<\/div>/i, `<div id="root">${route.content}</div>`);
+      }
+
       // Strip scripts and standardize domain
       routeHtml = cleanupHtml(routeHtml, SITE_URL);
       
