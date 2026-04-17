@@ -8,7 +8,7 @@
     "dev:vite": "vite",
     "dev:functions": "netlify functions:serve",
     "dev:netlify": "netlify dev",
-    "build": "vite build && node scripts/generate-sitemap.js",
+    "build": "vite build && node scripts/generate-sitemap.js && node scripts/validate-seo.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "postinstall": "npm install rollup@latest --no-save",

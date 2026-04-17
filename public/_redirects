@@ -1,11 +1,14 @@
 # URL Alignment - Direct Signal Rewrites
 # These ensure Netlify serves the HTML files at the clean URL without a visible redirect (200)
 
-/about                                  /index.html                             200
+# Domain Alignment: Redirect www to naked domain
+https://www.tubeheadlines.com/*  https://tubeheadlines.com/:splat  301!
+
+/about                                  /about/index.html                       200
 /contact                                /index.html                             200
-/terms                                  /index.html                             200
-/privacy                                /index.html                             200
-/faq                                    /index.html                             200
+/terms                                  /terms/index.html                       200
+/privacy                                /privacy/index.html                     200
+/faq                                    /faq/index.html                         200
 
 /viral-idea-generator                   /viral-idea-generator.html              200
 /description-generator                 /description-generator.html            200
@@ -26,8 +29,9 @@
 /youtube-retention-hook-analyzer        /youtube-retention-hook-analyzer.html   200
 /youtube-thumbnail-ab-simulator         /youtube-thumbnail-ab-simulator.html    200
 
-# [CORE] Dynamic Video Routing Fallback
-# This ensures that even if a physical file isn't found (due to casing), the SPA loads to handle the video.
+# [CORE] Dynamic Video Routing
+# If a static file exists (prerendered), Netlify serves it first.
+# Otherwise, it falls back to the SPA index.html.
 /video/*                                /index.html                             200
 
 # Catch-all for React Router

@@ -9,8 +9,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Helper to extract YouTube ID (replicated from youtubeUtils.js to avoid ESM import issues)
-// Helper to extract YouTube ID (replicated from youtubeUtils.js to avoid ESM import issues)
+// Helper to extract YouTube ID
 function getYouTubeId(url) {
   if (!url) return '';
   const regExp = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)|(?:\?v=))([^#\&?]*).*/;
@@ -78,6 +77,32 @@ const loadAllVideos = async (db) => {
   }
 };
 
+/**
+ * Robustly replaces or injects meta tags in HTML
+ */
+function updateMetaTag(html, propertyName, propertyValue, isNameAttribute = false) {
+  const attr = isNameAttribute ? 'name' : 'property';
+  const regex = new RegExp(`<meta\\s+[^>]*?${attr}=["']${propertyName}["'][^>]*?>`, 'i');
+  const newTag = `<meta ${attr}="${propertyName}" content="${escapeXml(propertyValue)}">`;
+  
+  if (regex.test(html)) {
+    return html.replace(regex, newTag);
+  } else {
+    // Inject before </head> if not found
+    return html.replace('</head>', `  ${newTag}\n</head>`);
+  }
+}
+
+/**
+ * Robustly strips all script tags from HTML and standardizes domains
+ */
+function cleanupHtml(html, siteUrl) {
+  let cleaned = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+  // Final safety: Replace all www instances with the naked domain
+  const wwwUrl = siteUrl.replace('://', '://www.');
+  return cleaned.split(wwwUrl).join(siteUrl);
+}
+
 const generateSitemap = async () => {
   console.log('Initializing Firebase for sitemap generation...');
   if (!firebaseConfig.apiKey) {
@@ -87,17 +112,18 @@ const generateSitemap = async () => {
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  console.log('Generating sitemap...');
-
+  
   const videos = await loadAllVideos(db);
   const today = new Date().toISOString().split('T')[0];
   const SITE_URL = 'https://tubeheadlines.com';
   const DIST_DIR = path.resolve(__dirname, '..', 'dist');
 
-  // Limit per sitemap (Google allows 50,000, but we stay safe with 5,000 for speed)
-  const URLS_PER_SITEMAP = 5000;
+  if (!existsSync(DIST_DIR)) {
+    console.error('Error: dist directory not found. Run vite build first.');
+    process.exit(1);
+  }
 
-  // 1. Generate Static Pages Sitemap (sitemap-main.xml)
+  // 1. Generate Static Pages Sitemap
   const staticSitemapPath = path.join(DIST_DIR, 'sitemap-main.xml');
   let staticSitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -108,34 +134,59 @@ const generateSitemap = async () => {
   <url><loc>${SITE_URL}/terms</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>${SITE_URL}/faq</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>${SITE_URL}/blog</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/blog/why-i-built-tubeheadlines</loc><lastmod>2026-02-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>${SITE_URL}/blog/10-free-tools-for-youtubers</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>${SITE_URL}/blog/viral-youtube-strategy</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>${SITE_URL}/category/left</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/category/center</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/category/right</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/youtube-resources</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>${SITE_URL}/youtube-script-pacing-analyzer</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/youtube-title-ctr-grader</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/viral-outlier-concept-calculator</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/viral-idea-generator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/youtube-income-calculator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/script-timer</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/description-generator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/youtube-chapter-formatter</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/youtube-thumbnail-visualizer</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/youtube-shorts-revenue-estimator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/youtube-sponsorship-calculator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/youtube-seo-scorecard</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/advertiser-friendly-title-checker</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/youtube-fair-use-disclaimer-generator</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/youtube-teleprompter</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>${SITE_URL}/youtube-thumbnail-downloader</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 </urlset>`;
   writeFileSync(staticSitemapPath, staticSitemapContent.trim());
-  console.log(`Generated: sitemap-main.xml`);
+  console.log('Generated: sitemap-main.xml');
 
-  // 2. Generate Video Sitemaps (sitemap-videos-1.xml, etc.)
+  // 2. Load base index.html
+  const indexHtmlPath = path.join(DIST_DIR, 'index.html');
+  const baseHtml = readFileSync(indexHtmlPath, 'utf8');
+
+  // 3. Prerender Static Routes (Homepage, About, Privacy, etc.)
+  const staticRoutes = [
+    { path: '/', title: 'TubeHeadlines | Discover Trending YouTube Videos & News', desc: 'TubeHeadlines delivers trending YouTube video headlines in real-time. Discover breaking news, politics, entertainment and more.' },
+    { path: '/about', title: 'About TubeHeadlines', desc: 'Discover how TubeHeadlines curates the best YouTube news and viral videos.' },
+    { path: '/privacy', title: 'Privacy Policy', desc: 'Your privacy matters to us at TubeHeadlines.' },
+    { path: '/terms', title: 'Terms of Service', desc: 'Rules and guidelines for using the TubeHeadlines platform.' },
+    { path: '/faq', title: 'Frequently Asked Questions', desc: 'Get quick answers to common questions about TubeHeadlines.' },
+    { path: '/blog', title: 'TubeHeadlines Blog', desc: 'Latest resources and strategies for YouTube growth.' }
+  ];
+
+  staticRoutes.forEach(route => {
+    try {
+      let routeHtml = baseHtml;
+      const fullUrl = `${SITE_URL}${route.path}`;
+      
+      routeHtml = routeHtml.replace(/<title>.*?<\/title>/i, `<title>${route.title} | TubeHeadlines</title>`);
+      routeHtml = updateMetaTag(routeHtml, 'description', route.desc, true);
+      routeHtml = updateMetaTag(routeHtml, 'og:title', route.title);
+      routeHtml = updateMetaTag(routeHtml, 'og:description', route.desc);
+      routeHtml = updateMetaTag(routeHtml, 'og:url', fullUrl);
+      routeHtml = updateMetaTag(routeHtml, 'twitter:title', route.title);
+      routeHtml = updateMetaTag(routeHtml, 'twitter:description', route.desc);
+      
+      // Fix canonical
+      routeHtml = routeHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, `<link rel="canonical" href="${fullUrl}">`);
+      
+      // Strip scripts and standardize domain
+      routeHtml = cleanupHtml(routeHtml, SITE_URL);
+      
+      let destPath;
+      if (route.path === '/') {
+        destPath = indexHtmlPath;
+      } else {
+        const routeDir = path.join(DIST_DIR, route.path.slice(1));
+        mkdirSync(routeDir, { recursive: true });
+        destPath = path.join(routeDir, 'index.html');
+      }
+      writeFileSync(destPath, routeHtml);
+    } catch (e) {
+      console.error(`Failed to prerender static route ${route.path}:`, e);
+    }
+  });
+
+  // 4. Generate Video Pages & Sitemap
+  const URLS_PER_SITEMAP = 5000;
   const videoChunks = [];
   for (let i = 0; i < videos.length; i += URLS_PER_SITEMAP) {
     videoChunks.push(videos.slice(i, i + URLS_PER_SITEMAP));
@@ -143,47 +194,10 @@ const generateSitemap = async () => {
 
   const generatedVideoSitemaps = [];
 
-  videoChunks.forEach((chunk, index) => {
-    const sitemapFilename = `sitemap-videos-${index + 1}.xml`;
+  videoChunks.forEach((chunk, chunkIdx) => {
+    const sitemapFilename = `sitemap-videos-${chunkIdx + 1}.xml`;
     const sitemapPath = path.join(DIST_DIR, sitemapFilename);
-    const lastMod = new Date(chunk[0].createdAt).toISOString().split('T')[0]; // Use newest video as lastmod for the file
-
-    // -------------------------------------------------------------
-    // PRERENDERING SECTION: Load base index.html
-    // -------------------------------------------------------------
-    const indexHtmlPath = path.join(DIST_DIR, 'index.html');
-    let baseHtml = '';
-    if (existsSync(indexHtmlPath)) {
-      baseHtml = readFileSync(indexHtmlPath, 'utf8');
-      
-      // We will also prerender the standard routes here, only once
-      if (index === 0) {
-        console.log('Prerendering static React routes...');
-        const staticRoutes = [
-          '/', '/blog', '/blog/10-free-tools-for-youtubers',
-          '/blog/viral-youtube-strategy', '/blog/why-i-built-tubeheadlines',
-          '/submit', '/category/left', '/category/center', '/category/right', '/tools'
-        ];
-        staticRoutes.forEach(route => {
-          try {
-            const canonicalUrl = `${SITE_URL}${route === '/' ? '' : route.replace(/\/$/, '')}`;
-            const modifiedHtml = baseHtml.replace('</head>', `  <link rel="canonical" href="${canonicalUrl}" />\n</head>`);
-            let destPath;
-            if (route === '/') {
-               // Do not overwrite the main dist/index.html which is the catch-all, but we CAN overwrite it with the root canonical!
-               destPath = indexHtmlPath;
-            } else {
-               const routeDir = path.join(DIST_DIR, ...route.split('/').filter(Boolean));
-               mkdirSync(routeDir, { recursive: true });
-               destPath = path.join(routeDir, 'index.html');
-            }
-            writeFileSync(destPath, modifiedHtml);
-          } catch (e) {
-            console.error(`Failed to prerender static route ${route}:`, e);
-          }
-        });
-      }
-    }
+    const lastMod = new Date(chunk[0].createdAt).toISOString().split('T')[0];
 
     let chunkContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -193,12 +207,14 @@ const generateSitemap = async () => {
       const videoId = getYouTubeId(video.youtubeURL);
       const thumbnailUrl = video.thumbnailURL || getOptimizedThumbnailUrl(videoId, 'high');
       const title = escapeXml(video.customHeadline || video.title || 'TubeHeadlines Video');
-      const description = escapeXml(video.description || 'Watch this video on TubeHeadlines');
+      const editorsTake = video.editorsTake ? escapeXml(video.editorsTake) : '';
+      const description = editorsTake || escapeXml(video.description || 'Watch this video on TubeHeadlines');
+      const shortDesc = description.substring(0, 155) + (description.length > 155 ? '...' : '');
       const pubDate = new Date(video.createdAt).toISOString();
       const videoPageUrl = `${SITE_URL}/video/${video.id}`;
 
-      if (videoId && thumbnailUrl) {
-        chunkContent += `
+      // XML Sitemap Entry
+      chunkContent += `
   <url>
     <loc>${videoPageUrl}</loc>
     <lastmod>${new Date(video.createdAt).toISOString().split('T')[0]}</lastmod>
@@ -207,142 +223,93 @@ const generateSitemap = async () => {
     <video:video>
       <video:thumbnail_loc>${escapeXml(thumbnailUrl)}</video:thumbnail_loc>
       <video:title>${title}</video:title>
-      <video:description>${description}</video:description>
+      <video:description>${escapeXml(shortDesc)}</video:description>
       <video:player_loc>https://www.youtube.com/embed/${videoId}</video:player_loc>
       <video:publication_date>${pubDate}</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
-      <video:requires_subscription>no</video:requires_subscription>
-      <video:live>no</video:live>
     </video:video>
   </url>`;
 
-        // PRERENDER EACH VIDEO URL
-        if (baseHtml) {
-          try {
-            // 1. IMPROVED SEO INJECTION (Robust Regex)
-            const videoCanonicalUrl = `${SITE_URL}/video/${video.id}`;
-            let videoHtml = baseHtml;
-            
-            // Replace Title
-            videoHtml = videoHtml.replace(/<title>.*?<\/title>/i, `<title>${title} | TubeHeadlines</title>`);
-            
-            // Replace Meta Description (Handles multiple meta tags like description, og:description, etc.)
-            // Use Editor's Take (unique content) instead of YouTube description (duplicate content)
-            const editorsTake = video.editorsTake ? escapeXml(video.editorsTake) : '';
-            const metaDescription = editorsTake 
-              ? (editorsTake.length > 155 ? editorsTake.substring(0, 155) + '...' : editorsTake)
-              : (description.length > 155 ? description.substring(0, 155) + '...' : description);
-            
-            // Primary Meta tags
-            videoHtml = videoHtml.replace(/<meta name="title" content=".*?"/i, `<meta name="title" content="${title} | TubeHeadlines"`);
-            videoHtml = videoHtml.replace(/<meta name="description" content=".*?"/i, `<meta name="description" content="${escapeXml(metaDescription)}"`);
-            
-            // Open Graph tags
-            videoHtml = videoHtml.replace(/<meta property="og:title" content=".*?"/i, `<meta property="og:title" content="${title} | TubeHeadlines"`);
-            videoHtml = videoHtml.replace(/<meta property="og:description" content=".*?"/i, `<meta property="og:description" content="${escapeXml(metaDescription)}"`);
-            videoHtml = videoHtml.replace(/<meta property="og:url" content=".*?"/i, `<meta property="og:url" content="${videoCanonicalUrl}"`);
-            
-            // Twitter tags
-            videoHtml = videoHtml.replace(/<meta property="twitter:title" content=".*?"/i, `<meta property="twitter:title" content="${title} | TubeHeadlines"`);
-            videoHtml = videoHtml.replace(/<meta property="twitter:description" content=".*?"/i, `<meta property="twitter:description" content="${escapeXml(metaDescription)}"`);
-            videoHtml = videoHtml.replace(/<meta property="twitter:url" content=".*?"/i, `<meta property="twitter:url" content="${videoCanonicalUrl}"`);
+      // Prerender HTML
+      try {
+        let videoHtml = baseHtml;
+        
+        videoHtml = videoHtml.replace(/<title>.*?<\/title>/i, `<title>${title} | TubeHeadlines</title>`);
+        videoHtml = updateMetaTag(videoHtml, 'description', shortDesc, true);
+        videoHtml = updateMetaTag(videoHtml, 'og:title', title);
+        videoHtml = updateMetaTag(videoHtml, 'og:description', shortDesc);
+        videoHtml = updateMetaTag(videoHtml, 'og:url', videoPageUrl);
+        videoHtml = updateMetaTag(videoHtml, 'og:image', thumbnailUrl);
+        videoHtml = updateMetaTag(videoHtml, 'twitter:card', 'summary_large_image', true);
+        videoHtml = updateMetaTag(videoHtml, 'twitter:title', title);
+        videoHtml = updateMetaTag(videoHtml, 'twitter:description', shortDesc);
+        videoHtml = updateMetaTag(videoHtml, 'twitter:image', thumbnailUrl);
+        
+        // Canonical Fix
+        videoHtml = videoHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, `<link rel="canonical" href="${videoPageUrl}">`);
 
-            // Social Images
-            videoHtml = videoHtml.replace(/content="https:\/\/www\.tubeheadlines\.com\/th-social-share\.jpg"/gi, `content="${thumbnailUrl}"`);
-            
-            // 2. CANONICAL INJECTION
-            videoHtml = videoHtml.replace('</head>', `  <link rel="canonical" href="${videoCanonicalUrl}" />\n</head>`);
+        // Inject Static Content
+        const contentSection = editorsTake
+          ? `<div style="background: #e8f4fd; border-left: 4px solid #cc0000; padding: 1.5rem; margin: 1.5rem 0; text-align: left;">
+              <h2 style="margin-top: 0; color: #cc0000;">📝 Editor's Take</h2>
+              <p style="line-height: 1.6; color: #333; font-size: 1.1rem; margin: 0;">${editorsTake}</p>
+            </div>`
+          : '';
 
-            // 3. CONTENT INJECTION — Only show Editor's Take (unique content)
-            // Old videos without Editor's Take get just title + video embed — thin but NOT duplicate
-            const contentSection = editorsTake
-              ? `<div style="background: #e8f4fd; border-left: 4px solid #0066cc; padding: 1.5rem; border-radius: 4px 8px 8px 4px; margin: 1.5rem 0; text-align: left;">
-        <h2 style="margin-top: 0; color: #0066cc;">📝 Editor's Take</h2>
-        <p style="line-height: 1.6; color: #333; font-size: 1.05rem; margin: 0;">${editorsTake}</p>
-      </div>`
-              : '';
-            
-            const staticContent = `
-    <main style="text-align: center; padding: 2rem; font-family: sans-serif; color: #333; max-width: 800px; margin: 0 auto;">
-      <h1>${title}</h1>
-      <div style="margin: 2rem 0; background: #000; padding-bottom: 56.25%; position: relative; height: 0;">
-        <iframe src="https://www.youtube.com/embed/${videoId}" style="position: absolute; top:0; left:0; width:100%; height:100%;" frameborder="0" allowfullscreen></iframe>
-      </div>
-      ${contentSection}
-      <p><a href="/">← Back to TubeHeadlines</a></p>
-    </main>`;
-            
-            videoHtml = videoHtml.replace(/<div id="root">[\s\S]*?<\/div>/i, `<div id="root">${staticContent}\n  </div>`);
+        const staticContent = `
+          <main style="padding: 2rem; max-width: 800px; margin: 0 auto; font-family: sans-serif;">
+            <h1 style="font-size: 2rem; margin-bottom: 2rem;">${title}</h1>
+            <div style="background: #000; position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+              <iframe src="https://www.youtube.com/embed/${videoId}" style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;" allowfullscreen></iframe>
+            </div>
+            ${contentSection}
+            <nav style="margin-top: 3rem; border-top: 1px solid #eee; padding-top: 1rem;">
+              <a href="/" style="color: #cc0000; font-weight: bold; text-decoration: none;">← Back to Trending Videos</a>
+            </nav>
+          </main>`;
 
-            // 4. CRITICAL SEO FIX: Strip all JavaScript from prerendered pages
-            // React hydration was destroying the static content above by overwriting #root with a 404.
-            // By removing the script tags, the prerendered HTML is served as-is to Google's crawler.
-            // Real users navigating within the SPA still get the full React experience.
-            videoHtml = videoHtml.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+        videoHtml = videoHtml.replace(/<div id="root">[\s\S]*?<\/div>/i, `<div id="root">${staticContent}</div>`);
+        
+        // Strip scripts and standardize domain
+        videoHtml = cleanupHtml(videoHtml, SITE_URL);
 
-            const videoDir = path.join(DIST_DIR, 'video', video.id);
-            mkdirSync(videoDir, { recursive: true });
-            writeFileSync(path.join(videoDir, 'index.html'), videoHtml);
-
-            // CASE-INSENSITIVE FIX: Create a lowercase duplicate if the ID has uppercase chars
-            const lowerId = video.id.toLowerCase();
-            if (lowerId !== video.id) {
-              const lowerDir = path.join(DIST_DIR, 'video', lowerId);
-              mkdirSync(lowerDir, { recursive: true });
-              writeFileSync(path.join(lowerDir, 'index.html'), videoHtml);
-              console.log(`  -> Created lowercase alias: /video/${lowerId}`);
-            }
-          } catch(e) {
-            console.error(`Failed to prerender video ${video.id}:`, e);
-          }
+        const videoDir = path.join(DIST_DIR, 'video', video.id);
+        mkdirSync(videoDir, { recursive: true });
+        writeFileSync(path.join(videoDir, 'index.html'), videoHtml);
+        
+        // Case-insensitive alias
+        const lowerId = video.id.toLowerCase();
+        if (lowerId !== video.id) {
+          const lowerDir = path.join(DIST_DIR, 'video', lowerId);
+          mkdirSync(lowerDir, { recursive: true });
+          writeFileSync(path.join(lowerDir, 'index.html'), videoHtml);
         }
+      } catch (e) {
+        console.error(`Error prerendering video ${video.id}:`, e);
       }
     });
 
-    chunkContent += `
-</urlset>`;
+    chunkContent += `</urlset>`;
     writeFileSync(sitemapPath, chunkContent.trim());
-    console.log(`Generated: ${sitemapFilename} (${chunk.length} videos)`);
+    console.log(`Generated: ${sitemapFilename}`);
     generatedVideoSitemaps.push({ filename: sitemapFilename, lastmod: lastMod });
   });
 
-  // 3. Generate Sitemap Index (sitemap.xml)
+  // 5. Generate Sitemap Index
   const sitemapIndexPath = path.join(DIST_DIR, 'sitemap.xml');
   let indexContent = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>${SITE_URL}/sitemap-main.xml</loc>
-    <lastmod>${today}</lastmod>
-  </sitemap>`;
+  <sitemap><loc>${SITE_URL}/sitemap-main.xml</loc><lastmod>${today}</lastmod></sitemap>`;
 
   generatedVideoSitemaps.forEach(map => {
-    indexContent += `
-  <sitemap>
-    <loc>${SITE_URL}/${map.filename}</loc>
-    <lastmod>${map.lastmod}</lastmod>
-  </sitemap>`;
+    indexContent += `<sitemap><loc>${SITE_URL}/${map.filename}</loc><lastmod>${map.lastmod}</lastmod></sitemap>`;
   });
-
-  indexContent += `
-</sitemapindex>`;
-
+  indexContent += `</sitemapindex>`;
   writeFileSync(sitemapIndexPath, indexContent.trim());
-  console.log(`Generated: sitemap.xml (Index) -> Points to main + ${generatedVideoSitemaps.length} video sitemaps`);
-
-  // 4. Generate Video ID Map (for case-insensitive SPA lookups)
-  const idMap = {};
-  videos.forEach(v => {
-    const lowerId = v.id.toLowerCase();
-    if (lowerId !== v.id) {
-      idMap[lowerId] = v.id;
-    }
-  });
-  const idMapPath = path.join(DIST_DIR, 'video-id-map.json');
-  writeFileSync(idMapPath, JSON.stringify(idMap));
-  console.log(`Generated: video-id-map.json (${Object.keys(idMap).length} case mappings)`);
+  console.log('Generated: sitemap.xml');
 };
 
-generateSitemap().catch(error => {
-  console.error('Critical error in sitemap generation:', error);
+generateSitemap().catch(err => {
+  console.error('Critical error:', err);
   process.exit(1);
 });
