@@ -25,14 +25,8 @@ function validateFile(filePath, isVideoPage = false) {
     errors.push('Found "www.tubeheadlines.com" - should use naked domain "tubeheadlines.com"');
   }
 
-  // 3. Check for script tags (shold be stripped in prerendered versions)
-  if (isVideoPage && html.includes('<script')) {
-    // Some scripts might be allowed if we decide, but for now we expect 0
-    // Actually, check if it's the Vite bundle script
-    if (html.includes('type="module"') || html.includes('src="/assets/')) {
-      errors.push('Found <script> tags in prerendered page (will cause hydration errors)');
-    }
-  }
+  // 3. Script tags are allowed for React hydration
+  // (Removed check that banned module scripts)
 
   // 4. Check for unique content in #root
   if (isVideoPage) {
