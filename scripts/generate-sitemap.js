@@ -97,7 +97,11 @@ function updateMetaTag(html, propertyName, propertyValue, isNameAttribute = fals
  * Robustly strips all script tags from HTML and standardizes domains
  */
 function cleanupHtml(html, siteUrl) {
-  let cleaned = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+  // Strip all scripts EXCEPT module scripts which are needed for React hydration
+  let cleaned = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, (match) => {
+    if (match.includes('type="module"')) return match;
+    return '';
+  });
   // Final safety: Replace all www instances with the naked domain
   const wwwUrl = siteUrl.replace('://', '://www.');
   return cleaned.split(wwwUrl).join(siteUrl);
@@ -180,12 +184,42 @@ const generateSitemap = async () => {
       `).join('')}
     </div>`;
 
+  const featuredVideo = videos.find(v => v.isFeatured) || videos[0];
+  const featuredVideoHtml = featuredVideo ? `
+    <div class="featured-video" style="padding: 2rem; text-align: center; max-width: 800px; margin: 0 auto;">
+      <a href="/video/${featuredVideo.id}" style="text-decoration: none; color: inherit;">
+        <img src="${featuredVideo.thumbnailURL || getOptimizedThumbnailUrl(getYouTubeId(featuredVideo.youtubeURL), 'high')}" alt="${escapeXml(featuredVideo.customHeadline)}" style="width: 100%; max-width: 480px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <h2 style="margin-top: 1.5rem; font-size: 1.5rem;">${escapeXml(featuredVideo.customHeadline)}</h2>
+      </a>
+    </div>` : '';
+
+  const fullHomeHtml = `
+    <div class="welcome-banner" style="background: linear-gradient(135deg, #cc0000 0%, #ff4d4d 100%); color: white; padding: 1.5rem; text-align: center;">
+      <h2 style="margin: 0; font-size: 1.5rem;">Welcome to TubeHeadlines!</h2>
+      <p style="margin: 10px 0 0; opacity: 0.9;">Discover trending YouTube videos in real-time.</p>
+    </div>
+    <header style="padding: 2rem; text-align: center; border-bottom: 1px solid #eee;">
+      <h1 style="font-size: 2.5rem; margin: 0; letter-spacing: 2px;">TUBE HEADLINES</h1>
+      <div style="margin-top: 10px; color: #666; font-size: 0.9rem;">Updated ${new Date().toLocaleString()}</div>
+      <nav style="margin-top: 1.5rem;">
+        <a href="/tools" style="margin: 0 15px; text-decoration: none; color: #ff0000; font-weight: bold;">FREE TOOLS</a>
+        <a href="/blog" style="margin: 0 15px; text-decoration: none; color: #333;">BLOG</a>
+        <a href="/submit" style="margin: 0 15px; text-decoration: none; color: #cc0000; font-weight: bold;">SUBMIT YOUR CHANNEL</a>
+      </nav>
+    </header>
+    <div class="homepage-description" style="padding: 2rem; text-align: center; color: #555; font-size: 1.1rem; line-height: 1.6; max-width: 800px; margin: 0 auto;">
+      TubeHeadlines delivers trending YouTube video headlines in real-time. Discover breaking news, politics, entertainment and more - curated and updated daily.
+    </div>
+    ${featuredVideoHtml}
+    ${homeVideoList}
+  `;
+
   const staticRoutes = [
     { 
       path: '/', 
       title: 'TubeHeadlines | Discover Trending YouTube Videos & News', 
       desc: 'TubeHeadlines delivers trending YouTube video headlines in real-time. Discover breaking news, politics, entertainment and more.',
-      content: homeVideoList
+      content: fullHomeHtml
     },
     { path: '/about', title: 'About TubeHeadlines', desc: 'Discover how TubeHeadlines curates the best YouTube news and viral videos.' },
     { path: '/privacy', title: 'Privacy Policy', desc: 'Your privacy matters to us at TubeHeadlines.' },
