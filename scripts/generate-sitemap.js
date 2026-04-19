@@ -143,19 +143,41 @@ const generateSitemap = async () => {
   const baseHtml = readFileSync(indexHtmlPath, 'utf8');
 
   // 3. Prerender Static Routes (Homepage, About, Privacy, etc.)
-  const recentVideos = videos.slice(0, 20);
+  const recentVideos = videos.slice(0, 100);
+  
+  // Distribute videos by position to match the 3-column layout
+  const organized = { left: [], center: [], right: [] };
+  recentVideos.forEach(v => {
+    const pos = v.position_type === 'top' ? 'center' : (v.position_type || 'center');
+    if (organized[pos]) organized[pos].push(v);
+  });
+
+  const getColumnTitle = (pos) => {
+    if (pos === 'left') return 'BREAKING NEWS';
+    if (pos === 'center') return 'TRENDING NOW';
+    return 'ENTERTAINMENT';
+  };
+
   const homeVideoList = `
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; text-align: left;">
-      ${recentVideos.map(v => `
-        <div style="border: 1px solid #eee; border-radius: 8px; overflow: hidden; background: white;">
-          <img src="${v.thumbnailURL || getOptimizedThumbnailUrl(getYouTubeId(v.youtubeURL))}" style="width: 100%; aspect-ratio: 16/9; object-fit: cover;">
-          <div style="padding: 1rem;">
-            <h3 style="margin: 0 0 0.5rem; font-size: 1rem; line-height: 1.4;">
-              <a href="/video/${v.id}" style="color: #1a1a1a; text-decoration: none;">${escapeXml(v.customHeadline || v.title)}</a>
-            </h3>
-            <p style="margin: 0; font-size: 0.85rem; color: #666;">${v.category || 'Trending'}</p>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; text-align: left; max-width: 1200px; margin-left: auto; margin-right: auto;" class="columns-prerender">
+      ${['left', 'center', 'right'].map(pos => `
+        <div class="column-prerender">
+          <div style="background: #000; color: #fff; padding: 10px; margin-bottom: 20px; text-align: center;">
+            <h3 style="margin: 0; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">${getColumnTitle(pos)}</h3>
           </div>
-        </div>`).join('')}
+          ${(organized[pos] || []).slice(0, 4).map(v => `
+            <div style="margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+              <a href="/video/${v.id}" style="text-decoration: none; color: inherit;">
+                <img src="${v.thumbnailURL || getOptimizedThumbnailUrl(getYouTubeId(v.youtubeURL))}" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                <h4 style="margin: 12px 0 5px; font-size: 0.95rem; line-height: 1.4; font-weight: 600;">${escapeXml(v.customHeadline || v.title)}</h4>
+              </a>
+            </div>
+          `).join('')}
+          <div style="text-align: center; margin-top: 10px;">
+            <a href="/category/${pos}" style="color: #4da6ff; text-decoration: none; font-size: 0.8rem;">View All</a>
+          </div>
+        </div>
+      `).join('')}
     </div>`;
 
   const staticRoutes = [
