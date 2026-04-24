@@ -10,17 +10,38 @@ https://www.tubeheadlines.com/*  https://tubeheadlines.com/:splat  301!
 /privacy                                /privacy/index.html                     200
 /faq                                    /faq/index.html                         200
 
+# Prevent duplicate content: redirect .html extension requests to clean URLs
+/viral-idea-generator.html              /viral-idea-generator                   301!
+/description-generator.html             /description-generator                  301!
+/script-timer.html                      /script-timer                           301!
+/youtube-chapter-formatter.html         /youtube-chapter-formatter              301!
+/youtube-thumbnail-visualizer.html      /youtube-thumbnail-visualizer           301!
+/youtube-income-calculator.html         /youtube-income-calculator              301!
+/youtube-shorts-revenue-estimator.html  /youtube-shorts-revenue-estimator       301!
+/youtube-sponsorship-calculator.html    /youtube-sponsorship-calculator         301!
+/youtube-seo-scorecard.html             /youtube-seo-scorecard                  301!
+/advertiser-friendly-title-checker.html /advertiser-friendly-title-checker      301!
+/youtube-fair-use-disclaimer-generator.html /youtube-fair-use-disclaimer-generator 301!
+/youtube-teleprompter.html              /youtube-teleprompter                   301!
+/youtube-thumbnail-downloader.html      /youtube-thumbnail-downloader           301!
+/youtube-title-ctr-grader.html          /youtube-title-ctr-grader               301!
+/viral-outlier-concept-calculator.html  /viral-outlier-concept-calculator       301!
+/youtube-script-pacing-analyzer.html    /youtube-script-pacing-analyzer         301!
+/youtube-retention-hook-analyzer.html   /youtube-retention-hook-analyzer        301!
+/youtube-thumbnail-ab-simulator.html    /youtube-thumbnail-ab-simulator         301!
+
+# Serve clean URLs invisibly
 /viral-idea-generator                   /viral-idea-generator.html              200
-/description-generator                 /description-generator.html            200
+/description-generator                  /description-generator.html             200
 /script-timer                           /script-timer.html                      200
-/youtube-chapter-formatter             /youtube-chapter-formatter.html        200
-/youtube-thumbnail-visualizer          /youtube-thumbnail-visualizer.html     200
-/youtube-income-calculator             /youtube-income-calculator.html        200
-/youtube-shorts-revenue-estimator      /youtube-shorts-revenue-estimator.html 200
+/youtube-chapter-formatter              /youtube-chapter-formatter.html         200
+/youtube-thumbnail-visualizer           /youtube-thumbnail-visualizer.html      200
+/youtube-income-calculator              /youtube-income-calculator.html         200
+/youtube-shorts-revenue-estimator       /youtube-shorts-revenue-estimator.html  200
 /youtube-sponsorship-calculator         /youtube-sponsorship-calculator.html    200
-/youtube-seo-scorecard                 /youtube-seo-scorecard.html            200
-/advertiser-friendly-title-checker     /advertiser-friendly-title-checker.html 200
-/youtube-fair-use-disclaimer-generator /youtube-fair-use-disclaimer-generator.html 200
+/youtube-seo-scorecard                  /youtube-seo-scorecard.html             200
+/advertiser-friendly-title-checker      /advertiser-friendly-title-checker.html 200
+/youtube-fair-use-disclaimer-generator  /youtube-fair-use-disclaimer-generator.html 200
 /youtube-teleprompter                   /youtube-teleprompter.html              200
 /youtube-thumbnail-downloader           /youtube-thumbnail-downloader.html      200
 /youtube-title-ctr-grader               /youtube-title-ctr-grader.html          200
@@ -30,9 +51,8 @@ https://www.tubeheadlines.com/*  https://tubeheadlines.com/:splat  301!
 /youtube-thumbnail-ab-simulator         /youtube-thumbnail-ab-simulator.html    200
 
 # [CORE] Dynamic Video Routing
-# If a static file exists (prerendered), Netlify serves it first.
-# Otherwise, it falls back to the SPA index.html.
-/video/*                                /index.html                             200
+# Route bot traffic and direct visits to the SSR Netlify Function so pages aren't blank
+/video/*                                /.netlify/functions/render-video        200
 
 # Catch-all for React Router
 /*                                      /index.html                             200

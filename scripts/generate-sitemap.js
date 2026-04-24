@@ -2,7 +2,7 @@
 import 'dotenv/config';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { writeFileSync, readFileSync, mkdirSync, existsSync } from 'fs';
+import { writeFileSync, readFileSync, mkdirSync, existsSync, readdirSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -137,8 +137,23 @@ const generateSitemap = async () => {
   <url><loc>${SITE_URL}/privacy</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>${SITE_URL}/terms</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>${SITE_URL}/faq</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>${SITE_URL}/blog</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
-</urlset>`;
+  <url><loc>${SITE_URL}/blog</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>`;
+
+  // 1b. Dynamically add static tools from public directory
+  const publicDir = path.resolve(__dirname, '..', 'public');
+  if (existsSync(publicDir)) {
+    const publicFiles = readdirSync(publicDir);
+    const ignoreFiles = ['index.html', '404.html', 'googlea2f50f2d1913c5ff.html', 'script-timer.html', 'form-definitions.html', 'about.html', 'contact.html', 'privacy.html', 'terms.html', 'faq.html'];
+
+    publicFiles.forEach(file => {
+      if (file.endsWith('.html') && !ignoreFiles.includes(file)) {
+        const routeName = file.replace('.html', '');
+        staticSitemapContent += `\n  <url><loc>${SITE_URL}/${routeName}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>`;
+      }
+    });
+  }
+
+  staticSitemapContent += `\n</urlset>`;
   writeFileSync(staticSitemapPath, staticSitemapContent.trim());
   console.log('Generated: sitemap-main.xml');
 
@@ -294,8 +309,11 @@ const generateSitemap = async () => {
       const pubDate = new Date(video.createdAt).toISOString();
       const videoPageUrl = `${SITE_URL}/video/${video.id}`;
 
-      // XML Sitemap Entry
-      chunkContent += `
+      const isThinContent = !video.editorsTake || video.editorsTake.trim().length < 50;
+
+      // XML Sitemap Entry (Only add if it's NOT thin content)
+      if (!isThinContent) {
+        chunkContent += `
   <url>
     <loc>${videoPageUrl}</loc>
     <lastmod>${new Date(video.createdAt).toISOString().split('T')[0]}</lastmod>
@@ -310,6 +328,7 @@ const generateSitemap = async () => {
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>`;
+      }
 
       // Prerender HTML
       try {
@@ -326,6 +345,12 @@ const generateSitemap = async () => {
         videoHtml = updateMetaTag(videoHtml, 'twitter:description', shortDesc);
         videoHtml = updateMetaTag(videoHtml, 'twitter:image', thumbnailUrl);
         
+        if (isThinContent) {
+          videoHtml = updateMetaTag(videoHtml, 'robots', 'noindex', true);
+        } else {
+          videoHtml = updateMetaTag(videoHtml, 'robots', 'index, follow', true);
+        }
+
         // Canonical Fix
         videoHtml = videoHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, `<link rel="canonical" href="${videoPageUrl}">`);
 

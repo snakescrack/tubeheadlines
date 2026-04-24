@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { doc, getDoc, collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import SEO from './SEO';
 import NotFound from './NotFound';
@@ -188,6 +188,7 @@ const VideoPage = () => {
     `Watch "${video.customHeadline}" - Latest video news and updates from top creators. Get breaking news, analysis, and trending stories delivered daily on TubeHeadlines.`;
 
   const formattedDate = video.publishedAt instanceof Date ? video.publishedAt.toLocaleDateString() : 'Unknown date';
+  const isThinContent = !video.editorsTake || video.editorsTake.trim().length < 50;
 
   return (
     <>
@@ -213,6 +214,7 @@ const VideoPage = () => {
         description={pageDescription}
         path={`/video/${id}`}
         videoData={video}
+        noindex={isThinContent}
       />
 
       <main style={{
