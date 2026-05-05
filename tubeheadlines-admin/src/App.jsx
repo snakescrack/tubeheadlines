@@ -243,7 +243,7 @@ Rules (follow exactly):
 - CRITICAL: Do NOT wrap the entire output in quotation marks or any other symbols.
 - Always look at the Channel Name and Description to correctly identify if the creator is a man or a woman. If it is a name like "Dina Lu", use she/her. IF YOU ARE NOT 100% CERTAIN, ALWAYS USE GENDER-NEUTRAL LANGUAGE (they/them or "the creator") INSTEAD OF GUESSING. Once identified, use the correct pronouns throughout the whole article.
 - Use very simple, everyday language. No fancy or complicated words.
-- Never use these AI-sounding words or phrases at all: shed light, meticulously, narrative unfolds, revealing journey, compelling, delves, underscores, wake-up call, pivotal, intricate, tapestry, complex web, deep dive, dive, dive into, nuances, amidst, etc.
+- ABSOLUTELY BANNED WORDS: dive, dive into, deep dive, discover, explore, delve, shed light, meticulously, narrative unfolds, revealing journey, compelling, underscores, wake-up call, pivotal, intricate, tapestry, complex web, nuances, amidst. DO NOT USE THESE UNDER ANY CIRCUMSTANCES.
 - Start with a strong, simple hook of 3–4 sentences.
 - Naturally include these points in smooth flowing paragraphs (do not list them):
   • Background on the main person or topic
@@ -251,7 +251,7 @@ Rules (follow exactly):
   • How it affects people or the bigger picture
   • Why this video matters right now
   • The most interesting moments from the video
-- End with 1–2 simple sentences suggesting one or two related videos on TubeHeadlines.com
+- End with 1–2 simple sentences suggesting one or two related videos on TubeHeadlines.com. Do NOT say "dive into more videos" or "discover more" or "explore". Use plain phrases like "check out" or "watch more".
 - Write 100% original content in your own words — never copy the YouTube description or use robotic language
 
 Output ONLY the full text ready to paste into the Editor’s Take field. Nothing else.`
