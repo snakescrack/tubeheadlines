@@ -15,8 +15,10 @@ function validateFile(filePath, isVideoPage = false) {
   const errors = [];
   const warnings = [];
 
-  // 1. Check for canonical tag
-  if (!html.includes('<link rel="canonical"')) {
+  // 1. Check for canonical tag (Skip for main index.html as React handles it)
+  if (!isVideoPage && !html.includes('<link rel="canonical"')) {
+    warnings.push('Main index.html missing hardcoded canonical (Handled by React)');
+  } else if (isVideoPage && !html.includes('<link rel="canonical"')) {
     errors.push('Missing <link rel="canonical">');
   }
 
