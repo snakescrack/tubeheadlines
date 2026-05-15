@@ -4,12 +4,6 @@
 # Domain Alignment: Redirect www to naked domain
 https://www.tubeheadlines.com/*  https://tubeheadlines.com/:splat  301!
 
-/about                                  /about.html                             200
-/contact                                /contact.html                           200
-/terms                                  /terms.html                             200
-/privacy                                /privacy.html                           200
-/faq                                    /faq.html                               200
-
 # Prevent duplicate content: redirect .html extension requests to clean URLs
 /about.html                             /about                                  301!
 /contact.html                           /contact                                301!
@@ -57,9 +51,8 @@ https://www.tubeheadlines.com/*  https://tubeheadlines.com/:splat  301!
 /youtube-retention-hook-analyzer        /youtube-retention-hook-analyzer.html   200
 /youtube-thumbnail-ab-simulator         /youtube-thumbnail-ab-simulator.html    200
 
-# [CORE] Dynamic Video Routing
-# Route bot traffic and direct visits to the SSR Netlify Function so pages aren't blank
-/video/*                                /.netlify/functions/render-video        200
+# [CORE] Static Video Routing (Netlify will serve /video/:id/index.html automatically)
+# Non-prerendered videos will fall back to React SPA via the catch-all below
 
 # Catch-all for React Router
 /*                                      /index.html                             200
