@@ -137,7 +137,10 @@ const generateSitemap = async () => {
   <url><loc>${SITE_URL}/privacy</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>${SITE_URL}/terms</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>${SITE_URL}/faq</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>${SITE_URL}/blog</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>`;
+  <url><loc>${SITE_URL}/blog</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>${SITE_URL}/category/left</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>${SITE_URL}/category/center</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>${SITE_URL}/category/right</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>`;
 
   // 1b. Dynamically add static tools from public directory
   const publicDir = path.resolve(__dirname, '..', 'public');
@@ -240,7 +243,10 @@ const generateSitemap = async () => {
     { path: '/privacy', title: 'Privacy Policy', desc: 'Your privacy matters to us at TubeHeadlines.' },
     { path: '/terms', title: 'Terms of Service', desc: 'Rules and guidelines for using the TubeHeadlines platform.' },
     { path: '/faq', title: 'Frequently Asked Questions', desc: 'Get quick answers to common questions about TubeHeadlines.' },
-    { path: '/blog', title: 'TubeHeadlines Blog', desc: 'Latest resources and strategies for YouTube growth.' }
+    { path: '/blog', title: 'TubeHeadlines Blog', desc: 'Latest resources and strategies for YouTube growth.' },
+    { path: '/category/left', title: 'Breaking News Videos', desc: 'Watch the latest breaking news videos curated from YouTube.' },
+    { path: '/category/center', title: 'Trending Videos', desc: 'Discover what is trending on YouTube right now.' },
+    { path: '/category/right', title: 'Entertainment Videos', desc: 'The best entertainment and viral videos from top creators.' }
   ];
 
   staticRoutes.forEach(route => {
@@ -256,8 +262,12 @@ const generateSitemap = async () => {
       routeHtml = updateMetaTag(routeHtml, 'twitter:title', route.title);
       routeHtml = updateMetaTag(routeHtml, 'twitter:description', route.desc);
       
-      // Fix canonical
-      routeHtml = routeHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, `<link rel="canonical" href="${fullUrl}">`);
+      // Fix canonical (Inject if missing, replace if exists)
+      if (routeHtml.includes('<link rel="canonical"')) {
+        routeHtml = routeHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, `<link rel="canonical" href="${fullUrl}">`);
+      } else {
+        routeHtml = routeHtml.replace('</head>', `  <link rel="canonical" href="${fullUrl}">\n</head>`);
+      }
       
       // Inject content if available
       if (route.content) {
@@ -351,8 +361,12 @@ const generateSitemap = async () => {
           videoHtml = updateMetaTag(videoHtml, 'robots', 'index, follow', true);
         }
 
-        // Canonical Fix
-        videoHtml = videoHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, `<link rel="canonical" href="${videoPageUrl}">`);
+        // Canonical Fix (Inject if missing, replace if exists)
+        if (videoHtml.includes('<link rel="canonical"')) {
+          videoHtml = videoHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, `<link rel="canonical" href="${videoPageUrl}">`);
+        } else {
+          videoHtml = videoHtml.replace('</head>', `  <link rel="canonical" href="${videoPageUrl}">\n</head>`);
+        }
 
         // Inject Static Content
         const contentSection = editorsTake
