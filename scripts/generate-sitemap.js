@@ -262,11 +262,12 @@ const generateSitemap = async () => {
       routeHtml = updateMetaTag(routeHtml, 'twitter:title', route.title);
       routeHtml = updateMetaTag(routeHtml, 'twitter:description', route.desc);
       
-      // Fix canonical (Inject if missing, replace if exists)
-      if (routeHtml.includes('<link rel="canonical"')) {
-        routeHtml = routeHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, `<link rel="canonical" href="${fullUrl}">`);
+      // Robust Canonical Injection (Find </head> case-insensitively and inject before it)
+      const canonicalTag = `<link rel="canonical" href="${fullUrl}">`;
+      if (routeHtml.match(/<link rel=["']canonical["'][^>]*?>/i)) {
+        routeHtml = routeHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, canonicalTag);
       } else {
-        routeHtml = routeHtml.replace('</head>', `  <link rel="canonical" href="${fullUrl}">\n</head>`);
+        routeHtml = routeHtml.replace(/<\/head>/i, `  ${canonicalTag}\n</head>`);
       }
       
       // Inject content if available
@@ -361,11 +362,12 @@ const generateSitemap = async () => {
           videoHtml = updateMetaTag(videoHtml, 'robots', 'index, follow', true);
         }
 
-        // Canonical Fix (Inject if missing, replace if exists)
-        if (videoHtml.includes('<link rel="canonical"')) {
-          videoHtml = videoHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, `<link rel="canonical" href="${videoPageUrl}">`);
+        // Robust Canonical Injection (Find </head> case-insensitively and inject before it)
+        const canonicalTag = `<link rel="canonical" href="${videoPageUrl}">`;
+        if (videoHtml.match(/<link rel=["']canonical["'][^>]*?>/i)) {
+          videoHtml = videoHtml.replace(/<link rel=["']canonical["'][^>]*?>/i, canonicalTag);
         } else {
-          videoHtml = videoHtml.replace('</head>', `  <link rel="canonical" href="${videoPageUrl}">\n</head>`);
+          videoHtml = videoHtml.replace(/<\/head>/i, `  ${canonicalTag}\n</head>`);
         }
 
         // Inject Static Content
