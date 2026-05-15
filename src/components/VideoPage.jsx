@@ -212,7 +212,7 @@ const VideoPage = () => {
       <SEO
         title={pageTitle}
         description={pageDescription}
-        path={`/video/${id}`}
+        path={`/video/${video.id}`}
         videoData={video}
         noindex={isThinContent}
       />
